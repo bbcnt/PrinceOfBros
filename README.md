@@ -7,6 +7,11 @@ La cible du programme est Windows, certains éléments de la librairie Slick dé
 
 Bien entendu il est possible de changer la configuration de la librairie, mais pour se simplifier la tâches générer un seul projet pour Windows est plus simple. De plus, sauf erreur, tout le monde utilise Windows dans le groupe.
 
+## Requis pour travailler
+Java 1.7 ou plus récent (le projet est en 1.7 pour l'instant)
+
+Si vous avez une version plus ancienne de Java, il y aura un soucis avec les instanciation génériques (new LinkedList<>() est utilisé au lieu de new LinkedList&#60;Object&#62;()).
+
 ## Mise en place du projet
 Voilà la marche à suivre pour importer le projet sur Eclipse.
 
