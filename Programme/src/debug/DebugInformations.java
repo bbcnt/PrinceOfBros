@@ -1,11 +1,32 @@
+/* ============================================================================
+ * Filename   : DebugInformations.java
+ * ============================================================================
+ * Created on : 13 mai 2014
+ * ============================================================================
+ * Authors    : Brito Carvalho Bruno
+ *              Decorvet Grégoire
+ *              Ngo Quang Dung
+ *              Schweizer Thomas
+ * ============================================================================
+ */
+
 package debug;
 
-import game.logic.Player;
-import game.logic.modstack.ModificationStack;
+import game.logic.models.Player;
+import game.logic.modstack.ModificationManager;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Graphics;
 
+/**
+ * Displayed values on the top of the game panel.
+ * 
+ * @author Brito Carvalho Bruno
+ * @author Decorvet Grégoire
+ * @author Ngo Quang Dung
+ * @author Schweizer Thomas
+ *
+ */
 public class DebugInformations {
 	
 	public final static boolean SHOW_DEBUG_INFORMATIONS = true;
@@ -14,6 +35,7 @@ public class DebugInformations {
 	public final static boolean SHOW_UPDATE_DELTA = true;
 	public final static boolean SHOW_PLAYER_POS = true;
 	public final static boolean SHOW_STACK_COMPLETION = true;
+	public final static boolean SHOW_STACK_COMPLETION_PERCENT = false;
 	
 	
 	private int displayPosX, displayPosY;
@@ -21,7 +43,7 @@ public class DebugInformations {
 	private int updateDelta;
 	
 	private Player player;
-	private ModificationStack modStack;
+	private ModificationManager modStack;
 	
 	public void draw(Graphics g) {
 		
@@ -57,13 +79,23 @@ public class DebugInformations {
 			int stackSize = 0;
 			int stackCapacity = 0;
 			if (modStack != null) {
-				stackSize = modStack.size();
-				stackCapacity = modStack.getCapacity();
+				stackSize = modStack.getStackSize();
+				stackCapacity = modStack.getCapacityLogical();
+			}
+			text += "Stack : " + stackSize + " / " + stackCapacity + "\n"; 
+		}
+		
+		if (SHOW_STACK_COMPLETION_PERCENT) {
+			int stackSize = 0;
+			int stackCapacity = 0;
+			if (modStack != null) {
+				stackSize = modStack.getStackSize();
+				stackCapacity = modStack.getCapacityLogical();
 			}
 			text += "Stack : "
 					+ String.format("%.2f", 100.0*(double)stackSize /
 							(double)(stackCapacity > 0 ? stackCapacity : 1))
-					+ " %\n";
+					+ " %\n"; 
 		}
 		
 		g.drawString(text, displayPosX, displayPosY);
@@ -82,7 +114,7 @@ public class DebugInformations {
 		this.player = player;
 	}
 	
-	public void registerModificationStack(ModificationStack stack) {
+	public void registerModificationStack(ModificationManager stack) {
 		modStack = stack;
 	}
 	

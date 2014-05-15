@@ -1,4 +1,4 @@
-package game.logic;
+package game.logic.models;
 
 import game.Game;
 
@@ -7,11 +7,21 @@ import org.newdawn.slick.Graphics;
 
 public class Player {
 	
+	// Logic
+	
+	private float posX;
+	private float posY;
+	
+	// Graphic
+	
 	private Animation currentAnimation, movingUp, movingDown, movingLeft, movingRight;
-	private float playerPosX = 0;
-	private float playerPosY = 0;
-	private float shiftX = playerPosX + Game.SCREEN_WIDTH / 2;
-	private float shiftY = playerPosY + Game.SCREEN_HEIGHT / 2;
+	private float shiftX = posX + Game.SCREEN_WIDTH / 2;
+	private float shiftY = posY + Game.SCREEN_HEIGHT / 2;
+	
+	public Player(float posX, float posY) {
+		this.posX = posX;
+		this.posY = posY;
+	}
 	
 	public Player(Animation movingUp, Animation movingDown,
 	      		  Animation movingLeft, Animation movingRight) {
@@ -29,11 +39,11 @@ public class Player {
 	}
 	
 	public float getPosX() {
-		return playerPosX;
+		return posX;
 	}
 	
 	public float getPosY() {
-		return playerPosY;
+		return posY;
 	}
 	
 	public void draw(Graphics g) {
@@ -45,21 +55,21 @@ public class Player {
 	
 	public void moveLeft(float value) {
 		currentAnimation = movingLeft;
-		playerPosX += value;
+		posX += value;
 	}
 	
 	public void moveRight(float value) {
 		currentAnimation = movingRight;
-		playerPosX -= value;
+		posX -= value;
 	}
 	
 	public void moveUp(float value) {
 		currentAnimation = movingUp;
-		playerPosY += value;
+		posY += value;
 	} 
 	public void moveDown(float value) {
 		currentAnimation = movingDown;
-		playerPosY -= value;
+		posY -= value;
 	} 
 	
 }

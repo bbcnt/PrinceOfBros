@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : PlayerAction.java
+ * Filename   : IModificationManager.java
  * ============================================================================
  * Created on : 13 mai 2014
  * ============================================================================
@@ -10,38 +10,29 @@
  * ============================================================================
  */
 
-package game.logic.actions;
-
-import game.logic.modstack.IModification;
+package game.logic.modstack;
 
 /**
- * Represent an action made by the player.
+ * Tool for managing modifications.
  * 
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
- *
+ * 
  */
-public abstract class PlayerAction implements IModification {
-	
-	private int delta;
-	
+public interface IModificationManager {
+
 	/**
-	 * Create the action, for the specified delta. This value is given by the
-	 * Slick2d library.
-	 * @param delta the value given by Slick2d
+	 * Create and return a new transaction.
+	 * @return The new transaction.
 	 */
-	public PlayerAction(int delta) {
-		this.delta = delta;
-	}
-	
+	public IModificationTransaction begin();
+
 	/**
-	 * Return the delta when the action was called.
-	 * @return The delta when the action was called. 
+	 * Return the last transaction.
+	 * @return The last transaction.
 	 */
-	public int getDelta() {
-		return delta;
-	}
+	public IModificationTransaction pop();
 
 }

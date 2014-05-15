@@ -1,6 +1,6 @@
 package game.logic.actions;
 
-import game.logic.Player;
+import game.logic.models.Player;
 
 public class MoveDown extends PlayerAction {
 	

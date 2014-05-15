@@ -1,13 +1,12 @@
 package game;
 
-import game.logic.Player;
-import game.logic.Transaction;
 import game.logic.actions.MoveDown;
 import game.logic.actions.MoveLeft;
 import game.logic.actions.MoveRight;
 import game.logic.actions.MoveUp;
+import game.logic.models.Player;
 import game.logic.modstack.IModificationTransaction;
-import game.logic.modstack.ModificationStack;
+import game.logic.modstack.ModificationManager;
 
 import java.util.LinkedList;
 
@@ -26,7 +25,7 @@ public class Play extends BasicGameState {
 	
 //	private ActionStack actionStack = new ActionStack(250);
 	
-	private ModificationStack modStack;
+	private ModificationManager modStack;
 	
 	private Image background;
 	
@@ -41,7 +40,8 @@ public class Play extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		modStack = new ModificationStack(3, 100);
+		modStack = new ModificationManager(300, 500);
+		
 		DebugInformations.getInstance().registerModificationStack(modStack);
 		
 		background = new Image("res/Hydrangeas.jpg");
@@ -90,9 +90,7 @@ public class Play extends BasicGameState {
 	      throws SlickException {
 		Input input = gc.getInput();
 		
-		Transaction transaction = new Transaction();
-		
-		transaction.begin();
+		IModificationTransaction transaction = modStack.begin();
 		
 		// Moves
 		if (input.isKeyDown(Input.KEY_UP)) {
@@ -116,7 +114,7 @@ public class Play extends BasicGameState {
 			}
 		}
 		else {
-			modStack.push(transaction.commit());
+			transaction.commit();
 		}
 		
 //		MultiActions actions = new MultiActions();
