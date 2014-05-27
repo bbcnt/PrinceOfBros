@@ -10,11 +10,11 @@ public class MoveUp extends PlayerAction {
 
 	@Override
    public void apply() {
-		getPlayer().moveUp(getDelta() * getPlayer().getSpeed() * 10);
+		getPlayer().moveUp(1);
    }
 
 	@Override
    public void cancel() {
-		getPlayer().moveUp(-getDelta() * getPlayer().getSpeed() * 10);
+		getPlayer().moveUp(-1);
    }
 }

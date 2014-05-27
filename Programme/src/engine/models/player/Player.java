@@ -16,7 +16,7 @@ public class Player implements IAnimatedObject {
 	private float posX;
 	private float posY;
 	
-	private float speed = .1f;
+	private float speed = 0.003f;
 	
 	private IAnimatedState[] states;
 	
@@ -44,11 +44,11 @@ public class Player implements IAnimatedObject {
 	/*---Modifiers-------------------------------------------------------------*/
 	
 	public void moveLeft(float value) {
-		posX += value;
+		posX -= value;
 	}
 	
 	public void moveRight(float value) {
-		posX -= value;
+		posX += value;
 	}
 	
 	public void moveUp(float value) {

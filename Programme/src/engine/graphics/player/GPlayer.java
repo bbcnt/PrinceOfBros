@@ -140,8 +140,8 @@ public class GPlayer implements IDrawable {
 	
 	private Player player;
 	
-	private float shiftX = Game.SCREEN_WIDTH / 2;
-	private float shiftY = Game.SCREEN_HEIGHT / 2;
+	private float shiftX = 0;
+	private float shiftY = 0;
 	
 	private IAnimatedState[] current;
 	
@@ -155,7 +155,7 @@ public class GPlayer implements IDrawable {
 	public void draw(Graphics g) {
 		for (IAnimatedState s : current) {
 			if (s != null)
-				s.getAnimation().draw(shiftX, shiftY);
+				s.getAnimation().draw(player.getPosX() * 64, (10 - player.getPosY()) * 64);
 		}
 	}
 	
