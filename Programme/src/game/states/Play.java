@@ -45,26 +45,32 @@ public class Play extends BasicGameState {
 		      new Image("res/little_mario_move0_r.png"),
 		      new Image("res/little_mario_move1_r.png")
 		};
-//		Image[] heroIdle = {
-//				new Image("res/hero_up.png"),
-//		      new Image("res/hero_down.png")
-//		};
+		Image[] heroIdleLeft = {
+				new Image("res/little_mario_move0_l.png"),
+		      new Image("res/little_mario_move0_l.png")
+		};
+		Image[] heroIdleRight = {
+				new Image("res/little_mario_move0_r.png"),
+		      new Image("res/little_mario_move0_r.png")
+		};
 
-		int[] duration = {1000, 1000};
+		int[] duration = {500, 500};
 		
 		// Init player
 		player = new Player(0, 0);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
-//		
-//		GPlayer.LegsState.Idle.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
+		
+		GPlayer.LegsState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
+		GPlayer.LegsState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
 		GPlayer.LegsState.MovingLeft.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
 		GPlayer.LegsState.MovingRight.init(new TimedAnimation(new Animation(heroRight, duration, false)));
 		
-		IAnimatedState[] playerStates = new IAnimatedState[2];
-//		playerStates[0] = GPlayer.LegsState.Idle;
-		playerStates[0] = GPlayer.LegsState.MovingLeft;
-		playerStates[1] = GPlayer.LegsState.MovingRight;
+		IAnimatedState[] playerStates = new IAnimatedState[4];
+		playerStates[0] = GPlayer.LegsState.IdleLeft;
+		playerStates[1] = GPlayer.LegsState.IdleRight;
+		playerStates[2] = GPlayer.LegsState.MovingLeft;
+		playerStates[3] = GPlayer.LegsState.MovingRight;
 		
 		player.initAnimationStates(playerStates);
 		

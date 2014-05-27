@@ -107,10 +107,12 @@ public class PlayerControl {
 				if (oldState != GPlayer.LegsState.MovingRight)
 					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.MovingRight));
 			}
-//			else {
-//				if (oldState != GPlayer.LegsState.Idle)
-//					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.Idle));
-//			}
+			else {
+				if (facing == Facing.Left && oldState != GPlayer.LegsState.IdleLeft)
+					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.IdleLeft));
+				else if (facing == Facing.Right && oldState != GPlayer.LegsState.IdleRight)
+					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.IdleRight));
+			}
 		}
 		
 		// Add action
@@ -142,7 +144,12 @@ public class PlayerControl {
 	
 	public void actionJump() {
 		pushAction(new MoveUp(delta, player));
-	}	
+	}
+	
+	public void actionAttack() {
+//		pushAction(new );
+	}
+	
 	
 	private void pushAction(PlayerAction action) {
 		if (currentAction == null) {
