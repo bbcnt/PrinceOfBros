@@ -12,8 +12,8 @@
 
 package debug;
 
-import game.logic.models.Player;
-import game.logic.modstack.ModificationManager;
+import engine.Engine;
+import engine.models.player.Player;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Graphics;
@@ -35,7 +35,7 @@ public class DebugInformations {
 	public final static boolean SHOW_UPDATE_DELTA = true;
 	public final static boolean SHOW_PLAYER_POS = true;
 	public final static boolean SHOW_STACK_COMPLETION = true;
-	public final static boolean SHOW_STACK_COMPLETION_PERCENT = false;
+	public final static boolean SHOW_STACK_COMPLETION_PERCENT = true;
 	
 	
 	private int displayPosX, displayPosY;
@@ -43,7 +43,6 @@ public class DebugInformations {
 	private int updateDelta;
 	
 	private Player player;
-	private ModificationManager modStack;
 	
 	public void draw(Graphics g) {
 		
@@ -76,22 +75,16 @@ public class DebugInformations {
 		
 		// Modification stack
 		if (SHOW_STACK_COMPLETION) {
-			int stackSize = 0;
-			int stackCapacity = 0;
-			if (modStack != null) {
-				stackSize = modStack.getStackSize();
-				stackCapacity = modStack.getCapacityLogical();
-			}
+			int stackSize = Engine.getInstance().getStackSize();
+			int stackCapacity = Engine.getInstance().getStackCapacityLogical();
+			
 			text += "Stack : " + stackSize + " / " + stackCapacity + "\n"; 
 		}
 		
 		if (SHOW_STACK_COMPLETION_PERCENT) {
-			int stackSize = 0;
-			int stackCapacity = 0;
-			if (modStack != null) {
-				stackSize = modStack.getStackSize();
-				stackCapacity = modStack.getCapacityLogical();
-			}
+			int stackSize = Engine.getInstance().getStackSize();
+			int stackCapacity = Engine.getInstance().getStackCapacityLogical();
+			
 			text += "Stack : "
 					+ String.format("%.2f", 100.0*(double)stackSize /
 							(double)(stackCapacity > 0 ? stackCapacity : 1))
@@ -112,10 +105,6 @@ public class DebugInformations {
 	
 	public void registerPlayer(Player player) {
 		this.player = player;
-	}
-	
-	public void registerModificationStack(ModificationManager stack) {
-		modStack = stack;
 	}
 	
 	/*---Singleton part--------------------------------------------------------*/

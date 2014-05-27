@@ -1,23 +1,23 @@
-package game.logic.actions;
+package engine.modifications.player;
 
-import game.logic.models.Player;
+import engine.models.player.Player;
 
 public class MoveRight extends PlayerAction {
 	
 	private Player player;
 	
 	public MoveRight(int delta, Player player) {
-		super(delta);
+		super(delta, 0);
 		this.player = player;
 	}
 
 	@Override
    public void apply() {
-	   player.moveRight(getDelta() * .1f);
+	   player.moveRight(getDelta() * player.getSpeed());
    }
 
 	@Override
    public void cancel() {
-		player.moveRight(-getDelta() * .1f);
+		player.moveRight(-getDelta() * player.getSpeed());
    }
 }

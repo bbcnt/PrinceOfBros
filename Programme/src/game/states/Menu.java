@@ -1,4 +1,4 @@
-package game;
+package game.states;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;

@@ -1,4 +1,4 @@
-package game;
+package game.states;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -14,7 +14,7 @@ public class Game extends StateBasedGame {
    public static final int STATE_MENU = 0;
    public static final int STAT_PLAY = 1;
    
-   public Game(){
+   public Game() {
       super(gamename);
       this.addState(new Menu());
       this.addState(new Play());

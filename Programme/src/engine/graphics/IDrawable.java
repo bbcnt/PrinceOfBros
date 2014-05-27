@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : Commands.java
+ * Filename   : Drawable.java
  * ============================================================================
- * Created on : 15 mai 2014
+ * Created on : 16 mai 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -9,7 +9,9 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.settings;
+package engine.graphics;
+
+import org.newdawn.slick.Graphics;
 
 /**
  * TODO
@@ -19,6 +21,11 @@ package game.settings;
  * @author Schweizer Thomas
  *
  */
-public enum Commands {
-	MoveRight, MoveLeft, Attack, Jump
+public interface IDrawable {
+	
+	public void draw(Graphics g);
+	
+	public void update(int delta);
+	public void updateBackward(int delta);
+
 }

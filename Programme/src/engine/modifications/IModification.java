@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-package game.logic.modstack;
+package engine.modifications;
 
 /**
  * Defines a reversible modification.

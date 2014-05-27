@@ -10,9 +10,11 @@
  * ============================================================================
  */
 
-package game.logic.actions;
+package engine.modifications.player;
 
-import game.logic.modstack.IModification;
+import engine.modifications.IModification;
+import engine.modifications.SynchronizedModification;
+
 
 /**
  * Represent an action made by the player.
@@ -23,25 +25,35 @@ import game.logic.modstack.IModification;
  * @author Schweizer Thomas
  *
  */
-public abstract class PlayerAction implements IModification {
+public abstract class PlayerAction extends SynchronizedModification implements IModification {
 	
-	private int delta;
+	private int cooldown;
 	
 	/**
 	 * Create the action, for the specified delta. This value is given by the
 	 * Slick2d library.
-	 * @param delta the value given by Slick2d
+	 * @param delta - the value given by Slick2d
+	 * @param cooldown - the cooldown in millis for the action. 
 	 */
-	public PlayerAction(int delta) {
-		this.delta = delta;
+	public PlayerAction(int delta, int cooldown) {
+		super(delta);
+		this.cooldown = cooldown;
 	}
 	
 	/**
-	 * Return the delta when the action was called.
-	 * @return The delta when the action was called. 
+	 * Return the cooldown in millis for the action.
+	 * @return The cooldown in millis.
 	 */
-	public int getDelta() {
-		return delta;
+	public int getCooldown() {
+		return cooldown;
+	}
+	
+	/**
+	 * Return if the action has a cooldown or not.
+	 * @return True if the action has a cooldown, false otherwise.
+	 */
+	public boolean hasCooldown() {
+		return cooldown > 0;
 	}
 
 }

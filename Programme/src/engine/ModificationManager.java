@@ -10,11 +10,15 @@
  * ============================================================================
  */
 
-package game.logic.modstack;
+package engine;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
+import engine.modifications.IModification;
+import engine.modifications.IModificationManager;
+import engine.modifications.IModificationTransaction;
 
 /**
  * Tool for managing modifications.
@@ -51,6 +55,12 @@ import java.util.ListIterator;
  * 
  */
 public class ModificationManager implements IModificationManager {
+	
+	/**
+	 * The transaction used as returned value when a call to {@link #pop()} is
+	 * done and the modification stack is empty. 
+	 */
+	public static final EmptyTransaction EMPTY_TRANSACTION = new EmptyTransaction();
 
 	private int userLogicalCapacity;
 	private int userPhysicalCapacity;
@@ -217,8 +227,7 @@ public class ModificationManager implements IModificationManager {
 	 * <p>
 	 * A negative value will result in no change.
 	 * 
-	 * @param capacity
-	 *           the new capacity.
+	 * @param capacity - the new capacity.
 	 */
 	public void setCapacityLogical(int capacity) {
 		if (capacity < 0)
@@ -243,8 +252,7 @@ public class ModificationManager implements IModificationManager {
 	 * <p>
 	 * A negative value will result in no change.
 	 * 
-	 * @param capacity
-	 *           the new capacity.
+	 * @param capacity - the new capacity.
 	 */
 	public void setCapacityPhysical(int capacity) {
 		if (capacity < 0)
@@ -272,8 +280,37 @@ public class ModificationManager implements IModificationManager {
 			return transactions[cursorNext];
 		}
 		else {
-			return null;
+			return EMPTY_TRANSACTION;
 		}
+	}
+	
+	/**
+	 * A fake transaction that does nothing.
+	 * 
+	 * @author Brito Carvalho Bruno
+	 * @author Decorvet Grégoire
+	 * @author Ngo Quang Dung
+	 * @author Schweizer Thomas
+	 *
+	 */
+	public static class EmptyTransaction implements IModificationTransaction {
+
+		@Override
+      public IModificationTransaction add(IModification modif, boolean addToBackStack) {
+	      // Do nothing
+	      return this;
+      }
+
+		@Override
+      public void commit() {
+	      // Do nothing
+      }
+
+		@Override
+      public void revert() {
+			// Do nothing
+      }
+		
 	}
 
 	/**
@@ -290,6 +327,7 @@ public class ModificationManager implements IModificationManager {
 	public class Transaction implements IModificationTransaction {
 
 		private List<IModification> mods = new LinkedList<>();
+		private List<IModification> noBackStackMods = new LinkedList<>();
 		private boolean commited = false;
 
 		/**
@@ -297,12 +335,18 @@ public class ModificationManager implements IModificationManager {
 		 */
 		void clear() {
 			mods.clear();
+			noBackStackMods.clear();
 			commited = false;
 		}
 
 		@Override
-		public IModificationTransaction add(IModification modif) {
-			mods.add(modif);
+		public IModificationTransaction add(IModification modif, boolean addToBackStack) {
+			
+			if (addToBackStack)
+				mods.add(modif);
+			else
+				noBackStackMods.add(modif);
+			
 			return this;
 		}
 
@@ -314,6 +358,13 @@ public class ModificationManager implements IModificationManager {
 				for (IModification m : mods) {
 					m.apply();
 				}
+				
+				for (IModification m : noBackStackMods) {
+					m.apply();
+				}
+				
+				// No more useful => clear
+				noBackStackMods.clear();
 
 				commited = true;
 				ModificationManager.this.updateCommit();

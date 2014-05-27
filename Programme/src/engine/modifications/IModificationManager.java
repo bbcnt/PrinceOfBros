@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-package game.logic.modstack;
+package engine.modifications;
 
 /**
  * Tool for managing modifications.

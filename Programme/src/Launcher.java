@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-import game.Game;
+import game.states.Game;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
