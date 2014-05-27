@@ -40,11 +40,11 @@ public class GPlayer implements IDrawable {
 	}
 
 	public enum LegsState implements IAnimatedState {
-		Idle,
+//		Idle,
 		MovingRight,
-		MovingLeft,
-		MovingUp,
-		MovingDown;
+		MovingLeft;
+//		MovingUp,
+//		MovingDown;
 
 		private TimedAnimation animation;
 		private boolean stoppable;

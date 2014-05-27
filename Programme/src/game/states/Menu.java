@@ -3,6 +3,7 @@ package game.states;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -35,6 +36,8 @@ public class Menu extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 	      throws SlickException {
 		
+		Input input = gc.getInput();
+		
 		int mouseX = Mouse.getX();
 		int mouseY = Mouse.getY();
 		
@@ -49,6 +52,14 @@ public class Menu extends BasicGameState {
 			if (Mouse.isButtonDown(0)) {
 				System.exit(0);
 			}
+		}
+		
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			System.exit(0);
+		}
+		
+		if (input.isKeyDown(Input.KEY_ENTER)) {
+			sbg.enterState(Game.STAT_PLAY);
 		}
 	}
 

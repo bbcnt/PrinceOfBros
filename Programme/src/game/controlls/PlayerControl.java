@@ -107,10 +107,10 @@ public class PlayerControl {
 				if (oldState != GPlayer.LegsState.MovingRight)
 					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.MovingRight));
 			}
-			else {
-				if (oldState != GPlayer.LegsState.Idle)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.Idle));
-			}
+//			else {
+//				if (oldState != GPlayer.LegsState.Idle)
+//					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.Idle));
+//			}
 		}
 		
 		// Add action
@@ -142,9 +142,7 @@ public class PlayerControl {
 	
 	public void actionJump() {
 		pushAction(new MoveUp(delta, player));
-	}
-	
-	
+	}	
 	
 	private void pushAction(PlayerAction action) {
 		if (currentAction == null) {
