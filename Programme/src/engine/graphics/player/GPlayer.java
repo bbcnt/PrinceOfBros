@@ -40,10 +40,11 @@ public class GPlayer implements IDrawable {
 	}
 
 	public enum LegsState implements IAnimatedState {
-		IdleRight,
-		IdleLeft,
+//		Idle,
 		MovingRight,
 		MovingLeft;
+//		MovingUp,
+//		MovingDown;
 
 		private TimedAnimation animation;
 		private boolean stoppable;
@@ -140,8 +141,8 @@ public class GPlayer implements IDrawable {
 	
 	private Player player;
 	
-	private float shiftX = Game.SCREEN_WIDTH / 2;
-	private float shiftY = Game.SCREEN_HEIGHT / 2;
+	public float shiftX = 0;
+	public float shiftY = 0;
 	
 	private IAnimatedState[] current;
 	
@@ -155,7 +156,9 @@ public class GPlayer implements IDrawable {
 	public void draw(Graphics g) {
 		for (IAnimatedState s : current) {
 			if (s != null)
-				s.getAnimation().draw(shiftX, shiftY);
+				// 64 est temporaire...
+				// Y est modifié car les tile 0 en y sont sur le coté haut de l'image alors que 0 en logique est en bas.
+				s.getAnimation().draw(player.getPosX() * 64, (10 - player.getPosY()) * 64);
 		}
 	}
 	

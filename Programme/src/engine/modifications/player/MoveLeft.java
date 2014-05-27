@@ -4,17 +4,20 @@ import engine.models.player.Player;
 
 public class MoveLeft extends PlayerAction {
 	
+	private Player player;
+	
 	public MoveLeft(int delta, Player player) {
-		super(delta, 0, player);
+		super(delta, 0);
+		this.player = player;
 	}
 
 	@Override
    public void apply() {
-	   getPlayer().moveLeft(getDelta() * getPlayer().getSpeed());
+	   player.moveLeft(getDelta() * player.getSpeed());
    }
 
 	@Override
    public void cancel() {
-		getPlayer().moveLeft(-getDelta() * getPlayer().getSpeed());
+		player.moveLeft(-getDelta() * player.getSpeed());
    }
 }
