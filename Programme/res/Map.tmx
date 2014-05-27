@@ -6,14 +6,14 @@
  <tileset firstgid="17" name="Sky" tilewidth="64" tileheight="64">
   <image source="sky-and-cloud-patterns-01-300x300.jpg" width="300" height="300"/>
  </tileset>
- <layer name="Background" width="50" height="10">
+ <layer name="Calque de Tile 1" width="50" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNmYGAQphCLkqlPFojlkPiCQCxEQA0lGNksbOZKkuBWSt2FSz+59pAbB5S6l9pxhS0OqJkGhjMeDadRPIpHNgYApCZyp9AHAAA=
+   H4sIAAAAAAAAC+VSzQrDIBiT1ksVOraPHXZY3/8x66BCCKY67Wk7BG2TfL+ac84G8ez0vRM2+L4nPCqaEWCsUtzXF7WO1qX8vXl6dzBa79W7Ku3gyjfwy/iHOXmB+YAnLf6fSa90XsQx0CmO6zHyZX5KCMepkL0T6JeKLhIXC3EMdCUu+6LIoRDgDCde1Tf3wb0w/7mvCTfB4Qxac7Aee2mZQYtOzbzGqZ1ivTs3jXi00AcAAA==
   </data>
  </layer>
- <layer name="Content" width="50" height="10">
+ <layer name="Background" width="50" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1R2wqAIBQ7eHlIof7/bzNQGOOsfAgqaDAMt2Obmv348U7kpwPchC/28DK/oUcSjJ2p+7KzH8mPZ0bSk6Mb+JTGeYzmhh4aS18VBwL4lwtfJa065xj4PG3MVdNZPBZYy8ms6s09uAvrB9bGTWh4B7P/YD92mbmDGR/r/K009aaYdwfWkbTd0AcAAA==
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBUAcARPTJAtAHAAA=
   </data>
  </layer>
 </map>

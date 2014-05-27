@@ -16,7 +16,7 @@ public class Player implements IAnimatedObject {
 	private float posX;
 	private float posY;
 	
-	private float speed = .003f;
+	private float speed = .1f;
 	
 	private IAnimatedState[] states;
 	
@@ -42,15 +42,13 @@ public class Player implements IAnimatedObject {
 	}
 	
 	/*---Modifiers-------------------------------------------------------------*/
-	/* D'un point de vue logique, pour aller à gauche on décrémente
-	 *  et pour aller en haut on incérmente. */
 	
 	public void moveLeft(float value) {
-		posX -= value;
+		posX += value;
 	}
 	
 	public void moveRight(float value) {
-		posX += value;
+		posX -= value;
 	}
 	
 	public void moveUp(float value) {

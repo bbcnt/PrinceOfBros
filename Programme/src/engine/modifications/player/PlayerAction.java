@@ -12,6 +12,7 @@
 
 package engine.modifications.player;
 
+import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.SynchronizedModification;
 
@@ -28,6 +29,7 @@ import engine.modifications.SynchronizedModification;
 public abstract class PlayerAction extends SynchronizedModification implements IModification {
 	
 	private int cooldown;
+	private Player player;
 	
 	/**
 	 * Create the action, for the specified delta. This value is given by the
@@ -35,9 +37,10 @@ public abstract class PlayerAction extends SynchronizedModification implements I
 	 * @param delta - the value given by Slick2d
 	 * @param cooldown - the cooldown in millis for the action. 
 	 */
-	public PlayerAction(int delta, int cooldown) {
+	public PlayerAction(int delta, int cooldown, Player player) {
 		super(delta);
 		this.cooldown = cooldown;
+		this.player = player;
 	}
 	
 	/**
@@ -54,6 +57,14 @@ public abstract class PlayerAction extends SynchronizedModification implements I
 	 */
 	public boolean hasCooldown() {
 		return cooldown > 0;
+	}
+	
+	/**
+	 * Return the player object concerned by this action.
+	 * @return The player concerned by this action.
+	 */
+	public Player getPlayer() {
+		return player;
 	}
 
 }

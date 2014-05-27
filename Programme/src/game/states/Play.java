@@ -19,13 +19,11 @@ import engine.animations.IAnimatedState;
 import engine.animations.TimedAnimation;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
-import engine.modifications.IModification;
 import engine.modifications.graphics.UpdateDrawableObject;
 
 public class Play extends BasicGameState {
 	
 	private TiledMap background;
-	private int idLayerContent;
 	
 	private Player player;
 	private GPlayer gPlayer;
@@ -37,6 +35,8 @@ public class Play extends BasicGameState {
 		
 		background = new TiledMap("./res/Map.tmx");
 		
+//		background = new Image("res/Hydrangeas.jpg");
+		
 		Image[] heroLeft = {
 		      new Image("res/little_mario_move0_l.png"),
 		      new Image("res/little_mario_move1_l.png")
@@ -45,47 +45,44 @@ public class Play extends BasicGameState {
 		      new Image("res/little_mario_move0_r.png"),
 		      new Image("res/little_mario_move1_r.png")
 		};
-//		Image[] heroIdle = {
-//				new Image("res/hero_up.png"),
-//		      new Image("res/hero_down.png")
-//		};
+		Image[] heroIdleLeft = {
+				new Image("res/little_mario_move0_l.png"),
+		      new Image("res/little_mario_move0_l.png")
+		};
+		Image[] heroIdleRight = {
+				new Image("res/little_mario_move0_r.png"),
+		      new Image("res/little_mario_move0_r.png")
+		};
 
-		int[] duration = {1000, 1000};
+		int[] duration = {500, 500};
 		
 		// Init player
-		player = new Player(0, 5); // Distance logique.
+		player = new Player(0, 0);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
-//		
-//		GPlayer.LegsState.Idle.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
+		
+		GPlayer.LegsState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
+		GPlayer.LegsState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
 		GPlayer.LegsState.MovingLeft.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
 		GPlayer.LegsState.MovingRight.init(new TimedAnimation(new Animation(heroRight, duration, false)));
 		
-		IAnimatedState[] playerStates = new IAnimatedState[2];
-//		playerStates[0] = GPlayer.LegsState.Idle;
-		playerStates[0] = GPlayer.LegsState.MovingLeft;
-		playerStates[1] = GPlayer.LegsState.MovingRight;
+		IAnimatedState[] playerStates = new IAnimatedState[4];
+		playerStates[0] = GPlayer.LegsState.IdleLeft;
+		playerStates[1] = GPlayer.LegsState.IdleRight;
+		playerStates[2] = GPlayer.LegsState.MovingLeft;
+		playerStates[3] = GPlayer.LegsState.MovingRight;
 		
 		player.initAnimationStates(playerStates);
 		
 		DebugInformations.getInstance().registerPlayer(player);
-		
-		idLayerContent = background.getLayerIndex("Content");
-		
-		System.out.println("Map size: " + background.getHeight() + "x" + background.getWidth());
-		System.out.println("Number of layers: " + background.getLayerCount());
-		System.out.println("Tile size: " + background.getTileHeight());
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 	      throws SlickException {
-	
-		// Using float position.
 		
-		background.render(0, 0);
-		// Temporaire.
-		g.drawRect((float)Math.floor(player.getPosX()) * background.getTileHeight(), (float)Math.floor(10 - player.getPosY()) * background.getTileHeight(), 64, 64);
+		background.render((int)player.getPosX(),(int) player.getPosY());
+		
 		gPlayer.draw(g);
 		
 		// DEBUG
@@ -137,7 +134,7 @@ public class Play extends BasicGameState {
 		// DEBUG
 		DebugInformations.getInstance().updateUpdateDelta(delta);
 	}
-	
+
 	@Override
    public int getID() {
 		return Game.STAT_PLAY;

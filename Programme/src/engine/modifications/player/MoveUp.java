@@ -4,22 +4,17 @@ import engine.models.player.Player;
 
 public class MoveUp extends PlayerAction {
 	
-	private Player player;
-	
 	public MoveUp(int delta, Player player) {
-		super(delta, 500);
-		this.player = player;
+		super(delta, 500, player);
 	}
 
 	@Override
    public void apply() {
-		// J'ai modifié ça. Thomas
-	   player.moveUp(1);
+		getPlayer().moveUp(getDelta() * getPlayer().getSpeed() * 10);
    }
 
 	@Override
    public void cancel() {
-		// J'ai modifié ça. Thomas
-		player.moveUp(-1);
+		getPlayer().moveUp(-getDelta() * getPlayer().getSpeed() * 10);
    }
 }

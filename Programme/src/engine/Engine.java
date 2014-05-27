@@ -11,8 +11,10 @@
  */
 package engine;
 
+import engine.graphics.IDrawable;
 import engine.modifications.IModification;
 import engine.modifications.IModificationTransaction;
+import engine.modifications.graphics.UpdateDrawableObject;
 
 /**
  * TODO
