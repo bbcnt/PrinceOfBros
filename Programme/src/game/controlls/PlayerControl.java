@@ -40,6 +40,8 @@ import engine.modifications.player.PlayerAction;
  */
 public class PlayerControl {
 	
+	private final static int ACTION_KEY_DELAY = 250;
+	
 	private Player player;
 	private int delta;
 	
@@ -63,6 +65,7 @@ public class PlayerControl {
 	
 	private PlayerAction currentAction = null;
 	private ActionTypes currentActionType = ActionTypes.Idle;
+	private boolean currentActionAnimationSet = false; // Don't set animatino twice or more...
 	
 	private PlayerAction nextAction = null;
 	private ActionTypes nextActionType = ActionTypes.Idle;
@@ -86,6 +89,7 @@ public class PlayerControl {
 				cooldownCounter = 0;
 				currentAction = nextAction;
 				currentActionType = nextActionType;
+				currentActionAnimationSet = false;
 				nextAction = null;
 				nextActionType = ActionTypes.Idle;
 			}
@@ -130,15 +134,19 @@ public class PlayerControl {
 		if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
 			
 			// Action first
-			switch (currentActionType) {
-			case Attacking:
-				if (facing == Facing.Left && oldState != GPlayer.AnimationState.AttackingLeft)
-					newState = GPlayer.AnimationState.AttackingLeft;
-				else if (facing == Facing.Right && oldState != GPlayer.AnimationState.AttackingRight)
-					newState = GPlayer.AnimationState.AttackingRight;
-				break;
-			default:
-				break;
+			if (currentAction != null && !currentActionAnimationSet) {
+				switch (currentActionType) {
+				case Attacking:
+					if (facing == Facing.Left && oldState != GPlayer.AnimationState.AttackingLeft)
+						newState = GPlayer.AnimationState.AttackingLeft;
+					else if (facing == Facing.Right && oldState != GPlayer.AnimationState.AttackingRight)
+						newState = GPlayer.AnimationState.AttackingRight;
+					break;
+				default:
+					break;
+				}
+				
+				currentActionAnimationSet = true;
 			}
 			
 			// Moving if no action
@@ -194,11 +202,16 @@ public class PlayerControl {
 	
 	
 	private void pushAction(PlayerAction action, ActionTypes type) {
+		
 		if (currentAction == null) {
 			currentAction = action;
 			currentActionType = type;
 		}
 		else {
+			
+			// Ignore action, if delay not elapsed
+			if (cooldownCounter < ACTION_KEY_DELAY) return;
+			
 			nextAction = action;
 			nextActionType = type;
 		}

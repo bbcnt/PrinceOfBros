@@ -72,32 +72,14 @@ public class Play extends BasicGameState {
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
 		
-//		GPlayer.LegsState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
-//		GPlayer.LegsState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
-//		GPlayer.LegsState.MovingLeft.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
-//		GPlayer.LegsState.MovingRight.init(new TimedAnimation(new Animation(heroRight, duration, false)));
-//		
-//		GPlayer.BodyState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
-//		GPlayer.BodyState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
-//		GPlayer.BodyState.AttackingLeft.init(new TimedAnimation(new Animation(heroAttackLeft, durationAttack, false)));
-//		GPlayer.BodyState.AttackingRight.init(new TimedAnimation(new Animation(heroAttackRight, durationAttack, false)));
-		
+		// Animations setup
 		GPlayer.AnimationState.IdleLeft.init(new NTimedAnimation(heroIdleLeft, duration, true), true);
 		GPlayer.AnimationState.IdleRight.init(new NTimedAnimation(heroIdleRight, duration, true), true);
 		GPlayer.AnimationState.MovingLeft.init(new NTimedAnimation(heroLeft, duration, true), true);
 		GPlayer.AnimationState.MovingRight.init(new NTimedAnimation(heroRight, duration, true), true);
-		GPlayer.AnimationState.AttackingLeft.init(new NTimedAnimation(heroAttackLeft, durationAttack, true, false), false);
-		GPlayer.AnimationState.AttackingRight.init(new NTimedAnimation(heroAttackRight, durationAttack, false, true), false);
+		GPlayer.AnimationState.AttackingLeft.init(new NTimedAnimation(heroAttackLeft, durationAttack), false);
+		GPlayer.AnimationState.AttackingRight.init(new NTimedAnimation(heroAttackRight, durationAttack), false);
 		
-//		IAnimatedState[] playerStates = new IAnimatedState[6];
-//		playerStates[0] = GPlayer.AnimationState.IdleLeft;
-//		playerStates[1] = GPlayer.AnimationState.IdleRight;
-//		playerStates[2] = GPlayer.AnimationState.MovingLeft;
-//		playerStates[3] = GPlayer.AnimationState.MovingRight;
-//		playerStates[4] = GPlayer.AnimationState.AttackingLeft;
-//		playerStates[5] = GPlayer.AnimationState.AttackingRight;
-//		
-//		player.initAnimationStates(playerStates);
 		
 		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().registerPlayer(player);
