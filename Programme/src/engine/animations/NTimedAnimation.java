@@ -54,6 +54,10 @@ public class NTimedAnimation {
 		this(frames, durations, false, false);
 	}
 	
+	public NTimedAnimation(Image[] frames, int[] durations, boolean loop) {
+		this(frames, durations, loop, false);
+	}
+	
 	public NTimedAnimation(Image[] frames, int[] durations, boolean loop, boolean pingPong) {
 		 setupAnimation(frames, durations, loop, pingPong);
 	}

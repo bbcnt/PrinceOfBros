@@ -61,11 +61,11 @@ public class PlayerControl {
 	// TODO
 	private int cooldownCounter;
 	
-	private PlayerAction currentAction;
-	private ActionTypes currentActionType;
+	private PlayerAction currentAction = null;
+	private ActionTypes currentActionType = ActionTypes.Idle;
 	
-	private PlayerAction nextAction;
-	private ActionTypes nextActionType;
+	private PlayerAction nextAction = null;
+	private ActionTypes nextActionType = ActionTypes.Idle;
 	
 	public PlayerControl(Player player) {
 		this.player = player;
@@ -111,57 +111,59 @@ public class PlayerControl {
 			IAnimatedState oldState = player.getState();
 			
 			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
-				if (movingLeft ) {
-					if (oldState != GPlayer.AnimationState.MovingLeft)
-						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.MovingLeft));
-				}
-				else if (movingRight) {
-					if (oldState != GPlayer.AnimationState.MovingRight)
-						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.MovingRight));
-				}
-				else {
-					if (facing == Facing.Left && oldState != GPlayer.AnimationState.IdleLeft)
-						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleLeft));
-					else if (facing == Facing.Right && oldState != GPlayer.AnimationState.IdleRight)
-						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleRight));
-				}
+				
 			}
 		}
 		
 		// Add action
 		if (currentAction != null && cooldownCounter == 0) {
 			Engine.getInstance().addModification(currentAction);
-			
-			IAnimatedState oldState = player.getState();
-			
-			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
-				switch (currentActionType) {
-				case Attacking:
-					if (facing == Facing.Left && oldState != GPlayer.AnimationState.AttackingLeft)
-						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.AttackingLeft));
-					else if (facing == Facing.Right && oldState != GPlayer.AnimationState.AttackingRight)
-						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.AttackingRight));
-					break;
-				default:
-					break;
-				}
-			}
-		}
-		
-		// No action, or idle => idle
-		if (currentAction == null || currentActionType == ActionTypes.Idle) {
-			IAnimatedState oldState = player.getState();
-			
-			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
-				if (facing == Facing.Left && oldState != GPlayer.AnimationState.IdleLeft)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleLeft));
-				else if (facing == Facing.Right && oldState != GPlayer.AnimationState.IdleRight)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleRight));
-			}
 		}
 		
 		Engine.getInstance().addModification(movementHor);
 		Engine.getInstance().addModification(movementVer);
+		
+		// Choose animation
+		IAnimatedState oldState = player.getState();
+		IAnimatedState newState = null;
+		
+		if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
+			
+			// Action first
+			switch (currentActionType) {
+			case Attacking:
+				if (facing == Facing.Left && oldState != GPlayer.AnimationState.AttackingLeft)
+					newState = GPlayer.AnimationState.AttackingLeft;
+				else if (facing == Facing.Right && oldState != GPlayer.AnimationState.AttackingRight)
+					newState = GPlayer.AnimationState.AttackingRight;
+				break;
+			default:
+				break;
+			}
+			
+			// Moving if no action
+			if (newState == null) {
+				if (movingLeft) {
+					if (oldState != GPlayer.AnimationState.MovingLeft)
+						newState = GPlayer.AnimationState.MovingLeft;
+				}
+				else if (movingRight) {
+					if (oldState != GPlayer.AnimationState.MovingRight)
+						newState = GPlayer.AnimationState.MovingRight;
+				}
+				else {
+					if (facing == Facing.Left && oldState != GPlayer.AnimationState.IdleLeft)
+						newState = GPlayer.AnimationState.IdleLeft;
+					else if (facing == Facing.Right && oldState != GPlayer.AnimationState.IdleRight)
+						newState = GPlayer.AnimationState.IdleRight;
+				}
+			}
+			
+			// Then add the change if there is one.
+			if (newState != null)
+				Engine.getInstance().addModification(new AnimationChange(player, newState));
+			
+		}
 		
 		reset();
 	}

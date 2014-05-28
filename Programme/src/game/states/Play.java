@@ -64,11 +64,11 @@ public class Play extends BasicGameState {
 		      new Image("res/player/attack_saber_00_right_2.png")
 		};
 
-		int[] duration = {500, 500};
-		int[] durationAttack = {100, 100, 100};
+		int[] duration = {100, 200};
+		int[] durationAttack = {75, 100, 100};
 		
 		// Init player
-		player = new Player(0, 5);
+		player = new Player(0.5f, 4.5f);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
 		
@@ -82,12 +82,12 @@ public class Play extends BasicGameState {
 //		GPlayer.BodyState.AttackingLeft.init(new TimedAnimation(new Animation(heroAttackLeft, durationAttack, false)));
 //		GPlayer.BodyState.AttackingRight.init(new TimedAnimation(new Animation(heroAttackRight, durationAttack, false)));
 		
-		GPlayer.AnimationState.IdleLeft.init(new NTimedAnimation(heroIdleLeft, duration), true);
-		GPlayer.AnimationState.IdleRight.init(new NTimedAnimation(heroIdleRight, duration), true);
-		GPlayer.AnimationState.MovingLeft.init(new NTimedAnimation(heroLeft, duration), true);
-		GPlayer.AnimationState.MovingRight.init(new NTimedAnimation(heroRight, duration), true);
-		GPlayer.AnimationState.AttackingLeft.init(new NTimedAnimation(heroAttackLeft, durationAttack), false);
-		GPlayer.AnimationState.AttackingRight.init(new NTimedAnimation(heroAttackRight, durationAttack), false);
+		GPlayer.AnimationState.IdleLeft.init(new NTimedAnimation(heroIdleLeft, duration, true), true);
+		GPlayer.AnimationState.IdleRight.init(new NTimedAnimation(heroIdleRight, duration, true), true);
+		GPlayer.AnimationState.MovingLeft.init(new NTimedAnimation(heroLeft, duration, true), true);
+		GPlayer.AnimationState.MovingRight.init(new NTimedAnimation(heroRight, duration, true), true);
+		GPlayer.AnimationState.AttackingLeft.init(new NTimedAnimation(heroAttackLeft, durationAttack, true, false), false);
+		GPlayer.AnimationState.AttackingRight.init(new NTimedAnimation(heroAttackRight, durationAttack, false, true), false);
 		
 //		IAnimatedState[] playerStates = new IAnimatedState[6];
 //		playerStates[0] = GPlayer.AnimationState.IdleLeft;
