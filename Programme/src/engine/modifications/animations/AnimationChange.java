@@ -39,7 +39,7 @@ public class AnimationChange implements IModification {
    public void apply() {
 		// Keep copy of old state
 		oldAnimation = object.getState();
-		ellapsedTime = oldAnimation.getAnimation().getEllapsedTime();
+		ellapsedTime = oldAnimation.getAnimation().getCurrentTime();
 		
 		// Setup the new animation
 		animation.getAnimation().restart();
@@ -49,7 +49,7 @@ public class AnimationChange implements IModification {
 	@Override
    public void cancel() {
 		// Restore old animation state
-	   oldAnimation.getAnimation().setEllapsedTime(ellapsedTime);
+	   oldAnimation.getAnimation().setCurrentTime(ellapsedTime);
 	   object.setAnimation(oldAnimation);
    }
 

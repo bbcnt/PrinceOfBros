@@ -23,8 +23,8 @@ public interface IAnimatedState {
 
 	public int getId();
 	
-	public void init(NTimedAnimation anim, boolean stoppable);
-	public NTimedAnimation getAnimation();
+	public void init(TimedAnimation anim, boolean stoppable);
+	public TimedAnimation getAnimation();
 	
 	public boolean isStoppable();
 	public boolean hasAnimation();

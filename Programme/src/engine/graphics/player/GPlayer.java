@@ -15,7 +15,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import engine.animations.IAnimatedState;
-import engine.animations.NTimedAnimation;
+import engine.animations.TimedAnimation;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
 import game.states.Game;
@@ -38,14 +38,14 @@ public class GPlayer implements IDrawable {
 		AttackingRight,
 		AttackingLeft;
 
-		private NTimedAnimation animation;
+		private TimedAnimation animation;
 		private boolean stoppable;
 
 		private AnimationState() {
 			this(null);
 		}
 
-		private AnimationState(NTimedAnimation anim) {
+		private AnimationState(TimedAnimation anim) {
 			animation = anim;
 			stoppable = true;
 		}
@@ -56,7 +56,7 @@ public class GPlayer implements IDrawable {
 		}
 
 		@Override
-		public void init(NTimedAnimation anim, boolean stoppable) {
+		public void init(TimedAnimation anim, boolean stoppable) {
 			if (!hasAnimation()) {
 				animation = anim;
 				this.stoppable = stoppable;
@@ -74,7 +74,7 @@ public class GPlayer implements IDrawable {
 		}
 
 		@Override
-		public NTimedAnimation getAnimation() {
+		public TimedAnimation getAnimation() {
 			return animation;
 		}
 	}

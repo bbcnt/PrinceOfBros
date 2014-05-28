@@ -16,7 +16,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import debug.DebugInformations;
 import engine.Engine;
 import engine.animations.IAnimatedState;
-import engine.animations.NTimedAnimation;
+import engine.animations.TimedAnimation;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
@@ -73,12 +73,12 @@ public class Play extends BasicGameState {
 		playerControl = new PlayerControl(player);
 		
 		// Animations setup
-		GPlayer.AnimationState.IdleLeft.init(new NTimedAnimation(heroIdleLeft, duration, true), true);
-		GPlayer.AnimationState.IdleRight.init(new NTimedAnimation(heroIdleRight, duration, true), true);
-		GPlayer.AnimationState.MovingLeft.init(new NTimedAnimation(heroLeft, duration, true), true);
-		GPlayer.AnimationState.MovingRight.init(new NTimedAnimation(heroRight, duration, true), true);
-		GPlayer.AnimationState.AttackingLeft.init(new NTimedAnimation(heroAttackLeft, durationAttack), false);
-		GPlayer.AnimationState.AttackingRight.init(new NTimedAnimation(heroAttackRight, durationAttack), false);
+		GPlayer.AnimationState.IdleLeft.init(new TimedAnimation(heroIdleLeft, duration, true), true);
+		GPlayer.AnimationState.IdleRight.init(new TimedAnimation(heroIdleRight, duration, true), true);
+		GPlayer.AnimationState.MovingLeft.init(new TimedAnimation(heroLeft, duration, true), true);
+		GPlayer.AnimationState.MovingRight.init(new TimedAnimation(heroRight, duration, true), true);
+		GPlayer.AnimationState.AttackingLeft.init(new TimedAnimation(heroAttackLeft, durationAttack), false);
+		GPlayer.AnimationState.AttackingRight.init(new TimedAnimation(heroAttackRight, durationAttack), false);
 		
 		
 		DebugInformations.getInstance().updateGameStateId(getID());
