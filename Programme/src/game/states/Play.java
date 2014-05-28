@@ -16,7 +16,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import debug.DebugInformations;
 import engine.Engine;
 import engine.animations.IAnimatedState;
-import engine.animations.TimedAnimation;
+import engine.animations.NTimedAnimation;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
@@ -38,41 +38,66 @@ public class Play extends BasicGameState {
 //		background = new Image("res/Hydrangeas.jpg");
 		
 		Image[] heroLeft = {
-		      new Image("res/little_mario_move0_l.png"),
-		      new Image("res/little_mario_move1_l.png")
+		      new Image("res/player/move_00_left_0.png"),
+		      new Image("res/player/move_00_left_1.png")
 		};
 		Image[] heroRight = {
-		      new Image("res/little_mario_move0_r.png"),
-		      new Image("res/little_mario_move1_r.png")
+		      new Image("res/player/move_00_right_0.png"),
+		      new Image("res/player/move_00_right_1.png")
 		};
 		Image[] heroIdleLeft = {
-				new Image("res/little_mario_move0_l.png"),
-		      new Image("res/little_mario_move0_l.png")
+				new Image("res/player/idle_00_left_0.png"),
+		      new Image("res/player/idle_00_left_0.png")
 		};
 		Image[] heroIdleRight = {
-				new Image("res/little_mario_move0_r.png"),
-		      new Image("res/little_mario_move0_r.png")
+				new Image("res/player/idle_00_right_0.png"),
+		      new Image("res/player/idle_00_right_0.png")
+		};
+		Image[] heroAttackLeft = {
+				new Image("res/player/attack_saber_00_left_0.png"),
+		      new Image("res/player/attack_saber_00_left_1.png"),
+		      new Image("res/player/attack_saber_00_left_2.png")
+		};
+		Image[] heroAttackRight = {
+				new Image("res/player/attack_saber_00_right_0.png"),
+		      new Image("res/player/attack_saber_00_right_1.png"),
+		      new Image("res/player/attack_saber_00_right_2.png")
 		};
 
 		int[] duration = {500, 500};
+		int[] durationAttack = {100, 100, 100};
 		
 		// Init player
 		player = new Player(0, 0);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
 		
-		GPlayer.LegsState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
-		GPlayer.LegsState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
-		GPlayer.LegsState.MovingLeft.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
-		GPlayer.LegsState.MovingRight.init(new TimedAnimation(new Animation(heroRight, duration, false)));
+//		GPlayer.LegsState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
+//		GPlayer.LegsState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
+//		GPlayer.LegsState.MovingLeft.init(new TimedAnimation(new Animation(heroLeft, duration, false)));
+//		GPlayer.LegsState.MovingRight.init(new TimedAnimation(new Animation(heroRight, duration, false)));
+//		
+//		GPlayer.BodyState.IdleLeft.init(new TimedAnimation(new Animation(heroIdleLeft, duration, false)));
+//		GPlayer.BodyState.IdleRight.init(new TimedAnimation(new Animation(heroIdleRight, duration, false)));
+//		GPlayer.BodyState.AttackingLeft.init(new TimedAnimation(new Animation(heroAttackLeft, durationAttack, false)));
+//		GPlayer.BodyState.AttackingRight.init(new TimedAnimation(new Animation(heroAttackRight, durationAttack, false)));
 		
-		IAnimatedState[] playerStates = new IAnimatedState[4];
-		playerStates[0] = GPlayer.LegsState.IdleLeft;
-		playerStates[1] = GPlayer.LegsState.IdleRight;
-		playerStates[2] = GPlayer.LegsState.MovingLeft;
-		playerStates[3] = GPlayer.LegsState.MovingRight;
+		GPlayer.AnimationState.IdleLeft.init(new NTimedAnimation(heroIdleLeft, duration), true);
+		GPlayer.AnimationState.IdleRight.init(new NTimedAnimation(heroIdleRight, duration), true);
+		GPlayer.AnimationState.MovingLeft.init(new NTimedAnimation(heroLeft, duration), true);
+		GPlayer.AnimationState.MovingRight.init(new NTimedAnimation(heroRight, duration), true);
+		GPlayer.AnimationState.AttackingLeft.init(new NTimedAnimation(heroAttackLeft, durationAttack), false);
+		GPlayer.AnimationState.AttackingRight.init(new NTimedAnimation(heroAttackRight, durationAttack), false);
 		
-		player.initAnimationStates(playerStates);
+//		IAnimatedState[] playerStates = new IAnimatedState[6];
+//		playerStates[0] = GPlayer.AnimationState.IdleLeft;
+//		playerStates[1] = GPlayer.AnimationState.IdleRight;
+//		playerStates[2] = GPlayer.AnimationState.MovingLeft;
+//		playerStates[3] = GPlayer.AnimationState.MovingRight;
+//		playerStates[4] = GPlayer.AnimationState.AttackingLeft;
+//		playerStates[5] = GPlayer.AnimationState.AttackingRight;
+//		
+//		player.initAnimationStates(playerStates);
 		
 		DebugInformations.getInstance().registerPlayer(player);
 	}
@@ -110,6 +135,10 @@ public class Play extends BasicGameState {
 		
 		if (Commands.Jump.isTriggered(input.isKeyDown(Input.KEY_SPACE))) {
 			playerControl.actionJump();
+		}
+		
+		if (Commands.Attack.isTriggered(input.isKeyDown(Input.KEY_A))) {
+			playerControl.actionAttack();
 		}
 		
 		if (Commands.BackInTime.isTriggered(input.isKeyDown(Input.KEY_Q))) {

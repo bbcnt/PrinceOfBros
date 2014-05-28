@@ -22,10 +22,9 @@ package engine.animations;
 public interface IAnimatedState {
 
 	public int getId();
-	public IAnimationType getType();
 	
-	public void init(TimedAnimation anim);
-	public TimedAnimation getAnimation();
+	public void init(NTimedAnimation anim, boolean stoppable);
+	public NTimedAnimation getAnimation();
 	
 	public boolean isStoppable();
 	public boolean hasAnimation();

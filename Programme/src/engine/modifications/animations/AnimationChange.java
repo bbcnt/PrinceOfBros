@@ -38,7 +38,7 @@ public class AnimationChange implements IModification {
 	@Override
    public void apply() {
 		// Keep copy of old state
-		oldAnimation = object.getState(animation.getType());
+		oldAnimation = object.getState();
 		ellapsedTime = oldAnimation.getAnimation().getEllapsedTime();
 		
 		// Setup the new animation

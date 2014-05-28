@@ -11,11 +11,12 @@
  */
 package engine.graphics.player;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import engine.animations.IAnimatedState;
 import engine.animations.IAnimationType;
-import engine.animations.TimedAnimation;
+import engine.animations.NTimedAnimation;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
 import game.states.Game;
@@ -29,79 +30,23 @@ import game.states.Game;
  *
  */
 public class GPlayer implements IDrawable {
-	
-	public enum AnimationPart implements IAnimationType {
-		Legs, Body;
 
-		@Override
-      public int getTypeId() {
-	      return ordinal();
-      }
-	}
-
-	public enum LegsState implements IAnimatedState {
+	public enum AnimationState implements IAnimatedState {
 		IdleRight,
 		IdleLeft,
 		MovingRight,
-		MovingLeft;
-
-		private TimedAnimation animation;
-		private boolean stoppable;
-
-		private LegsState() {
-			this(null);
-		}
-
-		private LegsState(TimedAnimation anim) {
-			animation = anim;
-			stoppable = true;
-		}
-
-		@Override
-		public int getId() {
-			return ordinal();
-		}
-
-		@Override
-		public IAnimationType getType() {
-			return AnimationPart.Legs;
-		}
-
-		@Override
-		public void init(TimedAnimation anim) {
-			if (!hasAnimation())
-				animation = anim;
-		}
-
-		@Override
-		public boolean isStoppable() {
-			return stoppable;
-		}
-
-		@Override
-		public boolean hasAnimation() {
-			return animation != null;
-		}
-
-		@Override
-		public TimedAnimation getAnimation() {
-			return animation;
-		}
-	}
-	
-	public enum BodyState implements IAnimatedState {
-		Idle,
+		MovingLeft,
 		AttackingRight,
 		AttackingLeft;
 
-		private TimedAnimation animation;
+		private NTimedAnimation animation;
 		private boolean stoppable;
 
-		private BodyState() {
+		private AnimationState() {
 			this(null);
 		}
 
-		private BodyState(TimedAnimation anim) {
+		private AnimationState(NTimedAnimation anim) {
 			animation = anim;
 			stoppable = true;
 		}
@@ -112,14 +57,11 @@ public class GPlayer implements IDrawable {
 		}
 
 		@Override
-		public IAnimationType getType() {
-			return AnimationPart.Body;
-		}
-
-		@Override
-		public void init(TimedAnimation anim) {
-			if (!hasAnimation())
+		public void init(NTimedAnimation anim, boolean stoppable) {
+			if (!hasAnimation()) {
 				animation = anim;
+				this.stoppable = stoppable;
+			}
 		}
 
 		@Override
@@ -133,7 +75,7 @@ public class GPlayer implements IDrawable {
 		}
 
 		@Override
-		public TimedAnimation getAnimation() {
+		public NTimedAnimation getAnimation() {
 			return animation;
 		}
 	}
@@ -143,42 +85,45 @@ public class GPlayer implements IDrawable {
 	private float shiftX = Game.SCREEN_WIDTH / 2;
 	private float shiftY = Game.SCREEN_HEIGHT / 2;
 	
-	private IAnimatedState[] current;
+	private IAnimatedState current;
 	
 	public GPlayer(Player player) {
 		this.player = player;
-		
-		current = new IAnimatedState[AnimationPart.values().length];
+		player.setAnimation(AnimationState.IdleRight);
 	}
 	
 	@Override
 	public void draw(Graphics g) {
-		for (IAnimatedState s : current) {
-			if (s != null)
-				s.getAnimation().draw(shiftX, shiftY);
+		if (current != null) {
+			current.getAnimation().draw(shiftX, shiftY);
+			
+			// DEBUG - bounds
+			float x = shiftX - current.getAnimation().getWidth() / 2;
+			float y = shiftY - current.getAnimation().getHeight() / 2;
+			
+			g.setColor(Color.green);
+			g.drawRect(x, y, current.getAnimation().getWidth(), current.getAnimation().getHeight());
+			
+			// Center
+			g.fillRect(shiftX - 6, shiftY, 13, 2);
+			g.fillRect(shiftX, shiftY - 6, 2, 13);
 		}
 	}
 	
 	@Override
 	public void update(int delta) {
-		current[AnimationPart.Legs.getTypeId()] = player.getState(AnimationPart.Legs);
-		current[AnimationPart.Body.getTypeId()] = player.getState(AnimationPart.Legs);
+		current = player.getState();
 		
-		for (IAnimatedState s : current) {
-			if (s != null)
-				s.getAnimation().update(delta);
-		}
+		if (current != null)
+			current.getAnimation().update(delta);
 	}
 	
 	@Override
 	public void updateBackward(int delta) {
-		current[AnimationPart.Legs.getTypeId()] = player.getState(AnimationPart.Legs);
-		current[AnimationPart.Body.getTypeId()] = player.getState(AnimationPart.Legs);
+		current = player.getState();
 		
-		for (IAnimatedState s : current) {
-			if (s != null)
-				s.getAnimation().updateBackward(delta);
-		}
+		if (current != null)
+			current.getAnimation().update(-delta);
 	}
 
 }

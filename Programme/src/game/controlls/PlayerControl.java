@@ -18,6 +18,7 @@ import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.animations.AnimationChange;
 import engine.modifications.graphics.UpdateDrawableObject;
+import engine.modifications.player.Attack;
 import engine.modifications.player.MoveDown;
 import engine.modifications.player.MoveLeft;
 import engine.modifications.player.MoveRight;
@@ -51,12 +52,20 @@ public class PlayerControl {
 		Left, Right
 	}
 	
+	private enum ActionTypes {
+		Idle, Attacking, Jumping;
+	}
+	
 	private Facing facing;
 	
 	// TODO
 	private int cooldownCounter;
+	
 	private PlayerAction currentAction;
+	private ActionTypes currentActionType;
+	
 	private PlayerAction nextAction;
+	private ActionTypes nextActionType;
 	
 	public PlayerControl(Player player) {
 		this.player = player;
@@ -76,7 +85,9 @@ public class PlayerControl {
 			if (cooldownCounter >= currentAction.getCooldown()) {
 				cooldownCounter = 0;
 				currentAction = nextAction;
+				currentActionType = nextActionType;
 				nextAction = null;
+				nextActionType = ActionTypes.Idle;
 			}
 		}
 	}
@@ -97,27 +108,56 @@ public class PlayerControl {
 			}
 			
 			// Manage movement animation left or right
-			IAnimatedState oldState = player.getState(GPlayer.AnimationPart.Legs);
+			IAnimatedState oldState = player.getState();
 			
-			if (movingLeft ) {
-				if (oldState != GPlayer.LegsState.MovingLeft)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.MovingLeft));
-			}
-			else if (movingRight) {
-				if (oldState != GPlayer.LegsState.MovingRight)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.MovingRight));
-			}
-			else {
-				if (facing == Facing.Left && oldState != GPlayer.LegsState.IdleLeft)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.IdleLeft));
-				else if (facing == Facing.Right && oldState != GPlayer.LegsState.IdleRight)
-					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.LegsState.IdleRight));
+			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
+				if (movingLeft ) {
+					if (oldState != GPlayer.AnimationState.MovingLeft)
+						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.MovingLeft));
+				}
+				else if (movingRight) {
+					if (oldState != GPlayer.AnimationState.MovingRight)
+						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.MovingRight));
+				}
+				else {
+					if (facing == Facing.Left && oldState != GPlayer.AnimationState.IdleLeft)
+						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleLeft));
+					else if (facing == Facing.Right && oldState != GPlayer.AnimationState.IdleRight)
+						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleRight));
+				}
 			}
 		}
 		
 		// Add action
 		if (currentAction != null && cooldownCounter == 0) {
 			Engine.getInstance().addModification(currentAction);
+			
+			IAnimatedState oldState = player.getState();
+			
+			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
+				switch (currentActionType) {
+				case Attacking:
+					if (facing == Facing.Left && oldState != GPlayer.AnimationState.AttackingLeft)
+						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.AttackingLeft));
+					else if (facing == Facing.Right && oldState != GPlayer.AnimationState.AttackingRight)
+						Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.AttackingRight));
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		
+		// No action, or idle => idle
+		if (currentAction == null || currentActionType == ActionTypes.Idle) {
+			IAnimatedState oldState = player.getState();
+			
+			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
+				if (facing == Facing.Left && oldState != GPlayer.AnimationState.IdleLeft)
+					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleLeft));
+				else if (facing == Facing.Right && oldState != GPlayer.AnimationState.IdleRight)
+					Engine.getInstance().addModification(new AnimationChange(player, GPlayer.AnimationState.IdleRight));
+			}
 		}
 		
 		Engine.getInstance().addModification(movementHor);
@@ -143,20 +183,22 @@ public class PlayerControl {
 	}
 	
 	public void actionJump() {
-		pushAction(new MoveUp(delta, player));
+		pushAction(new MoveUp(delta, player), ActionTypes.Jumping);
 	}
 	
 	public void actionAttack() {
-//		pushAction(new );
+		pushAction(new Attack(delta, 1000, player), ActionTypes.Attacking);
 	}
 	
 	
-	private void pushAction(PlayerAction action) {
+	private void pushAction(PlayerAction action, ActionTypes type) {
 		if (currentAction == null) {
 			currentAction = action;
+			currentActionType = type;
 		}
 		else {
 			nextAction = action;
+			nextActionType = type;
 		}
 	}
 

@@ -30,18 +30,20 @@ import org.newdawn.slick.Animation;
  * @author Schweizer Thomas
  *
  */
-public class TimedAnimation {
+public class TimedAnimationOLD {
 	
 	private Animation animation;
+	
+	private int width, height;
 	
 	private int ellapsedTime, totalTime;
 	private boolean loop, pingPong;
 	
-	public TimedAnimation(Animation animation) {
+	public TimedAnimationOLD(Animation animation) {
 		this(animation, true, false);
 	}
 	
-	public TimedAnimation(Animation animation, boolean loop, boolean pingPong) {
+	public TimedAnimationOLD(Animation animation, boolean loop, boolean pingPong) {
 		if (animation == null)
 			throw new RuntimeException("A timed animation has to contain an animation");
 		
@@ -57,6 +59,11 @@ public class TimedAnimation {
 		totalTime = 0;
 		for (int i : animation.getDurations()) {
 			totalTime += i;
+		}
+		
+		for (int i = 0 ; i < anim.getFrameCount() ; i++) {
+			height = Math.max(anim.getImage(i).getHeight(), height);
+			width = Math.max(anim.getImage(i).getWidth(), width);
 		}
 		
 		this.loop = loop;
@@ -176,7 +183,7 @@ public class TimedAnimation {
 	}
 	
 	public void draw(float x, float y) {
-		animation.draw(x, y);
+		animation.draw(x, y, width, height);
 	}
 
 }

@@ -22,12 +22,6 @@ package engine.animations;
 public interface IAnimatedObject {
 	
 	/**
-	 * Init the management of all the animation states.
-	 * @param states - all the possible states for this object.
-	 */
-	public void initAnimationStates(IAnimatedState[] states);
-	
-	/**
 	 * Set the object animation to the given state if possible. Return true if
 	 * the state has been changed, false otherwise.
 	 * @param state - the new animation state for the object.
@@ -35,6 +29,6 @@ public interface IAnimatedObject {
 	 */
 	public boolean setAnimation(IAnimatedState state);
 	
-	public IAnimatedState getState(IAnimationType type);
+	public IAnimatedState getState();
 
 }
