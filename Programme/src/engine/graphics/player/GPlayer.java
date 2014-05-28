@@ -82,8 +82,8 @@ public class GPlayer implements IDrawable {
 	
 	private Player player;
 	
-	private float shiftX = Game.SCREEN_WIDTH / 2;
-	private float shiftY = Game.SCREEN_HEIGHT / 2;
+	private float shiftX = 0;
+	private float shiftY = 0;
 	
 	private IAnimatedState current;
 	
@@ -95,7 +95,7 @@ public class GPlayer implements IDrawable {
 	@Override
 	public void draw(Graphics g) {
 		if (current != null) {
-			current.getAnimation().draw(shiftX, shiftY);
+			current.getAnimation().draw(player.getPosX() * 64, (10 - player.getPosY()) * 64);
 			
 			// DEBUG - bounds
 			float x = shiftX - current.getAnimation().getWidth() / 2;

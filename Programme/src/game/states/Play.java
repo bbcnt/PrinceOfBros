@@ -24,6 +24,7 @@ import engine.modifications.graphics.UpdateDrawableObject;
 public class Play extends BasicGameState {
 	
 	private TiledMap background;
+	private int idLayerContent;
 	
 	private Player player;
 	private GPlayer gPlayer;
@@ -34,8 +35,6 @@ public class Play extends BasicGameState {
 		Engine.getInstance().init();
 		
 		background = new TiledMap("./res/Map.tmx");
-		
-//		background = new Image("res/Hydrangeas.jpg");
 		
 		Image[] heroLeft = {
 		      new Image("res/player/move_00_left_0.png"),
@@ -68,7 +67,7 @@ public class Play extends BasicGameState {
 		int[] durationAttack = {100, 100, 100};
 		
 		// Init player
-		player = new Player(0, 0);
+		player = new Player(0, 5);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
 		
@@ -100,14 +99,23 @@ public class Play extends BasicGameState {
 //		player.initAnimationStates(playerStates);
 		
 		DebugInformations.getInstance().registerPlayer(player);
+		
+		idLayerContent = background.getLayerIndex("Content");
+		
+		System.out.println("Map size: " + background.getHeight() + "x" + background.getWidth());
+		System.out.println("Number of layers: " + background.getLayerCount());
+		System.out.println("Tile size: " + background.getTileHeight());
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 	      throws SlickException {
 		
-		background.render((int)player.getPosX(),(int) player.getPosY());
+		// Using float position.
 		
+		background.render(0, 0);
+		// Temporaire.
+		g.drawRect((float)Math.floor(player.getPosX()) * background.getTileHeight(), (float)Math.floor(10 - player.getPosY()) * background.getTileHeight(), 64, 64);
 		gPlayer.draw(g);
 		
 		// DEBUG
