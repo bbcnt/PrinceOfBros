@@ -20,6 +20,7 @@ import engine.animations.NTimedAnimation;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
+import engine.modifications.player.MoveDown;
 
 public class Play extends BasicGameState {
 	
@@ -98,7 +99,11 @@ public class Play extends BasicGameState {
 //		
 //		player.initAnimationStates(playerStates);
 		
+		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().registerPlayer(player);
+		
+		// Register every Drawable item
+		DebugInformations.getInstance().registerDrawableObject(gPlayer, getID());
 		
 		idLayerContent = background.getLayerIndex("Content");
 		
@@ -115,7 +120,7 @@ public class Play extends BasicGameState {
 		
 		background.render(0, 0);
 		// Temporaire.
-		g.drawRect((float)Math.floor(player.getPosX()) * background.getTileHeight(), (float)Math.floor(10 - player.getPosY()) * background.getTileHeight(), 64, 64);
+		g.drawRect((float)Math.floor(player.getPosX()) * background.getTileHeight(), (float)Math.floor(10 - player.getPosY()) * background.getTileHeight(), background.getTileWidth(), background.getTileHeight());
 		gPlayer.draw(g);
 		
 		// DEBUG
@@ -155,6 +160,14 @@ public class Play extends BasicGameState {
 		
 		playerControl.endUpdate();
 		
+		// DEBUG controls
+		if (input.isKeyDown(Input.KEY_UP)) {
+			Engine.getInstance().addModification(new MoveDown(-delta,player));
+		}
+		if (input.isKeyDown(Input.KEY_DOWN)) {
+			Engine.getInstance().addModification(new MoveDown(delta,player));
+		}
+		
 		// FIXME remove when list of drawable object manage in engine
 		Engine.getInstance().addModification(new UpdateDrawableObject(delta, gPlayer));
 		
@@ -169,6 +182,7 @@ public class Play extends BasicGameState {
 		}
 		
 		// DEBUG
+		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().updateUpdateDelta(delta);
 	}
 

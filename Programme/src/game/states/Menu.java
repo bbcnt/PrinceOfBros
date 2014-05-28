@@ -29,6 +29,7 @@ public class Menu extends BasicGameState {
 		g.drawString("Quit", 115, 155);
 		
 		// DEBUG
+		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().draw(g);
 	}
 

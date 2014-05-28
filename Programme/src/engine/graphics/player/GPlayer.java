@@ -15,7 +15,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import engine.animations.IAnimatedState;
-import engine.animations.IAnimationType;
 import engine.animations.NTimedAnimation;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
@@ -95,20 +94,29 @@ public class GPlayer implements IDrawable {
 	@Override
 	public void draw(Graphics g) {
 		if (current != null) {
-			current.getAnimation().draw(player.getPosX() * 64, (10 - player.getPosY()) * 64);
-			
-			// DEBUG - bounds
-			float x = shiftX - current.getAnimation().getWidth() / 2;
-			float y = shiftY - current.getAnimation().getHeight() / 2;
-			
-			g.setColor(Color.green);
-			g.drawRect(x, y, current.getAnimation().getWidth(), current.getAnimation().getHeight());
-			
-			// Center
-			g.fillRect(shiftX - 6, shiftY, 13, 2);
-			g.fillRect(shiftX, shiftY - 6, 2, 13);
+			current.getAnimation().draw(getX(),getY());
 		}
 	}
+
+	@Override
+   public float getX() {
+	   return player.getPosX() * 64; // FIXME use variable not a value
+   }
+
+	@Override
+   public float getY() {
+	   return (10 - player.getPosY()) * 64; // FIXME use variable not a value
+   }
+
+	@Override
+   public float getWidth() {
+	   return player.getState().getAnimation().getWidth();
+   }
+
+	@Override
+   public float getHeight() {
+	   return player.getState().getAnimation().getHeight();
+   }
 	
 	@Override
 	public void update(int delta) {
@@ -116,14 +124,6 @@ public class GPlayer implements IDrawable {
 		
 		if (current != null)
 			current.getAnimation().update(delta);
-	}
-	
-	@Override
-	public void updateBackward(int delta) {
-		current = player.getState();
-		
-		if (current != null)
-			current.getAnimation().update(-delta);
 	}
 
 }

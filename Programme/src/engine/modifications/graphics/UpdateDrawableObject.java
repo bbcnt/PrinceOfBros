@@ -42,7 +42,7 @@ public class UpdateDrawableObject extends SynchronizedModification {
 
 	@Override
    public void cancel() {
-	   object.updateBackward(getDelta());
+	   object.update(-getDelta());
    }
 
 }
