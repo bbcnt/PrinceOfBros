@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import debug.DebugInformations;
+import engine.CoordsConverter;
 import engine.Engine;
 import engine.animations.IAnimatedState;
 import engine.animations.TimedAnimation;
@@ -92,17 +93,22 @@ public class Play extends BasicGameState {
 		System.out.println("Map size: " + background.getHeight() + "x" + background.getWidth());
 		System.out.println("Number of layers: " + background.getLayerCount());
 		System.out.println("Tile size: " + background.getTileHeight());
+		
+		CoordsConverter.registerTileSize(background.getTileHeight());
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 	      throws SlickException {
 		
-		// Using float position.
+		background.render((int)CoordsConverter.getInstance().toGraphic(0), 
+								(int)CoordsConverter.getInstance().toGraphic(0));
 		
-		background.render(0, 0);
-		// Temporaire.
-		g.drawRect((float)Math.floor(player.getPosX()) * background.getTileHeight(), (float)Math.floor(10 - player.getPosY()) * background.getTileHeight(), background.getTileWidth(), background.getTileHeight());
+		// Draw a rectangle that highlight the current tile mario is on.
+		g.drawRect(CoordsConverter.getInstance().toGraphic((float)Math.floor(player.getPosX()) + 0.5f)- 32, 
+					  CoordsConverter.getInstance().toGraphic((float)Math.floor(10 - player.getPosY())),
+					  background.getTileWidth(), background.getTileHeight());
+		
 		gPlayer.draw(g);
 		
 		// DEBUG

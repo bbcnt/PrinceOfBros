@@ -14,6 +14,7 @@ package engine.graphics.player;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import engine.CoordsConverter;
 import engine.animations.IAnimatedState;
 import engine.animations.TimedAnimation;
 import engine.graphics.IDrawable;
@@ -81,9 +82,6 @@ public class GPlayer implements IDrawable {
 	
 	private Player player;
 	
-	private float shiftX = 0;
-	private float shiftY = 0;
-	
 	private IAnimatedState current;
 	
 	public GPlayer(Player player) {
@@ -100,12 +98,12 @@ public class GPlayer implements IDrawable {
 
 	@Override
    public float getX() {
-	   return player.getPosX() * 64; // FIXME use variable not a value
+	   return CoordsConverter.getInstance().toGraphic(player.getPosX());
    }
 
 	@Override
    public float getY() {
-	   return (10 - player.getPosY()) * 64; // FIXME use variable not a value
+	   return CoordsConverter.getInstance().toGraphic(10 - player.getPosY());
    }
 
 	@Override
