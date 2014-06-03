@@ -11,7 +11,6 @@
  */
 package engine.graphics.player;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import engine.CoordsConverter;
@@ -19,7 +18,6 @@ import engine.animations.IAnimatedState;
 import engine.animations.TimedAnimation;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
-import game.states.Game;
 
 /**
  * TODO

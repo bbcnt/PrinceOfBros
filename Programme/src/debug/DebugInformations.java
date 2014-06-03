@@ -15,13 +15,13 @@ package debug;
 import java.util.LinkedList;
 import java.util.List;
 
-import engine.Engine;
-import engine.graphics.IDrawable;
-import engine.models.player.Player;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+
+import engine.Engine;
+import engine.graphics.IDrawable;
+import engine.models.player.Player;
 
 /**
  * Displayed values on the top of the game panel.
