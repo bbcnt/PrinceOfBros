@@ -25,21 +25,6 @@ public class Mario extends GameObject {
 	 * @param o
 	 */
 	public Mario(TypeObject t) {
-		super(TypeObject.Mario);
+		super(64,64);
 	}
-
-	@Override
-	public void intersectWith(GameObject o) {
-		if (this.isIntersect(o)) {
-			if (o.getType() == TypeObject.Enemy) {
-				// Mourir si touché par l'ennemi
-			}
-
-			if (o.getType() == TypeObject.Tile) {
-				// Traverser l'obstacle
-			}
-		}
-
-	}
-
 }

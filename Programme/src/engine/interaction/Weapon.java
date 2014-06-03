@@ -25,17 +25,6 @@ public class Weapon extends GameObject {
 	 * @param t
 	 */
 	public Weapon(TypeObject t) {
-		super(TypeObject.Weapon);
+		super(64,64);
 	}
-
-	@Override
-	public void intersectWith(GameObject o) {
-		if (this.isIntersect(o)) {
-			if (o.getType() == TypeObject.Enemy) {
-				// Tuer l'ennemi
-			}
-		}
-
-	}
-
 }

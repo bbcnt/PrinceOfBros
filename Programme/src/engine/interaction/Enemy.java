@@ -21,20 +21,11 @@ package engine.interaction;
  */
 public class Enemy extends GameObject {
 
-	
-
-
 	/**
 	 * @param o
 	 * @param t
 	 */
    public Enemy(TypeObject t) {
-	   super(TypeObject.Enemy);
+	   super(64,64);
    }
-
-	@Override
-   public void intersectWith(GameObject o) {
-		
-	}
-	
 }

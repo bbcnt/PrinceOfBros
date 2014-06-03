@@ -25,15 +25,9 @@ public class Tile extends GameObject {
 	 * @param t
 	 */
    public Tile() {
-	   super(TypeObject.Tile);
+	   super(64,64);
 	   // TODO Auto-generated constructor stub
    }
-
-	@Override
-	public void intersectWith(GameObject o) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public boolean isObstacle() {
 		return true;
