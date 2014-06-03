@@ -29,7 +29,9 @@ public abstract class GameObject {
 	
 	private HitBox hitbox;
 	
-	public GameObject(int hitBoxWidth, int hitBoxHeight) {
+	public GameObject(float x, float y, int hitBoxWidth, int hitBoxHeight) {
+		this.x = x;
+		this.y = y;
 		hitbox = new HitBox(x, y, hitBoxWidth, hitBoxHeight);
 	}
 	

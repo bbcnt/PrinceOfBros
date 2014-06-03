@@ -20,13 +20,14 @@ package engine.interaction;
  *
  */
 public class Tile extends GameObject {
+	
+	private static int hitBoxSize = 64;
 
 	/**
 	 * @param t
 	 */
-   public Tile() {
-	   super(64,64);
-	   // TODO Auto-generated constructor stub
+   public Tile(float x, float y) {
+	   super(x,y, hitBoxSize,hitBoxSize);
    }
 	
 	public boolean isObstacle() {

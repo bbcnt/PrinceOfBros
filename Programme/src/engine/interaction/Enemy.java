@@ -26,6 +26,6 @@ public class Enemy extends GameObject {
 	 * @param t
 	 */
    public Enemy(TypeObject t) {
-	   super(64,64);
+	   super(0,0,64,64);
    }
 }

@@ -25,6 +25,6 @@ public class Weapon extends GameObject {
 	 * @param t
 	 */
 	public Weapon(TypeObject t) {
-		super(64,64);
+		super(0,0,64,64);
 	}
 }

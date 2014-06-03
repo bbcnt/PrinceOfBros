@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : Mario.java
+ * Filename   : Builder.java
  * ============================================================================
- * Created on : 27 mai 2014
+ * Created on : 3 juin 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -17,14 +17,26 @@ package engine.interaction;
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
- * 
+ *
  */
-public class Mario extends GameObject {
-
-	/**
-	 * @param o
-	 */
-	public Mario(TypeObject t) {
-		super(0,0, 64,64);
+public class Builder {
+	
+	private static Builder instance;
+	
+	private Builder(){}
+	
+	public static Builder getInstance() {
+		if(instance == null)
+			instance = new Builder();
+		return instance;
 	}
+	
+	/**
+	 * For now, our builder can create only Tile.
+	 * @return
+	 */
+	public GameObject createGameObject(float x, float y) {
+		return new Tile(x,y);
+	}
+
 }

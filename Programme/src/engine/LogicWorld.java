@@ -13,6 +13,7 @@ package engine;
 
 import org.newdawn.slick.tiled.TiledMap;
 
+import engine.interaction.Builder;
 import engine.interaction.GameObject;
 
 /**
@@ -39,23 +40,39 @@ public class LogicWorld {
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
 				// Debug les tiles considerées comme des obstacles.
-				// System.out.print(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false") + "|");
-				
-				//world[i][j] = Builder.createGameObject(...stuff...)
+				//System.out.print(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false") + "|");
+				if(Boolean.valueOf(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false")))
+					world[i][j] = Builder.getInstance().createGameObject(j+0.5f,i+0.5f);
+				else
+					world[i][j] = null;
 			}
-			// System.out.println();
+			//System.out.println();
 		}
 	}
 	
 	/**
 	 * Returns the gameObject on the tile (x,y)
-	 * @param x The column of the tile.
-	 * @param y The line of the tile.
-	 * @return
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+	 * @return The game object on this tile or null if there is not one on the given position.
 	 */
 	public GameObject getTile(int x, int y) {
 		if(x >= width || y >= height || x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		return world[y][x];
+	}
+	
+	/**
+	 * Simply prints a quick representation of the world. (Debug)
+	 */
+	public String toString() {
+		String result = "Map: " + height + " rows X " + width + " columns\n";
+		for(int i = 0; i < height; ++i) {
+			for(int j = 0; j < width; ++j) {
+				result += (world[i][j] != null?"tile": "null") + "|";
+			}
+			result += "\n";
+		}
+		return result;
 	}
 }

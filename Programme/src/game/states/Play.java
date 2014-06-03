@@ -102,10 +102,9 @@ public class Play extends BasicGameState {
 		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().registerPlayer(player);
 
-		System.out.println("Map size: " + background.getHeight() + "x"
-		      + background.getWidth());
 		System.out.println("Number of layers: " + background.getLayerCount());
 		System.out.println("Tile size: " + background.getTileHeight());
+		System.out.println(world);
 	}
 
 	@Override
