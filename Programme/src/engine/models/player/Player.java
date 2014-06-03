@@ -8,6 +8,9 @@ public class Player implements IAnimatedObject {
 	
 	private float posX;
 	private float posY;
+	private final float maxLife = 100;
+	private final float minLife = 0;
+	private float currentLife;
 	
 	private float speed = .003f;
 	
@@ -18,6 +21,7 @@ public class Player implements IAnimatedObject {
 	public Player(float posX, float posY) {
 		this.posX = posX;
 		this.posY = posY;
+		setCurrentLife(100);
 	}
 	
 	/*---Getters---------------------------------------------------------------*/
@@ -72,4 +76,20 @@ public class Player implements IAnimatedObject {
 	public IAnimatedState getState() {
 		return state;
 	}
+
+	public float getMaxLife() {
+	   return maxLife;
+   }
+
+	public float getCurrentLife() {
+	   return currentLife;
+   }
+
+	public void setCurrentLife(float currentLife) {
+	   this.currentLife = currentLife;
+   }
+
+	public float getMinLife() {
+	   return minLife;
+   }
 }

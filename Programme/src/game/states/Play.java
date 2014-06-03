@@ -13,6 +13,7 @@ import debug.DebugInformations;
 import engine.CoordsConverter;
 import engine.Engine;
 import engine.animations.TimedAnimation;
+import engine.graphics.player.ATH;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
@@ -73,6 +74,7 @@ public class Play extends BasicGameState {
 		player = new Player(0.5f, 4.5f);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
+		ATH.getInstance().register(player);
 
 		// Animations setup
 		GPlayer.AnimationState.IdleLeft.init(new TimedAnimation(heroIdleLeft,
@@ -120,6 +122,8 @@ public class Play extends BasicGameState {
 		      background.getTileWidth(), background.getTileHeight());
 
 		gPlayer.draw(g);
+		ATH.getInstance().draw(g);
+		
 
 		// DEBUG
 		DebugInformations.getInstance().draw(g);
@@ -130,6 +134,7 @@ public class Play extends BasicGameState {
 	      throws SlickException {
 		Input input = gc.getInput();
 
+		ATH.getInstance().update(delta);
 		Engine.getInstance().beginUpdate();
 
 		boolean goBackward = false;
