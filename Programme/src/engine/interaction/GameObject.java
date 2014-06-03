@@ -11,10 +11,8 @@
  */
 package engine.interaction;
 
-import java.awt.Rectangle;
-
 /**
- * TODO
+ * Represent an entity in the game. 
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -23,17 +21,19 @@ import java.awt.Rectangle;
  */
 public abstract class GameObject {
 
+	// Coordonnées logiques centrées.
 	private float x;
 	private float y;
-	private float width;
-	private float height;
 	
 	public TypeObject type;
 	
-	public GameObject(TypeObject t) {
-		type = t;
-	}
+	private HitBox hitbox;
 	
+	public GameObject(float x, float y, int hitBoxWidth, int hitBoxHeight) {
+		this.x = x;
+		this.y = y;
+		hitbox = new HitBox(x, y, hitBoxWidth, hitBoxHeight);
+	}
 	
 	/**
 	 * @return the type
@@ -42,70 +42,58 @@ public abstract class GameObject {
 		return type;
 	}
 
-
 	/**
-	 * @return the x
+	 * @return Return the value of the horizontal position.
 	 */
 	public float getX() {
 		return x;
 	}
 
 	/**
-	 * @param x the x to set
+	 * @param f The new value of the horizontal position.
 	 */
-	public void setX(float x) {
-		this.x = x;
+	public void setX(float f) {
+		this.x = f;
+		hitbox.setX(f);
 	}
 
 	/**
-	 * @return the y
+	 * @return Return the value of the vertical position.
 	 */
 	public float getY() {
 		return y;
 	}
 
 	/**
-	 * @param y the y to set
+	 * @param f The new value of the vertical position.
 	 */
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	/**
-	 * @return the width
-	 */
-	public float getWidth() {
-		return width;
-	}
-
-	/**
-	 * @param width the width to set
-	 */
-	public void setWidth(float width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the height
-	 */
-	public float getHeight() {
-		return height;
-	}
-
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(float height) {
-		this.height = height;
+	public void setY(float f) {
+		this.y = f;
+		hitbox.setY(f);
 	}
 	
+	/**
+	 * Offsets the horizontal position of the object.
+	 * @param f The value of the offset.
+	 */
+	public void moveX(float f) {
+		setX(getX() + f);
+	}
+	
+	/**
+	 * Offsets the vertical position of the object.
+	 * @param f The value of the offset.
+	 */
+	public void moveY(float f) {
+		setY(getY() + f);
+	}
+	
+	/**
+	 * Checks the intersection with another game object.
+	 * @param o The other game object.
+	 * @return true if there is a collision.
+	 */
 	public boolean isIntersect(GameObject o) {
-		Rectangle thisRectangle = new Rectangle((int)this.x, (int)this.y, (int)this.width, (int)this.height);
-		Rectangle oRect = new Rectangle((int)o.getX(), (int)o.getY(), (int)o.getWidth(), (int)o.getHeight());
-		
-		return thisRectangle.intersects(oRect);
-	}
-	
-	public abstract void intersectWith(GameObject o);
-	
+		return hitbox.intersectsWith(o.hitbox);
+	}	
 }

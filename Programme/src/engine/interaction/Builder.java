@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : IModification.java
+ * Filename   : Builder.java
  * ============================================================================
- * Created on : 13 mai 2014
+ * Created on : 3 juin 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -9,27 +9,34 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-
-package engine.modifications;
+package engine.interaction;
 
 /**
- * Defines a reversible modification.
- * 
+ * TODO
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public interface IModification {
+public class Builder {
+	
+	private static Builder instance;
+	
+	private Builder(){}
+	
+	public static Builder getInstance() {
+		if(instance == null)
+			instance = new Builder();
+		return instance;
+	}
 	
 	/**
-	 * Apply the modification. 
+	 * For now, our builder can create only Tile.
+	 * @return
 	 */
-	public void apply();
-	
-	/**
-	 * Restore the state before the modification.
-	 */
-	public void cancel();
+	public GameObject createGameObject(float x, float y) {
+		return new Tile(x,y);
+	}
+
 }

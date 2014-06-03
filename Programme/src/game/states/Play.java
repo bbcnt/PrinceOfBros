@@ -12,9 +12,11 @@ import org.newdawn.slick.tiled.TiledMap;
 import debug.DebugInformations;
 import engine.CoordsConverter;
 import engine.Engine;
+import engine.LogicWorld;
 import engine.animations.TimedAnimation;
 import engine.graphics.player.ATH;
 import engine.graphics.player.GPlayer;
+import engine.interaction.GameObject;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
 import engine.modifications.player.MoveDown;
@@ -29,13 +31,14 @@ public class Play extends BasicGameState {
 	private Player player;
 	private GPlayer gPlayer;
 	private PlayerControl playerControl;
+	
+	private LogicWorld world;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		Engine.getInstance().init();
 
 		background = new TiledMap("./res/Map.tmx");
-
 		Image[] heroLeft = {
 		      new Image("res/player/move_00_left_0.png"),
 		      new Image("res/player/move_00_left_1.png")
@@ -89,21 +92,27 @@ public class Play extends BasicGameState {
 		      heroAttackLeft, durationAttack), false);
 		GPlayer.AnimationState.AttackingRight.init(new TimedAnimation(
 		      heroAttackRight, durationAttack), false);
+		
 
+		// Init player
+		player = new Player(0.5f, 4.5f);
+		gPlayer = new GPlayer(player);
+		playerControl = new PlayerControl(player);
+		
+		// Init map
+		background = new TiledMap("./res/Map.tmx");
+		CoordsConverter.registerTileSize(background.getTileHeight());
+		world = new LogicWorld(background);
+		
+		// Debug information
+		// Register every Drawable item
+		DebugInformations.getInstance().registerDrawableObject(gPlayer, getID());
 		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().registerPlayer(player);
 
-		// Register every Drawable item
-		DebugInformations.getInstance().registerDrawableObject(gPlayer, getID());
-
-		idLayerContent = background.getLayerIndex("Content");
-
-		System.out.println("Map size: " + background.getHeight() + "x"
-		      + background.getWidth());
 		System.out.println("Number of layers: " + background.getLayerCount());
 		System.out.println("Tile size: " + background.getTileHeight());
-
-		CoordsConverter.registerTileSize(background.getTileHeight());
+		System.out.println(world);
 	}
 
 	@Override
