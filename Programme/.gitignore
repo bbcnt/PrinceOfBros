@@ -1,4 +1,6 @@
 /bin
 
+/.metadata
+
 # Fichiers Gimp
 *.xcf
