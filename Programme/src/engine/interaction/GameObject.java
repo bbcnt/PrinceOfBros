@@ -40,7 +40,6 @@ public abstract class GameObject {
 		return type;
 	}
 
-
 	/**
 	 * @return Return the value of the horizontal position.
 	 */

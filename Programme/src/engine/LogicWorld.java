@@ -39,11 +39,11 @@ public class LogicWorld {
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
 				// Debug les tiles considerées comme des obstacles.
-				System.out.print(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false") + "|");
+				// System.out.print(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false") + "|");
 				
 				//world[i][j] = Builder.createGameObject(...stuff...)
 			}
-			System.out.println();
+			// System.out.println();
 		}
 	}
 	
