@@ -37,7 +37,6 @@ public class CoordsConverter {
 		instance.tileSize = f;
 	}
 	
-	
 	public static CoordsConverter getInstance() {
 		if(instance == null)
 			instance = new CoordsConverter();
@@ -57,5 +56,4 @@ public class CoordsConverter {
 		}
 		return tileSize * f; 
 	}
-
 }

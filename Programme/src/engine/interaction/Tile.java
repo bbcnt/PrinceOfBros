@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : Obstacle.java
+ * Filename   : Tile.java
  * ============================================================================
- * Created on : 27 mai 2014
+ * Created on : 3 juin 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -19,19 +19,24 @@ package engine.interaction;
  * @author Schweizer Thomas
  *
  */
-public class Obstacle extends GameObject {
+public class Tile extends GameObject {
 
 	/**
 	 * @param t
 	 */
-	public Obstacle(TypeObject t) {
-		super(TypeObject.Obstacle);
-	}
+   public Tile() {
+	   super(TypeObject.Tile);
+	   // TODO Auto-generated constructor stub
+   }
 
 	@Override
 	public void intersectWith(GameObject o) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public boolean isObstacle() {
+		return true;
 	}
 
 }

@@ -23,5 +23,5 @@ public enum TypeObject {
 	Mario,
 	Enemy,
 	Weapon,
-	Obstacle;
+	Tile;
 }

@@ -35,7 +35,7 @@ public class Mario extends GameObject {
 				// Mourir si touché par l'ennemi
 			}
 
-			if (o.getType() == TypeObject.Obstacle) {
+			if (o.getType() == TypeObject.Tile) {
 				// Traverser l'obstacle
 			}
 		}
