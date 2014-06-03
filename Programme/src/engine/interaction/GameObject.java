@@ -19,7 +19,7 @@ package engine.interaction;
  * @author Schweizer Thomas
  *
  */
-public abstract class GameObject {
+public abstract class GameObject implements ICollisionWith {
 
 	// Coordonnées logiques centrées.
 	private float x;
@@ -96,4 +96,17 @@ public abstract class GameObject {
 	public boolean isIntersect(GameObject o) {
 		return hitbox.intersectsWith(o.hitbox);
 	}	
+	
+	public void action(Mario m) {
+		// Nothing to do by default.
+	}
+	public void action(Enemy e) {
+		// Nothing to do by default.
+	}
+	public void action(Tile t) {
+		// Nothing to do by default.
+	}
+	public void action(Weapon w) {
+		// Nothing to do by default.
+	}
 }

@@ -16,7 +16,6 @@ import engine.LogicWorld;
 import engine.animations.TimedAnimation;
 import engine.graphics.player.ATH;
 import engine.graphics.player.GPlayer;
-import engine.interaction.GameObject;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
 import engine.modifications.player.MoveDown;
@@ -26,7 +25,6 @@ import game.controlls.PlayerControl;
 public class Play extends BasicGameState {
 
 	private TiledMap background;
-	private int idLayerContent;
 
 	private Player player;
 	private GPlayer gPlayer;

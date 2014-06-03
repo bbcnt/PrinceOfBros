@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : Mario.java
+ * Filename   : ICollisionWith.java
  * ============================================================================
- * Created on : 27 mai 2014
+ * Created on : 3 juin 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -12,29 +12,15 @@
 package engine.interaction;
 
 /**
- * TODO
+ * Defines the action todo when a game objet collision with a certain object.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
- * 
  */
-public class Mario extends GameObject {
-
-	/**
-	 * @param o
-	 */
-	public Mario(TypeObject t) {
-		super(0,0, 64,64);
-	}
-	
-	public void action(Enemy e) {
-		// TODO
-	}
-	public void action(Tile t) {
-		// TODO
-	}
-	public void action(Weapon w) {
-		// TODO
-	}
+public interface ICollisionWith {
+	public void action(Mario m);
+	public void action(Enemy e);
+	public void action(Tile t);
+	public void action(Weapon w);
 }
