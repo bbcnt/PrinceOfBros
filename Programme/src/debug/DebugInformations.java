@@ -19,7 +19,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import engine.Engine;
+import engine.GameController;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
 
@@ -133,15 +133,15 @@ public class DebugInformations {
 		
 		// Modification stack
 		if (SHOW_STACK_COMPLETION) {
-			int stackSize = Engine.getInstance().getStackSize();
-			int stackCapacity = Engine.getInstance().getStackCapacityLogical();
+			int stackSize = GameController.getInstance().getStackSize();
+			int stackCapacity = GameController.getInstance().getStackCapacityLogical();
 			
 			text += "Stack : " + stackSize + " / " + stackCapacity + "\n"; 
 		}
 		
 		if (SHOW_STACK_COMPLETION_PERCENT) {
-			int stackSize = Engine.getInstance().getStackSize();
-			int stackCapacity = Engine.getInstance().getStackCapacityLogical();
+			int stackSize = GameController.getInstance().getStackSize();
+			int stackCapacity = GameController.getInstance().getStackCapacityLogical();
 			
 			text += "Stack : "
 					+ String.format("%.2f", 100.0*(double)stackSize /

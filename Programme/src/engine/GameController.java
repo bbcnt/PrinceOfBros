@@ -22,11 +22,14 @@ import engine.modifications.IModificationTransaction;
  * @author Schweizer Thomas
  *
  */
-public class Engine {
+public class GameController {
 	
 	private ModificationManager modStack;
 	
 	private IModificationTransaction currentTransaction;
+	
+	// Tile map of the world.
+	private LogicWorld map;
 	
 	/*---Getters---------------------------------------------------------------*/
 	
@@ -90,19 +93,23 @@ public class Engine {
 		modStack.setCapacityPhysical(capacity);
 	}
 	
+	public void registerMap(LogicWorld map) {
+		this.map = map;
+	}
+	
 	/*---Singleton part--------------------------------------------------------*/
 	
-	public static Engine getInstance() {
+	public static GameController getInstance() {
 		return Instance.instance;
 	}
 	
-	private Engine() {
+	private GameController() {
 		modStack = new ModificationManager(300, 500);
 		currentTransaction = ModificationManager.EMPTY_TRANSACTION;
 	}
 	
 	private static class Instance {
-		private static final Engine instance = new Engine();
+		private static final GameController instance = new GameController();
 	}
 
 }

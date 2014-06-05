@@ -11,7 +11,7 @@
  */
 package game.controlls;
 
-import engine.Engine;
+import engine.GameController;
 import engine.animations.IAnimatedState;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
@@ -119,11 +119,11 @@ public class PlayerControl {
 		
 		// Add action
 		if (currentAction != null && cooldownCounter == 0) {
-			Engine.getInstance().addModification(currentAction);
+			GameController.getInstance().addModification(currentAction);
 		}
 		
-		Engine.getInstance().addModification(movementHor);
-		Engine.getInstance().addModification(movementVer);
+		GameController.getInstance().addModification(movementHor);
+		GameController.getInstance().addModification(movementVer);
 		
 		// Choose animation
 		IAnimatedState oldState = player.getState();
@@ -167,7 +167,7 @@ public class PlayerControl {
 			
 			// Then add the change if there is one.
 			if (newState != null)
-				Engine.getInstance().addModification(new AnimationChange(player, newState));
+				GameController.getInstance().addModification(new AnimationChange(player, newState));
 			
 		}
 		

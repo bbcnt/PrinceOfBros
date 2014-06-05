@@ -23,7 +23,7 @@ import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
 
-import engine.Engine;
+import engine.GameController;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
 import game.states.Game;
@@ -64,7 +64,7 @@ public class ATH implements IDrawable{
 		catch(Exception e){}
 		
 		lifeBar = new Rectangle(x, y, width * (player.getCurrentLife() / player.getMaxLife()), height);
-		mushroomBar = new Rectangle(x, y + 25, width * Engine.getInstance().getStackSize() / Engine.getInstance().getStackCapacityLogical(), height);
+		mushroomBar = new Rectangle(x, y + 25, width * GameController.getInstance().getStackSize() / GameController.getInstance().getStackCapacityLogical(), height);
 		
       lifeFill = new GradientFill(x, 0, new Color(255, 60, 0),
             x + width, 20, new Color(255, 180, 0));
@@ -120,7 +120,7 @@ public class ATH implements IDrawable{
                                            x + width, 20, new Color(255, 180, 0));
       //MP Bar
       font.drawString(x - 40, y + 25, "MP", new Color(0,0, 255));
-      mushroomBar = new Rectangle(x, y + 25, width * Engine.getInstance().getStackSize() / Engine.getInstance().getStackCapacityLogical(), height);
+      mushroomBar = new Rectangle(x, y + 25, width * GameController.getInstance().getStackSize() / GameController.getInstance().getStackCapacityLogical(), height);
       mushroomFill = new GradientFill(x, 0, new Color(0, 60, 255),
                                            x + width, 20, new Color(0, 180, 255));
       

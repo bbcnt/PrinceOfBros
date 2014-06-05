@@ -11,7 +11,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import debug.DebugInformations;
 import engine.CoordsConverter;
-import engine.Engine;
+import engine.GameController;
 import engine.LogicWorld;
 import engine.animations.TimedAnimation;
 import engine.graphics.player.ATH;
@@ -34,7 +34,7 @@ public class Play extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		Engine.getInstance().init();
+		GameController.getInstance().init();
 
 		background = new TiledMap("./res/Map.tmx");
 		Image[] heroLeft = {
@@ -99,8 +99,12 @@ public class Play extends BasicGameState {
 		
 		// Init map
 		background = new TiledMap("./res/Map.tmx");
-		CoordsConverter.registerTileSize(background.getTileHeight());
 		world = new LogicWorld(background);
+		
+		// Registering
+
+		CoordsConverter.registerTileSize(background.getTileHeight());
+		GameController.getInstance().registerMap(world);
 		
 		// Debug information
 		// Register every Drawable item
@@ -142,7 +146,7 @@ public class Play extends BasicGameState {
 		Input input = gc.getInput();
 
 		ATH.getInstance().update(delta);
-		Engine.getInstance().beginUpdate();
+		GameController.getInstance().beginUpdate();
 
 		boolean goBackward = false;
 
@@ -172,20 +176,20 @@ public class Play extends BasicGameState {
 
 		// DEBUG controls
 		if (input.isKeyDown(Input.KEY_UP)) {
-			Engine.getInstance().addModification(new MoveDown(-delta, player));
+			GameController.getInstance().addModification(new MoveDown(-delta, player));
 		}
 		if (input.isKeyDown(Input.KEY_DOWN)) {
-			Engine.getInstance().addModification(new MoveDown(delta, player));
+			GameController.getInstance().addModification(new MoveDown(delta, player));
 		}
 
 		// FIXME remove when list of drawable object manage in engine
-		Engine.getInstance().addModification(
+		GameController.getInstance().addModification(
 		      new UpdateDrawableObject(delta, gPlayer));
 
 		if (goBackward)
-			Engine.getInstance().revertLastUpdate();
+			GameController.getInstance().revertLastUpdate();
 		else
-			Engine.getInstance().commitUpdate();
+			GameController.getInstance().commitUpdate();
 
 		// Escape
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
