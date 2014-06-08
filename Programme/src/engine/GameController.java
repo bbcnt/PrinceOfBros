@@ -11,6 +11,9 @@
  */
 package engine;
 
+import java.util.LinkedList;
+
+import engine.interaction.GameObject;
 import engine.modifications.IModification;
 import engine.modifications.IModificationTransaction;
 
@@ -30,6 +33,9 @@ public class GameController {
 	
 	// Tile map of the world.
 	private LogicWorld map;
+	
+	// List of moving gameobjects
+	private LinkedList<GameObject> movableGameObjects = new LinkedList<>();
 	
 	/*---Getters---------------------------------------------------------------*/
 	
