@@ -106,20 +106,20 @@
   <image source="Destructible_Zelda_OoT.png" width="64" height="64"/>
   <tile id="0">
    <properties>
-    <property name="breakable" value="false"/>
+    <property name="break" value="true"/>
     <property name="name" value="breakable"/>
     <property name="obstacle" value="true"/>
    </properties>
   </tile>
  </tileset>
- <layer name="Background" width="50" height="10">
+ <layer name="Background" width="50" height="10" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNmYGAQphCLkqlPFojlkPiCQCxEQA0lWBHJLJi5ikjykiS4lVJ34dJPrj3kxgGl7qV2XCnSyFxqYmxuHAyY1HAarP4YxaN4FJOHAd25H5rQBwAA
+   H4sIAAAAAAAACxNmYGAQphCLkqlPFojlkPiCQCxEQA0lGNksbOZKkuBWSt2FSz+59pAbB5S6l9pxhS0OqJkGhjMeDadRPIpHNgYApCZyp9AHAAA=
   </data>
  </layer>
  <layer name="Content" width="50" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1R2wqAIBQ7eHlIof7/bzNQGOOsfAgqaDAMt2Obmv348U7kpwPchC/28DK/oUcSjJ2p+7KzH8mPZ0bSk6Mb+JTGeYzmhh4aS18VBwL4lwtfJa065xj4PG3MVdNZPBZYy8ms6s09uAvrB9bGTWh4B7P/YD92mbmDGR/r/K009aaYdwfWkbTd0AcAAA==
+   H4sIAAAAAAAAC+1S7QqAIBA7/PiRQj1D7/+SKXhwjTuzXxY4GEqbumlEC+fsAAs38HvEqSn6ePPP/LGHlvkLPYJB31jntVNUvnvwyz096EHRSfgsDfMQrGPdFaY2WmQ44d8efBm0rOxDwqdpvC6TnUVjEmPqrLV6Yw/sgnrFXngYmryD0TPQL7uM3MGID3WcW5r1pjLvBcH/Vr7QBwAA
   </data>
  </layer>
 </map>

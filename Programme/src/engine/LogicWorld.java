@@ -15,6 +15,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import engine.interaction.Builder;
 import engine.interaction.GameObject;
+import engine.interaction.tiles.Tile;
 
 /**
  * Represent the current world of the game.
@@ -39,15 +40,30 @@ public class LogicWorld {
 		
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
-				// Debug les tiles considerées comme des obstacles.
-				//System.out.print(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false") + "|");
-				if(Boolean.valueOf(map.getTileProperty(map.getTileId(j, i, idLayerContent), "obstacle", "false")))
-					world[i][j] = Builder.getInstance().createGameObject(j+0.5f,i+0.5f);
+
+				// Create world tiles.
+				if(checkTileProperty(map, j, i, idLayerContent, "obstacle"))
+					if(checkTileProperty(map, j, i, idLayerContent, "break"))
+						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,i+0.5f, Builder.TileType.Breakable);
+					else
+						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,i+0.5f, Builder.TileType.Solid);
 				else
 					world[i][j] = null;
 			}
-			//System.out.println();
 		}
+	}
+	
+	/**
+	 * Check if the property of a given tile exists.
+	 * @param map The TiledMap containing the tile
+	 * @param x The horizontal position of the tile
+	 * @param y The vertical position of the tile
+	 * @param layer The layer of the map where the tile is on
+	 * @param property The property we are looking for
+	 * @return True if this tile contains the property, false otherwise.
+	 */
+	private boolean checkTileProperty(TiledMap map, int x, int y, int layer, String property) {
+		return Boolean.valueOf(map.getTileProperty(map.getTileId(x, y, layer), property, "false"));
 	}
 	
 	/**
@@ -69,7 +85,7 @@ public class LogicWorld {
 		String result = "Map: " + height + " rows X " + width + " columns\n";
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
-				result += (world[i][j] != null?"tile": "null") + "|";
+				result += (world[i][j] != null?(((Tile)world[i][j]).isBreakable()?"brea":"soli"): "null") + "|";
 			}
 			result += "\n";
 		}

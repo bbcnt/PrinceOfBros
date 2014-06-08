@@ -11,6 +11,8 @@
  */
 package engine.interaction;
 
+import engine.interaction.tiles.Tile;
+
 /**
  * Represent an entity in the game. 
  * @author Brito Carvalho Bruno
@@ -25,8 +27,6 @@ public abstract class GameObject implements ICollisionWith {
 	private float x;
 	private float y;
 	
-	public TypeObject type;
-	
 	private HitBox hitbox;
 	
 	public GameObject(float x, float y, int hitBoxWidth, int hitBoxHeight) {
@@ -35,13 +35,6 @@ public abstract class GameObject implements ICollisionWith {
 		hitbox = new HitBox(x, y, hitBoxWidth, hitBoxHeight);
 	}
 	
-	/**
-	 * @return the type
-	 */
-	public TypeObject getType() {
-		return type;
-	}
-
 	/**
 	 * @return Return the value of the horizontal position.
 	 */

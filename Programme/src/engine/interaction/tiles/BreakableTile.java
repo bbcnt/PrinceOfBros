@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : Mario.java
+ * Filename   : BreakableTile.java
  * ============================================================================
- * Created on : 27 mai 2014
+ * Created on : 8 juin 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -9,34 +9,34 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package engine.interaction;
+package engine.interaction.tiles;
 
-import engine.interaction.tiles.Tile;
 
 /**
- * TODO
+ * Represent a breakable tile.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
- * 
+ *
  */
-public class Mario extends GameObject {
+public class BreakableTile extends Tile {
 
 	/**
-	 * @param o
+	 * @param x
+	 * @param y
 	 */
-	public Mario(TypeObject t) {
-		super(0,0, 64,64);
-	}
-	
-	public void action(Enemy e) {
-		// TODO
-	}
-	public void action(Tile t) {
-		// TODO
-	}
-	public void action(Weapon w) {
-		// TODO
-	}
+   public BreakableTile(float x, float y) {
+	   super(x, y);
+   }
+
+	@Override
+   public boolean isObstacle() {
+	   return true;
+   }
+
+	@Override
+   public boolean isBreakable() {
+	   return true;
+   }
 }

@@ -9,17 +9,19 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package engine.interaction;
+package engine.interaction.tiles;
+
+import engine.interaction.GameObject;
 
 /**
- * TODO
+ * Represent a tile.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public class Tile extends GameObject {
+public abstract class Tile extends GameObject {
 	
 	private static int hitBoxSize = 64;
 
@@ -30,8 +32,8 @@ public class Tile extends GameObject {
 	   super(x,y, hitBoxSize,hitBoxSize);
    }
 	
-	public boolean isObstacle() {
-		return true;
-	}
+	public abstract boolean isObstacle();
+	
+	public abstract boolean isBreakable();
 
 }

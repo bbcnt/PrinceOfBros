@@ -11,6 +11,8 @@
  */
 package engine.interaction;
 
+import engine.interaction.tiles.Tile;
+
 /**
  * Defines the action todo when a game objet collision with a certain object.
  * @author Brito Carvalho Bruno
