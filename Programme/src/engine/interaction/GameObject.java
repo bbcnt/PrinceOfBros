@@ -12,6 +12,7 @@
 package engine.interaction;
 
 import engine.interaction.tiles.Tile;
+import engine.models.player.Player;
 
 /**
  * Represent an entity in the game. 
@@ -90,7 +91,7 @@ public abstract class GameObject implements ICollisionWith {
 		return hitbox.intersectsWith(o.hitbox);
 	}	
 	
-	public void action(Mario m) {
+	public void action(Player p) {
 		// Nothing to do by default.
 	}
 	public void action(Enemy e) {

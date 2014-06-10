@@ -96,12 +96,12 @@ public class GPlayer implements IDrawable {
 
 	@Override
    public float getX() {
-	   return CoordsConverter.getInstance().toGraphic(player.getPosX());
+	   return CoordsConverter.getInstance().toGraphic(player.getX());
    }
 
 	@Override
    public float getY() {
-	   return CoordsConverter.getInstance().toGraphic(10 - player.getPosY());
+	   return CoordsConverter.getInstance().toGraphic(10 - player.getY());
    }
 
 	@Override

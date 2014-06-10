@@ -3,11 +3,13 @@ package engine.models.player;
 
 import engine.animations.IAnimatedObject;
 import engine.animations.IAnimatedState;
+import engine.interaction.Enemy;
+import engine.interaction.GameObject;
+import engine.interaction.Weapon;
+import engine.interaction.tiles.Tile;
 
-public class Player implements IAnimatedObject {
+public class Player extends GameObject implements IAnimatedObject {
 	
-	private float posX;
-	private float posY;
 	private final float maxLife = 100;
 	private final float minLife = 0;
 	private float currentLife;
@@ -19,20 +21,11 @@ public class Player implements IAnimatedObject {
 	/*---Constructors----------------------------------------------------------*/
 	
 	public Player(float posX, float posY) {
-		this.posX = posX;
-		this.posY = posY;
+		super(posX,posY, 64,64);
 		setCurrentLife(100);
 	}
 	
 	/*---Getters---------------------------------------------------------------*/
-	
-	public float getPosX() {
-		return posX;
-	}
-	
-	public float getPosY() {
-		return posY;
-	}
 	
 	public float getSpeed() {
 		return speed;
@@ -41,19 +34,19 @@ public class Player implements IAnimatedObject {
 	/*---Modifiers-------------------------------------------------------------*/
 	
 	public void moveLeft(float value) {
-		posX -= value;
+		moveX(-value);
 	}
 	
 	public void moveRight(float value) {
-		posX += value;
+		moveX(value);
 	}
 	
 	public void moveUp(float value) {
-		posY += value;
+		moveY(value);
 	}
 	
 	public void moveDown(float value) {
-		posY -= value;
+		moveY(-value);
 	}
 	
 	/*---Inherit from interfaces-----------------------------------------------*/
@@ -92,4 +85,14 @@ public class Player implements IAnimatedObject {
 	public float getMinLife() {
 	   return minLife;
    }
+	
+	public void action(Enemy e) {
+		// TODO
+	}
+	public void action(Tile t) {
+		// TODO
+	}
+	public void action(Weapon w) {
+		// TODO
+	}
 }

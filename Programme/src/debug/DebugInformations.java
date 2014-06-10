@@ -125,8 +125,8 @@ public class DebugInformations {
 				text += " ?, ?";
 			}
 			else {
-				text += String.format("%.4f, %4f", player.getPosX(),
-				      player.getPosY());
+				text += String.format("%.4f, %4f", player.getX(),
+				      player.getY());
 			}
 			text += "\n";
 		}

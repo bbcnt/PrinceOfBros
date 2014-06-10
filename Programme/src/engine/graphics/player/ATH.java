@@ -14,9 +14,7 @@ package engine.graphics.player;
 import java.awt.Font;
 import java.io.InputStream;
 
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.fills.GradientFill;

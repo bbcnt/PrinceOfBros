@@ -11,6 +11,8 @@
  */
 package engine;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.tiled.TiledMap;
 
 import engine.interaction.Builder;
@@ -25,7 +27,7 @@ import engine.interaction.tiles.Tile;
  * @author Schweizer Thomas
  *
  */
-public class LogicWorld {
+public class LogicWorld implements Iterable<GameObject>{
 	
 	private GameObject[][] world;
 	private int height;
@@ -91,4 +93,35 @@ public class LogicWorld {
 		}
 		return result;
 	}
+
+	@Override
+   public Iterator<GameObject> iterator() {
+		Iterator<GameObject> result = new Iterator<GameObject>() {
+			
+			@Override
+			public void remove() {
+			}
+			
+			@Override
+			public GameObject next() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public boolean hasNext() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		};
+	   for(int i = 0; i < height; ++i) {
+	   	for(int j = 0; j < width; ++j) {
+	   		//return world[i][j];
+	   	}
+	   }
+	   
+	   return result;
+   }
+	
+	
 }

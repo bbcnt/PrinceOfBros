@@ -14,6 +14,8 @@ package engine;
 import java.util.LinkedList;
 
 import engine.interaction.GameObject;
+import engine.interaction.tiles.Tile;
+import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.IModificationTransaction;
 
@@ -101,6 +103,14 @@ public class GameController {
 	
 	public void registerMap(LogicWorld map) {
 		this.map = map;
+	}
+	
+	public void registerMovableObjects(Player p) {
+		movableGameObjects.add(p);
+		for(GameObject t : map) {
+			if(t != null && ((Tile)t).isMovable())
+				movableGameObjects.add(t);
+		}
 	}
 	
 	/*---Singleton part--------------------------------------------------------*/

@@ -40,4 +40,8 @@ public class SolidTile extends Tile {
 	   return false;
    }
 
+	@Override
+   public boolean isMovable() {
+	   return false;
+   }
 }
