@@ -40,6 +40,9 @@ public class GameController {
 	private LinkedList<GameObject> movableGameObjects = new LinkedList<>();
 	
 	/*---Getters---------------------------------------------------------------*/
+	public LogicWorld getWorld() {
+		return map;
+	}
 	
 	public void beginUpdate() {
 		currentTransaction = modStack.begin();

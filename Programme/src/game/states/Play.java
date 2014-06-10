@@ -102,9 +102,9 @@ public class Play extends BasicGameState {
 		world = new LogicWorld(background);
 		
 		// Registering
-
 		CoordsConverter.registerTileSize(background.getTileHeight());
 		GameController.getInstance().registerMap(world);
+		GameController.getInstance().registerMovableObjects(player);
 		
 		// Debug information
 		// Register every Drawable item

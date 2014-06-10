@@ -98,30 +98,25 @@ public class LogicWorld implements Iterable<GameObject>{
    public Iterator<GameObject> iterator() {
 		Iterator<GameObject> result = new Iterator<GameObject>() {
 			
+			private int position = 0;
+			
 			@Override
 			public void remove() {
+				throw new RuntimeException("The remove feature is disabled");
 			}
 			
 			@Override
 			public GameObject next() {
-				// TODO Auto-generated method stub
-				return null;
+				GameObject result = world[position / width][position % width];
+				position++;
+				return result;
 			}
 			
 			@Override
 			public boolean hasNext() {
-				// TODO Auto-generated method stub
-				return false;
+				return position < height * width;
 			}
 		};
-	   for(int i = 0; i < height; ++i) {
-	   	for(int j = 0; j < width; ++j) {
-	   		//return world[i][j];
-	   	}
-	   }
-	   
 	   return result;
    }
-	
-	
 }
