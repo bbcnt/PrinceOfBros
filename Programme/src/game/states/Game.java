@@ -13,15 +13,17 @@ public class Game extends StateBasedGame {
    
    public static final int STATE_MENU = 0;
    public static final int STAT_PLAY = 1;
+   public static final int STATE_INTRO = 2;
    
    public Game() {
       super(gamename);
       this.addState(new Menu());
       this.addState(new Play());
+      this.addState(new Intro());
    }
    
    public void initStatesList(GameContainer gc) throws SlickException{
-      this.enterState(STATE_MENU);
+      this.enterState(STATE_INTRO);
    }
    
    
