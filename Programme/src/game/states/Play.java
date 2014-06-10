@@ -102,9 +102,9 @@ public class Play extends BasicGameState {
 		world = new LogicWorld(background);
 		
 		// Registering
-
 		CoordsConverter.registerTileSize(background.getTileHeight());
 		GameController.getInstance().registerMap(world);
+		GameController.getInstance().registerMovableObjects(player);
 		
 		// Debug information
 		// Register every Drawable item
@@ -127,9 +127,9 @@ public class Play extends BasicGameState {
 		// Draw a rectangle that highlight the current tile mario is on.
 		g.drawRect(
 		      CoordsConverter.getInstance().toGraphic(
-		            (float) Math.floor(player.getPosX()) + 0.5f) - 32,
+		            (float) Math.floor(player.getX()) + 0.5f) - 32,
 		      CoordsConverter.getInstance().toGraphic(
-		            (float) Math.floor(10 - player.getPosY())),
+		            (float) Math.floor(10 - player.getY())),
 		      background.getTileWidth(), background.getTileHeight());
 
 		gPlayer.draw(g);

@@ -11,6 +11,8 @@
  */
 package engine;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.tiled.TiledMap;
 
 import engine.interaction.Builder;
@@ -25,7 +27,7 @@ import engine.interaction.tiles.Tile;
  * @author Schweizer Thomas
  *
  */
-public class LogicWorld {
+public class LogicWorld implements Iterable<GameObject>{
 	
 	private GameObject[][] world;
 	private int height;
@@ -91,4 +93,30 @@ public class LogicWorld {
 		}
 		return result;
 	}
+
+	@Override
+   public Iterator<GameObject> iterator() {
+		Iterator<GameObject> result = new Iterator<GameObject>() {
+			
+			private int position = 0;
+			
+			@Override
+			public void remove() {
+				throw new RuntimeException("The remove feature is disabled");
+			}
+			
+			@Override
+			public GameObject next() {
+				GameObject result = world[position / width][position % width];
+				position++;
+				return result;
+			}
+			
+			@Override
+			public boolean hasNext() {
+				return position < height * width;
+			}
+		};
+	   return result;
+   }
 }

@@ -39,4 +39,9 @@ public class BreakableTile extends Tile {
    public boolean isBreakable() {
 	   return true;
    }
+
+	@Override
+   public boolean isMovable() {
+	   return true;
+   }
 }

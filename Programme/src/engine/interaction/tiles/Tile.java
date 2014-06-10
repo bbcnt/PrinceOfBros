@@ -35,5 +35,7 @@ public abstract class Tile extends GameObject {
 	public abstract boolean isObstacle();
 	
 	public abstract boolean isBreakable();
+	
+	public abstract boolean isMovable();
 
 }
