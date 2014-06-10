@@ -99,7 +99,7 @@ public class Menu extends BasicGameState {
 			System.exit(0);
 		}
 		
-		if (input.isKeyDown(Input.KEY_SPACE)) {
+		if (input.isKeyDown(Input.KEY_1)) {
 			sbg.enterState(Game.STAT_PLAY);
 		}
 	}

@@ -1,5 +1,6 @@
 package game.states;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -71,12 +72,6 @@ public class Play extends BasicGameState {
 		      75, 100, 100
 		};
 
-		// Init player
-		player = new Player(0.5f, 4.5f);
-		gPlayer = new GPlayer(player);
-		playerControl = new PlayerControl(player);
-		ATH.getInstance().register(player);
-
 		// Animations setup
 		GPlayer.AnimationState.IdleLeft.init(new TimedAnimation(heroIdleLeft,
 		      duration, true), true);
@@ -93,9 +88,10 @@ public class Play extends BasicGameState {
 		
 
 		// Init player
-		player = new Player(0.5f, 4.5f);
+		player = new Player(2.5f, 4.5f);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
+		ATH.getInstance().register(player);
 		
 		// Init map
 		background = new TiledMap("./res/Map.tmx");
@@ -120,21 +116,22 @@ public class Play extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 	      throws SlickException {
-
-		background.render((int) CoordsConverter.getInstance().toGraphic(0),
-		      (int) CoordsConverter.getInstance().toGraphic(0));
+		
+		float shiftx = 2;
+		float shifty = 4.5f;
+		background.render((int) CoordsConverter.getInstance().toGraphic(-player.getX() + shiftx),
+		      (int) CoordsConverter.getInstance().toGraphic(player.getY() - shifty));
 
 		// Draw a rectangle that highlight the current tile mario is on.
-		g.drawRect(
-		      CoordsConverter.getInstance().toGraphic(
-		            (float) Math.floor(player.getX()) + 0.5f) - 32,
-		      CoordsConverter.getInstance().toGraphic(
-		            (float) Math.floor(10 - player.getY())),
-		      background.getTileWidth(), background.getTileHeight());
+		g.setColor(Color.white);
+		g.drawRect(CoordsConverter.getInstance().toGraphic((shiftx + (-player.getX() % 1))),
+					  CoordsConverter.getInstance().toGraphic((shifty + (player.getY() % 1))),
+					  background.getTileWidth(), background.getTileHeight());
+		
+		g.setColor(Color.black);
 
 		gPlayer.draw(g);
 		ATH.getInstance().draw(g);
-		
 
 		// DEBUG
 		DebugInformations.getInstance().draw(g);

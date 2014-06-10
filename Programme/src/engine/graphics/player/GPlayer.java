@@ -28,6 +28,9 @@ import engine.models.player.Player;
  *
  */
 public class GPlayer implements IDrawable {
+	
+	private static float x = 2f;
+	private static float y = 5.5f;
 
 	public enum AnimationState implements IAnimatedState {
 		IdleRight,
@@ -96,12 +99,12 @@ public class GPlayer implements IDrawable {
 
 	@Override
    public float getX() {
-	   return CoordsConverter.getInstance().toGraphic(player.getX());
+	   return CoordsConverter.getInstance().toGraphic(x);
    }
 
 	@Override
    public float getY() {
-	   return CoordsConverter.getInstance().toGraphic(10 - player.getY());
+	   return CoordsConverter.getInstance().toGraphic(y);
    }
 
 	@Override
