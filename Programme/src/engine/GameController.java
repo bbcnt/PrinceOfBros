@@ -20,7 +20,7 @@ import engine.modifications.IModification;
 import engine.modifications.IModificationTransaction;
 
 /**
- * TODO
+ * Handles the game's logic.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -44,6 +44,24 @@ public class GameController {
 		return map;
 	}
 	
+	public int getStackCapacityLogical() {
+		return modStack.getCapacityLogical();
+	}
+	
+	public int getStackCapacityPhysical() {
+		return modStack.getCapacityPhysical();
+	}
+	
+	public int getStackSize() {
+		return modStack.getStackSize();
+	}
+	
+	/*---Modifiers-------------------------------------------------------------*/
+	
+	public void init() {
+		// Nothing for now
+	}
+	
 	public void beginUpdate() {
 		currentTransaction = modStack.begin();
 	}
@@ -54,6 +72,26 @@ public class GameController {
 	
 	public void revertLastUpdate() {
 		modStack.pop().revert();
+	}
+	
+	public void setStackCapacityLogical(int capacity) {
+		modStack.setCapacityLogical(capacity);
+	}
+	
+	public void setStackCapacityPhysical(int capacity) {
+		modStack.setCapacityPhysical(capacity);
+	}
+	
+	public void registerMap(LogicWorld map) {
+		this.map = map;
+	}
+	
+	public void registerMovableObjects(Player p) {
+		movableGameObjects.add(p);
+		for(GameObject t : map) {
+			if(t != null && ((Tile)t).isMovable())
+				movableGameObjects.add(t);
+		}
 	}
 	
 	/**
@@ -78,44 +116,6 @@ public class GameController {
 		currentTransaction.add(modif, addToBackStack);
 	}
 	
-	public int getStackCapacityLogical() {
-		return modStack.getCapacityLogical();
-	}
-	
-	public int getStackCapacityPhysical() {
-		return modStack.getCapacityPhysical();
-	}
-	
-	public int getStackSize() {
-		return modStack.getStackSize();
-	}
-	
-	/*---Modifiers-------------------------------------------------------------*/
-	
-	public void init() {
-		// Nothing for now
-	}
-	
-	public void setStackCapacityLogical(int capacity) {
-		modStack.setCapacityLogical(capacity);
-	}
-	
-	public void setStackCapacityPhysical(int capacity) {
-		modStack.setCapacityPhysical(capacity);
-	}
-	
-	public void registerMap(LogicWorld map) {
-		this.map = map;
-	}
-	
-	public void registerMovableObjects(Player p) {
-		movableGameObjects.add(p);
-		for(GameObject t : map) {
-			if(t != null && ((Tile)t).isMovable())
-				movableGameObjects.add(t);
-		}
-	}
-	
 	/*---Singleton part--------------------------------------------------------*/
 	
 	public static GameController getInstance() {
@@ -130,5 +130,4 @@ public class GameController {
 	private static class Instance {
 		private static final GameController instance = new GameController();
 	}
-
 }
