@@ -11,6 +11,10 @@
  */
 package game.controlls;
 
+import game.settings.Config;
+
+import org.newdawn.slick.Input;
+
 /**
  * TODO
  * @author Brito Carvalho Bruno
@@ -20,31 +24,52 @@ package game.controlls;
  *
  */
 public enum Commands {
-	MoveRight,
-	MoveLeft,
-	Jump(false),
-	Attack,
-	BackInTime;
+	// Debug commands
+	@Deprecated
+	MoveUp(Input.KEY_UP),
+	@Deprecated
+	MoveDown(Input.KEY_DOWN),
 	
+	// Final Commands
+	MoveRight(Input.KEY_RIGHT, true),
+	MoveLeft(Input.KEY_LEFT, true),
 	
+	Attack(Input.KEY_A),
+	Jump(Input.KEY_S),
+	BackInTime(Input.KEY_D, true);
+	
+	// Do not modify since here -------------------------------------------------
+	private int code;
 	private boolean lastKeyDown = false;
 	private boolean fastRepeat = true;
+	private boolean forceRelease = false; // Block action until the key is released then pressed 
 	private boolean toggleModeActivated = false;
 	private boolean toggleOn = false;
+	private int delay = 0; // millis
 	
-	private Commands() {
-		this(true, false);
+	private Commands(int code) {
+		this(code, false, false, false);
 	}
-	private Commands(boolean fastRepeat) {
-		this(fastRepeat, false);
+	private Commands(int code, boolean fastRepeat) {
+		this(code, fastRepeat, false, false);
 	}
-	private Commands(boolean fastRepeat, boolean toggleModeActivated) {
+	private Commands(int code, boolean fastRepeat, boolean toggleModeActivated,
+			boolean forceRelease) {
+		this.code = code;
 		this.fastRepeat = fastRepeat;
 		this.toggleModeActivated = toggleModeActivated;
+		this.forceRelease = forceRelease;
+		delay = 0;
+		lastKeyDown = false;
 	}
-	public boolean isTriggered(boolean keyDown) {
+	public boolean isTriggered(Input input, int delta) {
+		boolean keyDown = input.isKeyDown(code);
 		boolean result = false;
 		
+		delay += delta;
+		
+		// Toggle mode don't care of any setting, the key has to be released then
+		// pressed again to deactivate the action.
 		if (toggleModeActivated) {
 			// Swap state
 			if (!lastKeyDown && keyDown) {
@@ -55,12 +80,22 @@ public enum Commands {
 				result = toggleOn;
 			}
 		}
+		// Standard mode, check if the key has to be released
 		else {
-			if (lastKeyDown) {
-				result = fastRepeat;
+			if (forceRelease) {
+				// fastRepeat take over forceRelease
+				if (lastKeyDown) {
+					result = fastRepeat;
+				}
+				else {
+					result = keyDown;
+				}
 			}
 			else {
-				result = keyDown;
+				result = keyDown && (fastRepeat || delay > Config.getInstance().getInputKeyMinDelay());
+				
+				// Reset counter
+				if (result) delay = 0;
 			}
 		}
 		
@@ -68,5 +103,49 @@ public enum Commands {
 		lastKeyDown = keyDown;
 		
 		return result;
+	}
+	
+//	OLD version
+//	public boolean isTriggered(Input input, int delta) {
+//		boolean keyDown = input.isKeyDown(code);
+//		boolean result = false;
+//		
+//		delay += delta;
+//		
+//		if (toggleModeActivated) {
+//			// Swap state
+//			if (!lastKeyDown && keyDown) {
+//				toggleOn = !toggleOn;
+//				result = toggleOn;
+//			}
+//			else {
+//				result = toggleOn;
+//			}
+//		}
+//		else {
+//			if (lastKeyDown) {
+//				result = fastRepeat;
+//			}
+//			else {
+//				result = keyDown;
+//			}
+//		}
+//		
+//		// Remember last state
+//		lastKeyDown = keyDown;
+//		
+//		return result;
+//	}
+	
+	/**
+	 * The key code used for this command.
+	 * @return The key code used for this command.
+	 */
+	public int getCode() {
+		return code;
+	}
+	
+	public void setCode(int code) {
+		this.code = code;
 	}
 }
