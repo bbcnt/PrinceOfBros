@@ -29,8 +29,8 @@ import engine.models.player.Player;
  */
 public class GPlayer implements IDrawable {
 	
-	private static float x = 2f;
-	private static float y = 5.5f;
+	private static float x = 3f;
+	private static float y = 4.5f;
 
 	public enum AnimationState implements IAnimatedState {
 		IdleRight,
