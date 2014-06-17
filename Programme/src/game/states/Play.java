@@ -95,7 +95,7 @@ public class Play extends BasicGameState {
 		playerActionExecutor = new ActionExecutor();
 
 		// Init player
-		player = new Player(2.5f, 4.5f);
+		player = new Player(2.5f, 12.5f);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
 		ATH.getInstance().register(player);
@@ -125,7 +125,7 @@ public class Play extends BasicGameState {
 	      throws SlickException {
 		
 		float shiftx = 2;
-		float shifty = 4.5f;
+		float shifty = 24.5f;
 		background.render((int) CoordsConverter.getInstance().toGraphic(-player.getX() + shiftx),
 		      (int) CoordsConverter.getInstance().toGraphic(player.getY() - shifty));
 
