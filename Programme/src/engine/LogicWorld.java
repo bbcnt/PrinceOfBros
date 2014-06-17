@@ -59,20 +59,26 @@ public class LogicWorld implements Iterable<GameObject>{
 		}
 	}
 	
+	private int toTabHeight(int i) {
+		return height - i - 1;
+	}
+	
 	/**
 	 * Moves the tile on the screen.
 	 */
 	public void moveTile(int x, int y, int newX, int newY) {
-		int oldId = map.getTileId(x, height - y - 1, idLayerContent);
+		// Getting the ids that are going to get swaped.
+		int oldId = map.getTileId(x, toTabHeight(y), idLayerContent);
+		int newId = map.getTileId(newX, toTabHeight(newY), idLayerContent);
 		
-		int newId = map.getTileId(newX, height - newY - 1, idLayerContent);
+		// Swapping the tiles on the map. (Graphic representation)
+		map.setTileId(x, toTabHeight(y), idLayerContent, newId);
+		map.setTileId(newX, toTabHeight(newY), idLayerContent, oldId);
 		
-		map.setTileId(x, height - y - 1, idLayerContent, newId);
-		map.setTileId(newX, height - newY - 1, idLayerContent, oldId);
-		
-		GameObject temp = world[height - y - 1][x];
-		world[height - y - 1][x] = world[height - newY - 1][newX];
-		world[height - newY - 1][newX] = temp;
+		// Swapping the tiles on the map. (Logic representation)
+		GameObject temp = world[toTabHeight(y)][x];
+		world[toTabHeight(y)][x] = world[toTabHeight(newY)][newX];
+		world[toTabHeight(newY)][newX] = temp;
 	}
 	
 	/**
@@ -97,7 +103,7 @@ public class LogicWorld implements Iterable<GameObject>{
 	public GameObject getTile(int x, int y) {
 		if(x >= width || y >= height || x < 0 || y < 0)
 			throw new IllegalArgumentException("The x or y are out of the map bounds!");
-		return world[height - y - 1][x];
+		return world[toTabHeight(y)][x];
 	}
 	
 	/**
@@ -109,20 +115,6 @@ public class LogicWorld implements Iterable<GameObject>{
    public GameObject getTile(float x, float y) {
 	   return getTile((int)Math.floor(x), (int)Math.floor(y));
    }
-	
-	/**
-	 * Simply prints a quick representation of the world. (Debug)
-	 */
-	public String toString() {
-		String result = "Map: " + height + " rows X " + width + " columns\n";
-		for(int i = 0; i < height; ++i) {
-			for(int j = 0; j < width; ++j) {
-				result += (world[i][j] != null?(((Tile)world[i][j]).isBreakable()?"brea":"soli"): "null") + "|";
-			}
-			result += "\n";
-		}
-		return result;
-	}
 	
 	public int getWidth() {
 		return width;

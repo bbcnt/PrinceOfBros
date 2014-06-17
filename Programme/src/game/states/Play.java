@@ -98,7 +98,7 @@ public class Play extends BasicGameState {
 		playerActionExecutor = new ActionExecutor();
 
 		// Init player
-		player = new Player(2.5f, 12.5f);
+		player = new Player(3.5f, 12.5f);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
 		ATH.getInstance().register(player);
@@ -117,28 +117,16 @@ public class Play extends BasicGameState {
 		DebugInformations.getInstance().registerDrawableObject(gPlayer, getID());
 		DebugInformations.getInstance().updateGameStateId(getID());
 		DebugInformations.getInstance().registerPlayer(player);
-
-		System.out.println("Number of layers: " + background.getLayerCount());
-		System.out.println("Tile size: " + background.getTileHeight());
-		System.out.println(world);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 	      throws SlickException {
 		
-		float shiftx = 2;
-		float shifty = 24.5f;
+		float shiftx = 2.9f;
+		float shifty = 25.5f;
 		background.render((int) CoordsConverter.getInstance().toGraphic(-player.getX() + shiftx),
 		      (int) CoordsConverter.getInstance().toGraphic(player.getY() - shifty));
-
-		// Draw a rectangle that highlight the current tile mario is on.
-		g.setColor(Color.white);
-		g.drawRect(CoordsConverter.getInstance().toGraphic((shiftx + (-player.getX() % 1))),
-					  CoordsConverter.getInstance().toGraphic((shifty + (player.getY() % 1))),
-					  background.getTileWidth(), background.getTileHeight());
-		
-		//g.setColor(Color.black);
 
 		gPlayer.draw(g);
 		ATH.getInstance().draw(g);

@@ -14,7 +14,7 @@ public class Player extends GameObject implements IAnimatedObject {
 	private final float minLife = 0;
 	private float currentLife;
 	
-	private float speed = .005f;
+	private float speed = .007f;
 	
 	private IAnimatedState state;
 	
