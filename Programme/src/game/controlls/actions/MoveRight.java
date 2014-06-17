@@ -38,10 +38,10 @@ public class MoveRight extends UserAction {
 
 	@Override
    public boolean isAllowed() {
-		return player.getX() < GameController.getInstance().getWorld().getWidth() - 16
+		return player.getX() < GameController.getInstance().getWorld().getWidth() - 15
 				&& GameController.getInstance().getWorld().getTile(
 				(int)Math.floor(player.getX() + 1), (int)Math.floor(player.getY()))
-				!= null;
+				== null;
    }
 
 	@Override
