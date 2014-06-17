@@ -126,7 +126,7 @@
  </tileset>
  <layer name="Background" width="115" height="30" opacity="0.6">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YSxLCIBBF0WxBU9Hy7/5XaTOljERCd16oOziz2CGvQQrGYRhGcZPAGNDGRWAMmHcwxx3Vrqm55DeeOUR6mKdjrjX1VbLN9xWVcanzyql2rib5vpJ6ezJngbx6E71OUm+v5mbuAt+vlE0ra9ZezXte5i3w3S375d37vH7Nuag0xqh5UBqXV5Zee/7aOvn+NVdvac+36mNUXt8yi3pvK63Owi16HZGLUvbeou+sStlOfzyraMszu9qdVWk8e+yvgl//oz3eQSvOk4ic1dZzr8gZAAAAAAAAAAAA8PEBY4zZjug1AAA=
+   H4sIAAAAAAAAC+3YSxKDIBBFUbaQWCaVf/a/SmFKJYJIt0/rDs7MYPdrDSVDCGEQNwrUgD5uAjXUOEVngTq867Ps22LtljVrfqM+/1qv6G2Ya8v6Ktnm+8rSulT68GbVd+uzmuT7SprtJbruPBNF3r2m2d6jR/QU6F8pm17WvHst9/lEX4G+e87Levb5+i3fRaUavZ6DUl1WWa7d861mn+9f/9arnflWc/TK61dmXvftpde3cI9Ze+SilL01izOrufxK2Y4LrlW05Te72plVqZ49zlfB3P/oEc+gFc/BPHJWe5+PipwBAAAAAAAAAAAAGxOVm8jR6DUAAA==
   </data>
  </layer>
  <layer name="Indications" width="115" height="30">
@@ -136,7 +136,7 @@
  </layer>
  <layer name="Content" width="115" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2W3QrCMAyFi9OLOVBfwb3/Q4qgWEL+tqat1fPBuWgymmRn65YSAAAAAAAAAAAAAAAAAAC+jXvvBkAY8HJ8TkQcNXw+EoE2RHv59G4iKoU+i1vX/0Kkl5yPEV6OAj2PuLNJy3H5rTW5OI1Za8lHzsuoOby0OvOl+SfjGm2PrTW5OI1Za88cWp09c3hpdU4cFGnXaHtsrcnFacxae+bQ6uyZw0utfa06rby8vOTx8sJcQ/Ncj1ehn15ezsH7SnVKvVyEnKcmF6cxa/3uYUl6r1KdfI6FyZXQ472k90LqpfQe1PLymuxepTp5/D1LFK295J5pqZeIM7aGl9b5otXZM4eXHu8l1fqSluPyqyFPHRqz1rnoM6nVL5nDq1r7WnXm9PlGQ+PpTLzs3c/omlPcO3HL1HsuSdz/5jftV+pjxF65h9J/3ej61blK9QBqQlj96DUAAA==
+   H4sIAAAAAAAAC+2WXQ6CMBCEG5EHJAGvIPc/pDGB2Gz2D7q0YuZL5qFb0tl1pJoSAAAAAAAAAAAAAAAAAAAAAMDiVdnvTgTi0LKMzvmTXUdUSr/q6Pof6Ik4IrPkcozI8irQ+4i7m7Q9bn+vJ1enNWst5chlGTWHl1p3vjR/ZzyjnbHXk6vTmrX2zKH5HJnDS6174qZIe0Y7Y68nV6c1a+2ZQ/M5MoeXs861fGplOa3yZDkxz9B9rsdZ6KdVlkPwuZJPaZajsOfx5Oq0Zq23Hsak9yr55HOMzF4JLd5L+llIvZR+BmdlOSe7V8knr2+zRFE7S+47LfUScceekaV1v2g+R+bw0uK9pFpWaXvc/mLI40Nr1joX/U5q/iVzeHXWuZbPkL6/0dD19CBZtu7n6hpS3DvxzNR6Lknc/81fOq80x4iz8gyl/3VX17/OVao3+nEuUeg1AAA=
   </data>
  </layer>
 </map>
