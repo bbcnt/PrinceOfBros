@@ -12,8 +12,11 @@
 package game.controlls;
 
 import engine.GameController;
+import engine.LogicWorld;
 import engine.animations.IAnimatedState;
 import engine.graphics.player.GPlayer;
+import engine.interaction.GameObject;
+import engine.interaction.tiles.Tile;
 import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.animations.AnimationChange;
@@ -156,13 +159,23 @@ public class PlayerControl {
 		// Assure correct facing if not set
 		if (facing == Facing.Unknown)
 			facing = oldFacing;
+
+		// CHECK ICI POUR LES COLLISIONS.
+		LogicWorld world = GameController.getInstance().getWorld();
 		
 		// Add horizontal movement
 		if (movingRight && !movingLeft) {
-			movementHor = new MoveRight(delta, player);
+			Tile tile = (Tile)world.getTile(player.getX() + 1, player.getY());
+			if(tile == null || !tile.isObstacle() || player.getX() % 1 < 0.5) {
+				movementHor = new MoveRight(delta, player);
+			}
 		}
-		else if (movingLeft && !movingRight) {
-			movementHor = new MoveLeft(delta, player);
+			
+		if (movingLeft && !movingRight) {
+			Tile tile = (Tile)world.getTile(player.getX() - 1, player.getY());
+			if(tile == null || !tile.isObstacle() || player.getX() % 1 > 0.5) {
+				movementHor = new MoveLeft(delta, player);
+			}
 		}
 		
 		// Add action
