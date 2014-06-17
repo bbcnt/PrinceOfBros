@@ -44,4 +44,9 @@ public class BreakableTile extends Tile {
    public boolean isMovable() {
 	   return true;
    }
+	
+	@Override
+	public String toString() {
+		return "Breakable Tile";
+	}
 }

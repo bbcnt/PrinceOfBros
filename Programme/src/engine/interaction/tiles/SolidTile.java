@@ -44,4 +44,9 @@ public class SolidTile extends Tile {
    public boolean isMovable() {
 	   return false;
    }
+	
+	@Override
+	public String toString() {
+		return "Solid Tile";
+	}
 }

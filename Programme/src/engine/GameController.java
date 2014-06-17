@@ -87,19 +87,19 @@ public class GameController {
 		this.map = map;
 	}
 	
+	/**
+	 * Register the movable objects of the game.
+	 * @param p The player to be also registered.
+	 */
 	public void registerMovableObjects(Player p) {
 		movableGameObjects.add(p);
 		for(GameObject t : map) {
-			if(t != null && ((Tile)t).isMovable()) {
-				
+			if(t != null && ((Tile)t).isMovable()) {			
 				movableGameObjects.add(t);
-				System.out.println("x:" + t.getX() + " y: " + t.getY());
-				break; // TODO Suppr
-			}
-				
+			}	
 		}
 	}
-	
+
 	/**
 	 * Convenient method for a call to {@link #addModification(IModification, boolean)}
 	 * with boolean value set to true.
@@ -134,7 +134,7 @@ public class GameController {
 			y = (int)Math.floor(g.getY() - 1);
 
 			if(x < map.getWidth() && y < map.getHeight() && x >= 0 && y >= 0) {
-				Tile tile = (Tile) map.getTile((int)Math.floor(g.getX()), (int)Math.floor(g.getY() - 1));
+				Tile tile = (Tile) map.getTile(g.getX(), g.getY() - 1);
 				if(!(tile != null && tile.isObstacle())){
 					addModification(new Gravity(force, g));
 				} 
@@ -147,8 +147,26 @@ public class GameController {
 		}
 	}
 	
-	public void moveTile(int oldX, int oldY, int newX, int newY) {
-		map.moveTile(oldX, oldY, newX, newY);
+	/**
+	 * Move a tile of the world.
+	 * @param x The current x position
+	 * @param y The current y position
+	 * @param newX The new x position
+	 * @param newY The new y position
+	 */
+   public void moveTile(float x, float y, float newX, float newY) {
+   	moveTile((int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(newX), (int)Math.floor(newY));
+   }
+	
+	/**
+	 * Move a tile of the world.
+	 * @param x The current x position
+	 * @param y The current y position
+	 * @param newX The new x position
+	 * @param newY The new y position
+	 */
+	public void moveTile(int x, int y, int newX, int newY) {
+		map.moveTile(x, y, newX, newY);
 	}
 	
 	/*---Singleton part--------------------------------------------------------*/

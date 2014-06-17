@@ -50,9 +50,9 @@ public class LogicWorld implements Iterable<GameObject>{
 				// Create world tiles.
 				if(checkTileProperty(map, j, i, idLayerContent, "obstacle"))
 					if(checkTileProperty(map, j, i, idLayerContent, "break"))
-						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,i+0.5f, Builder.TileType.Breakable);
+						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Breakable);
 					else
-						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,i+0.5f, Builder.TileType.Solid);
+						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Solid);
 				else
 					world[i][j] = null;
 			}
@@ -62,15 +62,17 @@ public class LogicWorld implements Iterable<GameObject>{
 	/**
 	 * Moves the tile on the screen.
 	 */
-	public void moveTile(int oldX, int oldY, int newX, int newY) {
-		System.out.println(oldX + "=>" + newX + " " + oldY + "=>" + newY);
-		int oldId = map.getTileId(0, 0, idLayerContent);
+	public void moveTile(int x, int y, int newX, int newY) {
+		int oldId = map.getTileId(x, height - y - 1, idLayerContent);
 		
-		System.out.println(oldId);
-		int newId = map.getTileId(newX, newY, idLayerContent);
+		int newId = map.getTileId(newX, height - newY - 1, idLayerContent);
 		
-		map.setTileId(oldX, oldY, idLayerContent, newId);
-		map.setTileId(newX, newY, idLayerContent, oldId);
+		map.setTileId(x, height - y - 1, idLayerContent, newId);
+		map.setTileId(newX, height - newY - 1, idLayerContent, oldId);
+		
+		GameObject temp = world[height - y - 1][x];
+		world[height - y - 1][x] = world[height - newY - 1][newX];
+		world[height - newY - 1][newX] = temp;
 	}
 	
 	/**
@@ -94,9 +96,19 @@ public class LogicWorld implements Iterable<GameObject>{
 	 */
 	public GameObject getTile(int x, int y) {
 		if(x >= width || y >= height || x < 0 || y < 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("The x or y are out of the map bounds!");
 		return world[height - y - 1][x];
 	}
+	
+	/**
+	 * Returns the gameObject on the tile (x,y)
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+	 * @return The game object on this tile or null if there is not one on the given position.
+	 */
+   public GameObject getTile(float x, float y) {
+	   return getTile((int)Math.floor(x), (int)Math.floor(y));
+   }
 	
 	/**
 	 * Simply prints a quick representation of the world. (Debug)

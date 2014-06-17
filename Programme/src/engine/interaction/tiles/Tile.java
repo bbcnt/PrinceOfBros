@@ -37,15 +37,17 @@ public abstract class Tile extends GameObject {
 	 * @param f The new value of the horizontal position.
 	 */
 	public void setX(float f) {
+		float old = getX();
 		super.setX(f);
-		GameController.getInstance().moveTile((int)Math.floor(getX()), (int)Math.floor(getY()), (int)Math.floor(getX()), (int)Math.floor(getY()));
+		GameController.getInstance().moveTile(old, getY(), getX(), getY());
 	}
 	/**
 	 * @param f The new value of the vertical position.
 	 */
 	public void setY(float f) {
+		float old = getY();
 		super.setY(f);
-		GameController.getInstance().moveTile((int)Math.floor(getX()), (int)Math.floor(getY()), (int)Math.floor(getX()), (int)Math.floor(getY()));
+		GameController.getInstance().moveTile(getX(), old, getX(), getY());
 	}
 	
 	public abstract boolean isObstacle();
