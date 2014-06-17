@@ -30,15 +30,19 @@ import engine.interaction.tiles.Tile;
 public class LogicWorld implements Iterable<GameObject>{
 	
 	private GameObject[][] world;
+	private TiledMap map;
 	private int height;
 	private int width;
 	
+	private int idLayerContent;
+	
 	public LogicWorld(TiledMap map) {
+		this.map = map;
 		height = map.getHeight();
 		width = map.getWidth();
 		world = new GameObject[height][width];
 
-		int idLayerContent = map.getLayerIndex("Content");
+		idLayerContent = map.getLayerIndex("Content");
 		
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
@@ -53,6 +57,20 @@ public class LogicWorld implements Iterable<GameObject>{
 					world[i][j] = null;
 			}
 		}
+	}
+	
+	/**
+	 * Moves the tile on the screen.
+	 */
+	public void moveTile(int oldX, int oldY, int newX, int newY) {
+		System.out.println(oldX + "=>" + newX + " " + oldY + "=>" + newY);
+		int oldId = map.getTileId(0, 0, idLayerContent);
+		
+		System.out.println(oldId);
+		int newId = map.getTileId(newX, newY, idLayerContent);
+		
+		map.setTileId(oldX, oldY, idLayerContent, newId);
+		map.setTileId(newX, newY, idLayerContent, oldId);
 	}
 	
 	/**
@@ -77,7 +95,7 @@ public class LogicWorld implements Iterable<GameObject>{
 	public GameObject getTile(int x, int y) {
 		if(x >= width || y >= height || x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		return world[y][x];
+		return world[height - y - 1][x];
 	}
 	
 	/**
@@ -92,6 +110,14 @@ public class LogicWorld implements Iterable<GameObject>{
 			result += "\n";
 		}
 		return result;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 
 	@Override

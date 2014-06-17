@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import engine.interaction.GameObject;
 import engine.interaction.tiles.Tile;
 import engine.models.player.Player;
+import engine.modifications.Gravity;
 import engine.modifications.IModification;
 import engine.modifications.IModificationTransaction;
 
@@ -89,8 +90,13 @@ public class GameController {
 	public void registerMovableObjects(Player p) {
 		movableGameObjects.add(p);
 		for(GameObject t : map) {
-			if(t != null && ((Tile)t).isMovable())
+			if(t != null && ((Tile)t).isMovable()) {
+				
 				movableGameObjects.add(t);
+				System.out.println("x:" + t.getX() + " y: " + t.getY());
+				break; // TODO Suppr
+			}
+				
 		}
 	}
 	
@@ -114,6 +120,35 @@ public class GameController {
 		if (modif == null) return;
 		
 		currentTransaction.add(modif, addToBackStack);
+	}
+	
+	/**
+	 * Gravity check on movable objects.
+	 */
+	public void gravityUpdate() {
+		final float force = -0.05f;
+		int x,y;
+
+		for(final GameObject g : movableGameObjects) {
+			x = (int)Math.floor(g.getX());
+			y = (int)Math.floor(g.getY() - 1);
+
+			if(x < map.getWidth() && y < map.getHeight() && x >= 0 && y >= 0) {
+				Tile tile = (Tile) map.getTile((int)Math.floor(g.getX()), (int)Math.floor(g.getY() - 1));
+				if(!(tile != null && tile.isObstacle())){
+					addModification(new Gravity(force, g));
+				} 
+			}
+			
+			// Place mario in the center of the tile.
+			if(g.getY() % 1 > 0.5) {
+				addModification(new Gravity(force, g));
+			}
+		}
+	}
+	
+	public void moveTile(int oldX, int oldY, int newX, int newY) {
+		map.moveTile(oldX, oldY, newX, newY);
 	}
 	
 	/*---Singleton part--------------------------------------------------------*/

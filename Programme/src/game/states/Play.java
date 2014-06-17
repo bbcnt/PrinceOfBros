@@ -168,6 +168,8 @@ public class Play extends BasicGameState {
 		if (Commands.BackInTime.isTriggered(input.isKeyDown(Input.KEY_Q))) {
 			goBackward = true;
 		}
+		
+		GameController.getInstance().gravityUpdate();
 
 		playerControl.endUpdate();
 
