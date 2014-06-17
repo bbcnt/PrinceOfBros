@@ -23,7 +23,10 @@ import engine.modifications.player.MoveDown;
 import game.controlls.ActionExecutor;
 import game.controlls.Commands;
 import game.controlls.PlayerControl;
+import game.controlls.actions.Attack;
 import game.controlls.actions.Jump;
+import game.controlls.actions.MoveLeft;
+import game.controlls.actions.MoveRight;
 import game.controlls.actions.UserMacro;
 
 public class Play extends BasicGameState {
@@ -158,10 +161,12 @@ public class Play extends BasicGameState {
 		playerControl.beginUpdate(delta);
 
 		if (Commands.MoveLeft.isTriggered(input, delta)) {
-			playerControl.moveLeft();
+			//playerControl.moveLeft();
+			playerActionExecutor.pushAction(new MoveLeft(playerControl, player));
 		}
 		if (Commands.MoveRight.isTriggered(input, delta)) {
-			playerControl.moveRight();
+			//playerControl.moveRight();
+			playerActionExecutor.pushAction(new MoveRight(playerControl, player));
 		}
 
 		if (Commands.Jump.isTriggered(input, delta)) {
@@ -170,7 +175,8 @@ public class Play extends BasicGameState {
 		}
 
 		if (Commands.Attack.isTriggered(input, delta)) {
-			playerControl.actionAttack();
+			//playerControl.actionAttack();
+			playerActionExecutor.pushAction(new Attack(playerControl));
 		}
 
 		if (Commands.BackInTime.isTriggered(input, delta)) {
