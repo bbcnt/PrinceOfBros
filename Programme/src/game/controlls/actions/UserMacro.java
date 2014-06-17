@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : Jump.java
+ * Filename   : UserMacro.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -11,11 +11,6 @@
  */
 package game.controlls.actions;
 
-import engine.GameController;
-import engine.interaction.GameObject;
-import engine.models.player.Player;
-import game.controlls.PlayerControl;
-
 /**
  * TODO
  * @author Brito Carvalho Bruno
@@ -24,25 +19,25 @@ import game.controlls.PlayerControl;
  * @author Schweizer Thomas
  *
  */
-public class Jump extends UserAction {
+public class UserMacro implements IUserAction {
 	
-	private Player player;
+	private IUserAction[] actions;
 	
-	public Jump(PlayerControl control, Player player) {
-		super(control);
-		this.player = player;
+	public UserMacro(IUserAction ... actions) {
+		this.actions = actions;
 	}
 
 	@Override
    public boolean isAllowed() {
-		return GameController.getInstance().getWorld().getTile(
-				(int)Math.floor(player.getX()), (int)Math.floor(player.getY()- 1))
-				!= null;
+		for (IUserAction a : actions) {
+			if (!a.isAllowed()) return false;
+		}
+	   return true;
    }
 
 	@Override
    public void execute() {
-	   getPlayerControl().actionJump();
+		for (IUserAction a : actions) a.execute();
    }
 
 }

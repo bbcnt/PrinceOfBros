@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : Jump.java
+ * Filename   : UserAction.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -11,9 +11,6 @@
  */
 package game.controlls.actions;
 
-import engine.GameController;
-import engine.interaction.GameObject;
-import engine.models.player.Player;
 import game.controlls.PlayerControl;
 
 /**
@@ -24,25 +21,16 @@ import game.controlls.PlayerControl;
  * @author Schweizer Thomas
  *
  */
-public class Jump extends UserAction {
+public abstract class UserAction implements IUserAction {
 	
-	private Player player;
+	private PlayerControl controls;
 	
-	public Jump(PlayerControl control, Player player) {
-		super(control);
-		this.player = player;
+	public UserAction(PlayerControl controls) {
+		this.controls = controls;
 	}
-
-	@Override
-   public boolean isAllowed() {
-		return GameController.getInstance().getWorld().getTile(
-				(int)Math.floor(player.getX()), (int)Math.floor(player.getY()- 1))
-				!= null;
-   }
-
-	@Override
-   public void execute() {
-	   getPlayerControl().actionJump();
-   }
+	
+	public PlayerControl getPlayerControl() {
+		return controls;
+	}
 
 }

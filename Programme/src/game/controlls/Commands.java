@@ -28,6 +28,8 @@ public enum Commands {
 	MoveRight(Input.KEY_RIGHT, true),
 	MoveLeft(Input.KEY_LEFT, true),
 	
+	Macro(Input.KEY_Q),
+	
 	Attack(Input.KEY_A),
 	Jump(Input.KEY_S),
 	BackInTime(Input.KEY_D, true);

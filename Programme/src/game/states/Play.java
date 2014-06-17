@@ -24,6 +24,7 @@ import game.controlls.ActionExecutor;
 import game.controlls.Commands;
 import game.controlls.PlayerControl;
 import game.controlls.actions.Jump;
+import game.controlls.actions.UserMacro;
 
 public class Play extends BasicGameState {
 
@@ -41,7 +42,6 @@ public class Play extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		GameController.getInstance().init();
 
-		background = new TiledMap("./res/Map.tmx");
 		Image[] heroLeft = {
 		      new Image("res/player/move_00_left_0.png"),
 		      new Image("res/player/move_00_left_1.png")
@@ -101,7 +101,7 @@ public class Play extends BasicGameState {
 		ATH.getInstance().register(player);
 		
 		// Init map
-		background = new TiledMap("./res/Map.tmx");
+		background = new TiledMap("./res/Final_Map.tmx");
 		world = new LogicWorld(background);
 		
 		// Registering
@@ -166,7 +166,7 @@ public class Play extends BasicGameState {
 
 		if (Commands.Jump.isTriggered(input, delta)) {
 			//playerControl.actionJump();
-			playerActionExecutor.pushAction(new Jump(player, playerControl));
+			playerActionExecutor.pushAction(new Jump(playerControl, player));
 		}
 
 		if (Commands.Attack.isTriggered(input, delta)) {
@@ -175,6 +175,11 @@ public class Play extends BasicGameState {
 
 		if (Commands.BackInTime.isTriggered(input, delta)) {
 			goBackward = true;
+		}
+		
+		if (Commands.Macro.isTriggered(input, delta)) {
+			// TODO
+			playerActionExecutor.pushAction(new UserMacro(new Jump(playerControl, player)));
 		}
 		
 		GameController.getInstance().gravityUpdate();

@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : Jump.java
+ * Filename   : Attack.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -11,8 +11,6 @@
  */
 package game.controlls.actions;
 
-import engine.GameController;
-import engine.interaction.GameObject;
 import engine.models.player.Player;
 import game.controlls.PlayerControl;
 
@@ -24,25 +22,20 @@ import game.controlls.PlayerControl;
  * @author Schweizer Thomas
  *
  */
-public class Jump extends UserAction {
-	
-	private Player player;
-	
-	public Jump(PlayerControl control, Player player) {
+public class Attack extends UserAction {
+
+	public Attack(PlayerControl control) {
 		super(control);
-		this.player = player;
 	}
 
 	@Override
    public boolean isAllowed() {
-		return GameController.getInstance().getWorld().getTile(
-				(int)Math.floor(player.getX()), (int)Math.floor(player.getY()- 1))
-				!= null;
+	   return true;
    }
 
 	@Override
    public void execute() {
-	   getPlayerControl().actionJump();
+	   getPlayerControl().actionAttack();
    }
 
 }
