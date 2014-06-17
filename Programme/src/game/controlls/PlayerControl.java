@@ -20,7 +20,7 @@ import engine.modifications.animations.AnimationChange;
 import engine.modifications.player.Attack;
 import engine.modifications.player.MoveLeft;
 import engine.modifications.player.MoveRight;
-import engine.modifications.player.MoveUp;
+import engine.modifications.player.Jump;
 import engine.modifications.player.PlayerAction;
 
 /**
@@ -38,8 +38,6 @@ import engine.modifications.player.PlayerAction;
  */
 public class PlayerControl {
 	
-	private final static int ACTION_KEY_DELAY = 250;
-	
 	private Player player;
 	private int delta;
 	
@@ -49,49 +47,104 @@ public class PlayerControl {
 	private IModification movementVer;
 	
 	private enum Facing {
-		Left, Right
+		Left, Right, Unknown
 	}
 	
 	private enum ActionTypes {
 		Idle, Attacking, Jumping;
 	}
 	
-	private Facing facing;
+	private Facing facing = Facing.Unknown;
+	private Facing oldFacing = Facing.Unknown;
 	
 	// TODO
 	private int cooldownCounter;
-	
 	private PlayerAction currentAction = null;
 	private ActionTypes currentActionType = ActionTypes.Idle;
-	private boolean currentActionAnimationSet = false; // Don't set animatino twice or more...
+	private boolean currentActionMultiExecute = false;
+	private boolean currentActionAnimationSet = false; // Don't set animation twice or more...
 	
 	private PlayerAction nextAction = null;
 	private ActionTypes nextActionType = ActionTypes.Idle;
+	private boolean nextActionMultiExecute = false;
+	
+	private class ActionUpdate implements IModification {
+		private int delta;
+		
+		int oldCooldownCounter;
+		PlayerAction oldAction = null;
+		ActionTypes oldActionType;
+		boolean oldActionMultiExecute;
+		boolean oldActionAnimationSet;
+		
+		ActionUpdate(int delta) {
+			this.delta = delta;
+		}
+
+		@Override
+      public void apply() {
+			cooldownCounter += delta;
+			
+			if (cooldownCounter >= currentAction.getCooldown()) {
+				
+				// Copy values for cancel()
+				oldCooldownCounter = cooldownCounter;
+				oldAction = currentAction;
+				oldActionType = currentActionType;
+				oldActionMultiExecute = currentActionMultiExecute;
+				oldActionAnimationSet = currentActionAnimationSet;
+				
+				// Swap to next animation
+				cooldownCounter = 0;
+				currentAction = nextAction;
+				currentActionType = nextActionType;
+				currentActionMultiExecute = nextActionMultiExecute;
+				currentActionAnimationSet = false;
+				nextAction = null;
+				nextActionType = ActionTypes.Idle;
+			}
+      }
+
+		@Override
+      public void cancel() {
+			cooldownCounter -= delta;
+			
+			// Restore previous state if stored
+			if (oldAction != null) {
+				// Next values
+				nextAction = currentAction;
+				nextActionType = currentActionType;
+				nextActionMultiExecute = currentActionMultiExecute;
+				
+				// Then current
+				cooldownCounter = oldCooldownCounter;
+				currentAction = oldAction;
+				currentActionType = oldActionType;
+				currentActionMultiExecute = oldActionMultiExecute;
+				currentActionAnimationSet = oldActionAnimationSet;
+			}
+      }
+		
+	}
+	
+	/*---Constructors----------------------------------------------------------*/
 	
 	public PlayerControl(Player player) {
 		this.player = player;
 	}
 	
-	private void reset() {
+	private void update() {
 		movingLeft = false;
 		movingRight = false;
 		
 		movementHor = null;
 		movementVer = null;
 		
-		// Action management. Check cooldown
-		if (currentAction != null) {
-			cooldownCounter += delta;
-			
-			if (cooldownCounter >= currentAction.getCooldown()) {
-				cooldownCounter = 0;
-				currentAction = nextAction;
-				currentActionType = nextActionType;
-				currentActionAnimationSet = false;
-				nextAction = null;
-				nextActionType = ActionTypes.Idle;
-			}
-		}
+		oldFacing = facing;
+		facing = Facing.Unknown;
+		
+		if (currentAction != null)
+			GameController.getInstance().addModification(new ActionUpdate(delta));
 	}
 	
 	public void beginUpdate(int delta) {
@@ -100,25 +153,20 @@ public class PlayerControl {
 	
 	public void endUpdate() {
 		
+		// Assure correct facing if not set
+		if (facing == Facing.Unknown)
+			facing = oldFacing;
+		
 		// Add horizontal movement
-		if (movementHor == null) {
-			if (movingRight) {
-				movementHor = new MoveRight(delta, player);
-			}
-			else if (movingLeft) {
-				movementHor = new MoveLeft(delta, player);
-			}
-			
-			// Manage movement animation left or right
-			IAnimatedState oldState = player.getState();
-			
-			if (oldState.isStoppable() || oldState.getAnimation().isFinished()) {
-				
-			}
+		if (movingRight && !movingLeft) {
+			movementHor = new MoveRight(delta, player);
+		}
+		else if (movingLeft && !movingRight) {
+			movementHor = new MoveLeft(delta, player);
 		}
 		
 		// Add action
-		if (currentAction != null && cooldownCounter == 0) {
+		if (currentAction != null && (cooldownCounter == 0 || currentActionMultiExecute)) {
 			GameController.getInstance().addModification(currentAction);
 		}
 		
@@ -149,11 +197,11 @@ public class PlayerControl {
 			
 			// Moving if no action
 			if (newState == null) {
-				if (movingLeft) {
+				if (movingLeft && !movingRight) {
 					if (oldState != GPlayer.AnimationState.MovingLeft)
 						newState = GPlayer.AnimationState.MovingLeft;
 				}
-				else if (movingRight) {
+				else if (movingRight && !movingLeft) {
 					if (oldState != GPlayer.AnimationState.MovingRight)
 						newState = GPlayer.AnimationState.MovingRight;
 				}
@@ -171,47 +219,43 @@ public class PlayerControl {
 			
 		}
 		
-		reset();
+		update();
 	}
 	
 	public void moveRight() {
-		// Ignore if already assigned to left
-		if (movingLeft) return;
-		
 		movingRight = true;
-		facing = Facing.Right;
+		
+		if (facing == Facing.Unknown)
+			facing = Facing.Right;
 	}
 	
 	public void moveLeft() {
-		// Ignore if already assigned
-		if (movingRight) return;
-		
 		movingLeft = true;
-		facing = Facing.Left;
+		
+		if (facing == Facing.Unknown)
+			facing = Facing.Left;
 	}
 	
 	public void actionJump() {
-		pushAction(new MoveUp(delta, player), ActionTypes.Jumping);
+		pushAction(new Jump(delta, 200, player), ActionTypes.Jumping, true);
 	}
 	
 	public void actionAttack() {
-		pushAction(new Attack(delta, 1000, player), ActionTypes.Attacking);
+		pushAction(new Attack(delta, 1000, player), ActionTypes.Attacking, false);
 	}
 	
 	
-	private void pushAction(PlayerAction action, ActionTypes type) {
+	private void pushAction(PlayerAction action, ActionTypes type, boolean multiExecute) {
 		
 		if (currentAction == null) {
 			currentAction = action;
 			currentActionType = type;
+			currentActionMultiExecute = multiExecute;
 		}
 		else {
-			
-			// Ignore action, if delay not elapsed
-			if (cooldownCounter < ACTION_KEY_DELAY) return;
-			
 			nextAction = action;
 			nextActionType = type;
+			nextActionMultiExecute = multiExecute;
 		}
 	}
 

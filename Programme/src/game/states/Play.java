@@ -128,7 +128,7 @@ public class Play extends BasicGameState {
 					  CoordsConverter.getInstance().toGraphic((shifty + (player.getY() % 1))),
 					  background.getTileWidth(), background.getTileHeight());
 		
-		g.setColor(Color.black);
+		//g.setColor(Color.black);
 
 		gPlayer.draw(g);
 		ATH.getInstance().draw(g);
@@ -150,22 +150,22 @@ public class Play extends BasicGameState {
 		// Moves
 		playerControl.beginUpdate(delta);
 
-		if (Commands.MoveLeft.isTriggered(input.isKeyDown(Input.KEY_LEFT))) {
+		if (Commands.MoveLeft.isTriggered(input, delta)) {
 			playerControl.moveLeft();
 		}
-		if (Commands.MoveRight.isTriggered(input.isKeyDown(Input.KEY_RIGHT))) {
+		if (Commands.MoveRight.isTriggered(input, delta)) {
 			playerControl.moveRight();
 		}
 
-		if (Commands.Jump.isTriggered(input.isKeyDown(Input.KEY_SPACE))) {
+		if (Commands.Jump.isTriggered(input, delta)) {
 			playerControl.actionJump();
 		}
 
-		if (Commands.Attack.isTriggered(input.isKeyDown(Input.KEY_A))) {
+		if (Commands.Attack.isTriggered(input, delta)) {
 			playerControl.actionAttack();
 		}
 
-		if (Commands.BackInTime.isTriggered(input.isKeyDown(Input.KEY_Q))) {
+		if (Commands.BackInTime.isTriggered(input, delta)) {
 			goBackward = true;
 		}
 		
