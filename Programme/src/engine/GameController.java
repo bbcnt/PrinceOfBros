@@ -126,7 +126,7 @@ public class GameController {
 	 * Gravity check on movable objects.
 	 */
 	public void gravityUpdate() {
-		final float force = -0.05f;
+		final float force = -0.1f;
 		int x,y;
 
 		for(final GameObject g : movableGameObjects) {
