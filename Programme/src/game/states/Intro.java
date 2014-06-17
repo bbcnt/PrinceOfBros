@@ -25,8 +25,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import sun.java2d.pipe.DrawImage;
-
 /**
  * TODO
  * @author Brito Carvalho Bruno

@@ -10,8 +10,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import debug.DebugInformations;
-
 public class Menu extends BasicGameState {
 
 	private Image keyA;
@@ -99,7 +97,7 @@ public class Menu extends BasicGameState {
 			System.exit(0);
 		}
 		
-		if (input.isKeyDown(Input.KEY_1)) {
+		if (input.isKeyDown(Input.KEY_SPACE)) {
 			sbg.enterState(Game.STAT_PLAY);
 		}
 	}
