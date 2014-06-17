@@ -23,13 +23,7 @@ import org.newdawn.slick.Input;
  * @author Schweizer Thomas
  *
  */
-public enum Commands {
-	// Debug commands
-	@Deprecated
-	MoveUp(Input.KEY_UP),
-	@Deprecated
-	MoveDown(Input.KEY_DOWN),
-	
+public enum Commands {	
 	// Final Commands
 	MoveRight(Input.KEY_RIGHT, true),
 	MoveLeft(Input.KEY_LEFT, true),

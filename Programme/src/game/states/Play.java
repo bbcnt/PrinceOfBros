@@ -20,8 +20,10 @@ import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
 import engine.modifications.player.MoveDown;
+import game.controlls.ActionExecutor;
 import game.controlls.Commands;
 import game.controlls.PlayerControl;
+import game.controlls.actions.Jump;
 
 public class Play extends BasicGameState {
 
@@ -30,6 +32,8 @@ public class Play extends BasicGameState {
 	private Player player;
 	private GPlayer gPlayer;
 	private PlayerControl playerControl;
+	
+	private ActionExecutor playerActionExecutor;
 	
 	private LogicWorld world;
 
@@ -86,6 +90,9 @@ public class Play extends BasicGameState {
 		GPlayer.AnimationState.AttackingRight.init(new TimedAnimation(
 		      heroAttackRight, durationAttack), false);
 		
+		
+		// Init action executor
+		playerActionExecutor = new ActionExecutor();
 
 		// Init player
 		player = new Player(2.5f, 4.5f);
@@ -158,7 +165,8 @@ public class Play extends BasicGameState {
 		}
 
 		if (Commands.Jump.isTriggered(input, delta)) {
-			playerControl.actionJump();
+			//playerControl.actionJump();
+			playerActionExecutor.pushAction(new Jump(player, playerControl));
 		}
 
 		if (Commands.Attack.isTriggered(input, delta)) {
@@ -171,6 +179,7 @@ public class Play extends BasicGameState {
 		
 		GameController.getInstance().gravityUpdate();
 
+		playerActionExecutor.executeActions();
 		playerControl.endUpdate();
 
 		// DEBUG controls
