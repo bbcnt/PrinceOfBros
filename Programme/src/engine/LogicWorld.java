@@ -17,7 +17,6 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import engine.interaction.Builder;
 import engine.interaction.GameObject;
-import engine.interaction.tiles.Tile;
 
 /**
  * Represent the current world of the game.
@@ -48,13 +47,17 @@ public class LogicWorld implements Iterable<GameObject>{
 			for(int j = 0; j < width; ++j) {
 
 				// Create world tiles.
-				if(checkTileProperty(map, j, i, idLayerContent, "obstacle"))
-					if(checkTileProperty(map, j, i, idLayerContent, "break"))
+				if(checkTileProperty(map, j, i, idLayerContent, "obstacle")) {
+					if(checkTileProperty(map, j, i, idLayerContent, "break")) {
 						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Breakable);
-					else
+					} else {
 						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Solid);
-				else
+					}
+				} else if(checkTileProperty(map, j, i, idLayerContent, "spike")) {
+					world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Spike);
+				} else {
 					world[i][j] = null;
+				}
 			}
 		}
 	}
@@ -116,10 +119,18 @@ public class LogicWorld implements Iterable<GameObject>{
 	   return getTile((int)Math.floor(x), (int)Math.floor(y));
    }
 	
+   /**
+    * Returns the width of the world.
+    * @return The width of the world
+    */
 	public int getWidth() {
 		return width;
 	}
 	
+	/** 
+	 * Returns the height of the world.
+	 * @return The height of the world
+	 */
 	public int getHeight() {
 		return height;
 	}

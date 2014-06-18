@@ -11,6 +11,8 @@
  */
 package engine.interaction.tiles;
 
+import engine.interaction.GameObject;
+
 
 /**
  * Represent a breakable tile.
@@ -46,7 +48,21 @@ public class BreakableTile extends Tile {
    }
 	
 	@Override
+   public boolean isHurting() {
+	   return false;
+   }
+	
+	@Override
 	public String toString() {
 		return "Breakable Tile";
 	}
+
+	@Override
+   public void collision(GameObject o) {
+	   
+   }
+
+	@Override
+   public void harm(float amount) {	   
+   }
 }

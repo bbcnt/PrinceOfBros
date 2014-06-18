@@ -50,10 +50,11 @@ public abstract class Tile extends GameObject {
 		GameController.getInstance().moveTile(getX(), old, getX(), getY());
 	}
 	
-	public abstract boolean isObstacle();
-	
-	public abstract boolean isBreakable();
-	
-	public abstract boolean isMovable();
+   public abstract boolean isObstacle();
 
+   public abstract boolean isBreakable();
+
+   public abstract boolean isMovable();
+   
+   public abstract boolean isHurting();
 }

@@ -15,15 +15,14 @@ import engine.GameController;
 import engine.LogicWorld;
 import engine.animations.IAnimatedState;
 import engine.graphics.player.GPlayer;
-import engine.interaction.GameObject;
 import engine.interaction.tiles.Tile;
 import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.animations.AnimationChange;
 import engine.modifications.player.Attack;
+import engine.modifications.player.Jump;
 import engine.modifications.player.MoveLeft;
 import engine.modifications.player.MoveRight;
-import engine.modifications.player.Jump;
 import engine.modifications.player.PlayerAction;
 
 /**

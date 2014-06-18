@@ -11,7 +11,6 @@
  */
 package game.controlls.actions;
 
-import engine.models.player.Player;
 import game.controlls.PlayerControl;
 
 /**

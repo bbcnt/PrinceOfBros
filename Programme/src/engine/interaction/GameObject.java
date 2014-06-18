@@ -11,8 +11,6 @@
  */
 package engine.interaction;
 
-import engine.interaction.tiles.Tile;
-import engine.models.player.Player;
 
 /**
  * Represent an entity in the game. 
@@ -89,18 +87,11 @@ public abstract class GameObject implements ICollisionWith {
 	 */
 	public boolean isIntersect(GameObject o) {
 		return hitbox.intersectsWith(o.hitbox);
-	}	
+	}
 	
-	public void action(Player p) {
-		// Nothing to do by default.
-	}
-	public void action(Enemy e) {
-		// Nothing to do by default.
-	}
-	public void action(Tile t) {
-		// Nothing to do by default.
-	}
-	public void action(Weapon w) {
-		// Nothing to do by default.
-	}
+	/**
+	 * Hurt the gameobject.
+	 * @param amount The amout of life changed.
+	 */
+	public abstract void harm(float amount);
 }
