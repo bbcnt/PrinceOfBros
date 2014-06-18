@@ -49,6 +49,10 @@ public abstract class Tile extends GameObject {
 		super.setY(f);
 		GameController.getInstance().moveTile(getX(), old, getX(), getY());
 	}
+
+	@Override
+   public void harm(float amount) {
+   }
 	
    public abstract boolean isObstacle();
 

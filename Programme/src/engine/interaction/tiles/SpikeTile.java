@@ -62,9 +62,4 @@ public class SpikeTile extends Tile {
    public boolean isHurting() {
 	   return true;
    }
-
-	@Override
-   public void harm(float amount) {
-   }
-
 }

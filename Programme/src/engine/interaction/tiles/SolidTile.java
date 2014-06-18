@@ -59,8 +59,4 @@ public class SolidTile extends Tile {
 
 	@Override
    public void collision(GameObject o) {}
-
-	@Override
-   public void harm(float amount) {
-   }
 }

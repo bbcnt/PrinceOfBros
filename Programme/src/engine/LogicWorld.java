@@ -118,6 +118,27 @@ public class LogicWorld implements Iterable<GameObject>{
    public GameObject getTile(float x, float y) {
 	   return getTile((int)Math.floor(x), (int)Math.floor(y));
    }
+   
+	/**
+	 * Removes a tile from the game.
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+	 */
+   public void removeTile(int x, int y) {
+   	if(x >= width || y >= height || x < 0 || y < 0)
+			throw new IllegalArgumentException("The x or y are out of the map bounds!");
+		map.setTileId(x, toTabHeight(y), idLayerContent, 0);
+		world[toTabHeight(y)][x] = null;
+   }
+   
+	/**
+	 * Removes a tile from the game.
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+	 */
+   public void removeTile(float x, float y) {
+   	removeTile((int)Math.floor(x), (int)Math.floor(y));
+   }
 	
    /**
     * Returns the width of the world.

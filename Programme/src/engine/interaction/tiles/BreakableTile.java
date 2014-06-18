@@ -11,6 +11,7 @@
  */
 package engine.interaction.tiles;
 
+import engine.GameController;
 import engine.interaction.GameObject;
 
 
@@ -61,8 +62,9 @@ public class BreakableTile extends Tile {
    public void collision(GameObject o) {
 	   
    }
-
+	
 	@Override
-   public void harm(float amount) {	   
+   public void harm(float amount) {	  
+		GameController.getInstance().getWorld().removeTile(getX(), getY());
    }
 }

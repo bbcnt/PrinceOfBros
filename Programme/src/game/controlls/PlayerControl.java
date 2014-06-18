@@ -48,7 +48,7 @@ public class PlayerControl {
 	private IModification movementHor;
 	private IModification movementVer;
 	
-	private enum Facing {
+	public enum Facing {
 		Left, Right, Unknown
 	}
 	
@@ -253,7 +253,7 @@ public class PlayerControl {
 	}
 	
 	public void actionAttack() {
-		pushAction(new Attack(delta, 1000, player), ActionTypes.Attacking, false);
+		pushAction(new Attack(delta, 1000, player, oldFacing), ActionTypes.Attacking, false);
 	}
 	
 	
