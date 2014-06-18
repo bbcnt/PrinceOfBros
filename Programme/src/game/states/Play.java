@@ -103,7 +103,7 @@ public class Play extends BasicGameState {
 		ATH.getInstance().register(player);
 		
 		// Init map
-		background = new TiledMap("./res/Final_Map.tmx");
+		background = new TiledMap("res/Final_Map.tmx");
 		world = new LogicWorld(background);
 		
 		// Registering
