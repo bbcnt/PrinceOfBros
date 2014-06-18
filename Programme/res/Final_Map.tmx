@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="130" height="30" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="Basic_64" tilewidth="64" tileheight="64">
-  <image source="Checked_Tiles.png" width="256" height="256"/>
+  <image source="C:/Users/brito_000/Documents/GitHub/PrinceOfBros/Programme/res/Checked_Tiles.png" width="256" height="256"/>
   <tile id="0">
    <properties>
     <property name="name" value="grass"/>
@@ -100,10 +100,10 @@
   </tile>
  </tileset>
  <tileset firstgid="17" name="Sky" tilewidth="64" tileheight="64">
-  <image source="sky-and-cloud-patterns-01-300x300.jpg" width="300" height="300"/>
+  <image source="C:/Users/brito_000/Documents/GitHub/PrinceOfBros/Programme/res/sky-and-cloud-patterns-01-300x300.jpg" width="300" height="300"/>
  </tileset>
  <tileset firstgid="33" name="Breakable" tilewidth="64" tileheight="64">
-  <image source="Destructible_Zelda_OoT.png" width="64" height="64"/>
+  <image source="C:/Users/brito_000/Documents/GitHub/PrinceOfBros/Programme/res/Destructible_Zelda_OoT.png" width="64" height="64"/>
   <tile id="0">
    <properties>
     <property name="break" value="true"/>
@@ -113,7 +113,7 @@
   </tile>
  </tileset>
  <tileset firstgid="34" name="Spikes" tilewidth="64" tileheight="64">
-  <image source="spiked_tiled.png" width="64" height="64"/>
+  <image source="C:/Users/brito_000/Documents/GitHub/PrinceOfBros/Programme/res/spiked_tiled.png" width="64" height="64"/>
   <tile id="0">
    <properties>
     <property name="breakable" value="false"/>
@@ -124,10 +124,10 @@
   </tile>
  </tileset>
  <tileset firstgid="35" name="Arrows" tilewidth="64" tileheight="64">
-  <image source="down_arrow.png" width="128" height="128"/>
+  <image source="C:/Users/brito_000/Documents/GitHub/PrinceOfBros/Programme/res/down_arrow.png" width="128" height="128"/>
  </tileset>
  <tileset firstgid="39" name="spiked_90" tilewidth="64" tileheight="64">
-  <image source="spiked_tiled_90.png" width="64" height="64"/>
+  <image source="C:/Users/brito_000/Documents/GitHub/PrinceOfBros/Programme/res/spiked_tiled_90.png" width="64" height="64"/>
  </tileset>
  <layer name="Background" width="130" height="30" opacity="0.6">
   <data encoding="base64" compression="gzip">
