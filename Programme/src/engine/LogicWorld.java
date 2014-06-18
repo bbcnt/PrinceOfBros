@@ -17,7 +17,6 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import engine.interaction.Builder;
 import engine.interaction.GameObject;
-import engine.interaction.tiles.Tile;
 
 /**
  * Represent the current world of the game.
@@ -48,13 +47,17 @@ public class LogicWorld implements Iterable<GameObject>{
 			for(int j = 0; j < width; ++j) {
 
 				// Create world tiles.
-				if(checkTileProperty(map, j, i, idLayerContent, "obstacle"))
-					if(checkTileProperty(map, j, i, idLayerContent, "break"))
+				if(checkTileProperty(map, j, i, idLayerContent, "obstacle")) {
+					if(checkTileProperty(map, j, i, idLayerContent, "break")) {
 						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Breakable);
-					else
+					} else {
 						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Solid);
-				else
+					}
+				} else if(checkTileProperty(map, j, i, idLayerContent, "spike")) {
+					world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Spike);
+				} else {
 					world[i][j] = null;
+				}
 			}
 		}
 	}
@@ -115,11 +118,40 @@ public class LogicWorld implements Iterable<GameObject>{
    public GameObject getTile(float x, float y) {
 	   return getTile((int)Math.floor(x), (int)Math.floor(y));
    }
+   
+	/**
+	 * Removes a tile from the game.
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+	 */
+   public void removeTile(int x, int y) {
+   	if(x >= width || y >= height || x < 0 || y < 0)
+			throw new IllegalArgumentException("The x or y are out of the map bounds!");
+		map.setTileId(x, toTabHeight(y), idLayerContent, 0);
+		world[toTabHeight(y)][x] = null;
+   }
+   
+	/**
+	 * Removes a tile from the game.
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+	 */
+   public void removeTile(float x, float y) {
+   	removeTile((int)Math.floor(x), (int)Math.floor(y));
+   }
 	
+   /**
+    * Returns the width of the world.
+    * @return The width of the world
+    */
 	public int getWidth() {
 		return width;
 	}
 	
+	/** 
+	 * Returns the height of the world.
+	 * @return The height of the world
+	 */
 	public int getHeight() {
 		return height;
 	}

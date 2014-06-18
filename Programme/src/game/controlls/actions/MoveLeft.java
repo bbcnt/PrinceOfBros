@@ -11,7 +11,6 @@
  */
 package game.controlls.actions;
 
-import engine.GameController;
 import engine.models.player.Player;
 import game.controlls.PlayerControl;
 
@@ -38,10 +37,7 @@ public class MoveLeft extends UserAction {
 
 	@Override
    public boolean isAllowed() {
-		return player.getX() > 3 
-				&& GameController.getInstance().getWorld().getTile(
-				(int)Math.floor(player.getX() - 1), (int)Math.floor(player.getY()))
-				== null;
+		return player.getX() > 3;
    }
 
 	@Override

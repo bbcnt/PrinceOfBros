@@ -12,6 +12,7 @@
 package engine;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import engine.interaction.GameObject;
 import engine.interaction.tiles.Tile;
@@ -38,7 +39,10 @@ public class GameController {
 	private LogicWorld map;
 	
 	// List of moving gameobjects
-	private LinkedList<GameObject> movableGameObjects = new LinkedList<>();
+	private List<GameObject> movableGameObjects = new LinkedList<>();
+	
+	// List of intersectable gameobjects
+	private List<GameObject> intersectableGameObjects = new LinkedList<>();
 	
 	/*---Getters---------------------------------------------------------------*/
 	public LogicWorld getWorld() {
@@ -99,6 +103,14 @@ public class GameController {
 			}	
 		}
 	}
+	
+	/**
+	 * Register the objects who need a intersection check.
+	 * @param p The player to be also registered.
+	 */
+	public void registerIntersectableObjects(Player p) {
+		intersectableGameObjects.add(p);
+	}
 
 	/**
 	 * Convenient method for a call to {@link #addModification(IModification, boolean)}
@@ -120,6 +132,18 @@ public class GameController {
 		if (modif == null) return;
 		
 		currentTransaction.add(modif, addToBackStack);
+	}
+	
+	/**
+	 * Intersection check.
+	 */
+	public void intersectionCheck() {
+		for(GameObject o : intersectableGameObjects) {
+			GameObject t = getWorld().getTile(o.getX(), o.getY());
+			if(t != null) {
+				t.collision(o);
+			}
+		}
 	}
 	
 	/**

@@ -1,7 +1,7 @@
 /* ============================================================================
- * Filename   : BreakableTile.java
+ * Filename   : SpikeTile.java
  * ============================================================================
- * Created on : 8 juin 2014
+ * Created on : 18 juin 2014
  * ============================================================================
  * Authors    : Brito Carvalho Bruno
  *              Decorvet Grégoire
@@ -11,60 +11,55 @@
  */
 package engine.interaction.tiles;
 
-import engine.GameController;
 import engine.interaction.GameObject;
 
-
 /**
- * Represent a breakable tile.
+ * Represent a spike. It hurts mario.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public class BreakableTile extends Tile {
+public class SpikeTile extends Tile {
+	
+	float lifePenality = 0.2f;
 
 	/**
 	 * @param x
 	 * @param y
 	 */
-   public BreakableTile(float x, float y) {
+   public SpikeTile(float x, float y) {
 	   super(x, y);
-   }
-
-	@Override
-   public boolean isObstacle() {
-	   return true;
-   }
-
-	@Override
-   public boolean isBreakable() {
-	   return true;
-   }
-
-	@Override
-   public boolean isMovable() {
-	   return true;
-   }
-	
-	@Override
-   public boolean isHurting() {
-	   return false;
    }
 	
 	@Override
 	public String toString() {
-		return "Breakable Tile";
+		return "Spiked Tile";
 	}
 
 	@Override
    public void collision(GameObject o) {
-	   
+	   o.harm(lifePenality);
    }
-	
+
 	@Override
-   public void harm(float amount) {	  
-		GameController.getInstance().getWorld().removeTile(getX(), getY());
+   public boolean isObstacle() {
+	   return false;
+   }
+
+	@Override
+   public boolean isBreakable() {
+	   return false;
+   }
+
+	@Override
+   public boolean isMovable() {
+	   return false;
+   }
+
+	@Override
+   public boolean isHurting() {
+	   return true;
    }
 }

@@ -1,6 +1,5 @@
 package game.states;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -111,6 +110,7 @@ public class Play extends BasicGameState {
 		CoordsConverter.registerTileSize(background.getTileHeight());
 		GameController.getInstance().registerMap(world);
 		GameController.getInstance().registerMovableObjects(player);
+		GameController.getInstance().registerIntersectableObjects(player);
 		
 		// Debug information
 		// Register every Drawable item
@@ -149,21 +149,17 @@ public class Play extends BasicGameState {
 		playerControl.beginUpdate(delta);
 
 		if (Commands.MoveLeft.isTriggered(input, delta)) {
-			//playerControl.moveLeft();
 			playerActionExecutor.pushAction(new MoveLeft(playerControl, player));
 		}
 		if (Commands.MoveRight.isTriggered(input, delta)) {
-			//playerControl.moveRight();
 			playerActionExecutor.pushAction(new MoveRight(playerControl, player));
 		}
 
 		if (Commands.Jump.isTriggered(input, delta)) {
-			//playerControl.actionJump();
 			playerActionExecutor.pushAction(new Jump(playerControl, player));
 		}
 
 		if (Commands.Attack.isTriggered(input, delta)) {
-			//playerControl.actionAttack();
 			playerActionExecutor.pushAction(new Attack(playerControl));
 		}
 
@@ -176,9 +172,9 @@ public class Play extends BasicGameState {
 			playerActionExecutor.pushAction(new UserMacro(new Jump(playerControl, player)));
 		}
 		
-		GameController.getInstance().gravityUpdate();
-
 		playerActionExecutor.executeActions();
+		GameController.getInstance().gravityUpdate();
+		GameController.getInstance().intersectionCheck();
 		playerControl.endUpdate();
 
 		// DEBUG controls

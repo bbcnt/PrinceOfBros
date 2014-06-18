@@ -3,10 +3,7 @@ package engine.models.player;
 
 import engine.animations.IAnimatedObject;
 import engine.animations.IAnimatedState;
-import engine.interaction.Enemy;
 import engine.interaction.GameObject;
-import engine.interaction.Weapon;
-import engine.interaction.tiles.Tile;
 
 public class Player extends GameObject implements IAnimatedObject {
 	
@@ -22,7 +19,7 @@ public class Player extends GameObject implements IAnimatedObject {
 	
 	public Player(float posX, float posY) {
 		super(posX,posY, 64,64);
-		setCurrentLife(100);
+		setCurrentLife(maxLife);
 	}
 	
 	/*---Getters---------------------------------------------------------------*/
@@ -85,14 +82,13 @@ public class Player extends GameObject implements IAnimatedObject {
 	public float getMinLife() {
 	   return minLife;
    }
-	
-	public void action(Enemy e) {
-		// TODO
-	}
-	public void action(Tile t) {
-		// TODO
-	}
-	public void action(Weapon w) {
-		// TODO
-	}
+
+	@Override
+   public void collision(GameObject o) {	   
+   }
+
+	@Override
+   public void harm(float amount) {
+	   setCurrentLife(getCurrentLife() - amount);
+   }
 }

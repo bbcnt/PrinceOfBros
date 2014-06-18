@@ -11,7 +11,10 @@
  */
 package engine.modifications.player;
 
+import engine.GameController;
+import engine.interaction.tiles.Tile;
 import engine.models.player.Player;
+import game.controlls.PlayerControl.Facing;
 
 /**
  * TODO
@@ -23,14 +26,33 @@ import engine.models.player.Player;
  */
 public class Attack extends PlayerAction {
 	
-	public Attack(int delta, int cooldown, Player player) {
+	private Facing facing;
+	
+	public Attack(int delta, int cooldown, Player player, Facing facing) {
 		super(delta, cooldown, player);
+		this.facing = facing;
 	}
 
 	@Override
    public void apply() {
-	   // TODO Auto-generated method stub
-	   
+		int shift;
+		   switch(facing) {
+			case Left:
+				shift = -1;
+				break;
+			case Right:
+				shift = 1;
+				break;
+			default:
+				shift = 0;
+				break;
+		   } 
+		
+		   Tile t = (Tile) GameController.getInstance().getWorld().getTile(getPlayer().getX() + shift, getPlayer().getY());
+		   if(t != null) {
+		   	t.harm(50);
+		   }
+		
    }
 
 	@Override

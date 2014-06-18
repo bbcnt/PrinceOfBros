@@ -13,6 +13,7 @@ package engine.interaction;
 
 import engine.interaction.tiles.BreakableTile;
 import engine.interaction.tiles.SolidTile;
+import engine.interaction.tiles.SpikeTile;
 
 /**
  * TODO
@@ -26,7 +27,7 @@ public class Builder {
 	
 	private static Builder instance;
 	
-	public enum TileType {Breakable, Solid};
+	public enum TileType {Breakable, Solid, Spike};
 	
 	private Builder(){}
 	
@@ -47,6 +48,9 @@ public class Builder {
 			
 		case Solid:
 			return new SolidTile(x,y);
+			
+		case Spike:
+			return new SpikeTile(x, y);
 
 		default:
 			throw new RuntimeException("Something terrible happened!");

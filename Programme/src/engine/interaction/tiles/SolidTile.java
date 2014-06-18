@@ -11,6 +11,8 @@
  */
 package engine.interaction.tiles;
 
+import engine.interaction.GameObject;
+
 
 /**
  * Represents a solid block
@@ -46,7 +48,15 @@ public class SolidTile extends Tile {
    }
 	
 	@Override
+   public boolean isHurting() {
+	   return false;
+   }
+	
+	@Override
 	public String toString() {
 		return "Solid Tile";
 	}
+
+	@Override
+   public void collision(GameObject o) {}
 }

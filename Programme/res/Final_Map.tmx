@@ -118,6 +118,8 @@
    <properties>
     <property name="breakable" value="false"/>
     <property name="name" value="spike"/>
+    <property name="obstacle" value="false"/>
+    <property name="spike" value="true"/>
    </properties>
   </tile>
  </tileset>
