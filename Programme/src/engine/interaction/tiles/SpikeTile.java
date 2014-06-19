@@ -23,7 +23,7 @@ import engine.interaction.GameObject;
  */
 public class SpikeTile extends Tile {
 	
-	float lifePenality = 0.2f;
+	float lifePenality = 1.0f;
 
 	/**
 	 * @param x

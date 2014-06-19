@@ -200,7 +200,7 @@ public class GameController {
 	}
 	
 	private GameController() {
-		modStack = new ModificationManager(300, 500);
+		modStack = new ModificationManager(150, 300);
 		currentTransaction = ModificationManager.EMPTY_TRANSACTION;
 	}
 	

@@ -138,6 +138,10 @@ public class Play extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 	      throws SlickException {
+		
+		if (player.getCurrentLife() <= 0.0f)
+			sbg.enterState(Game.STATE_GAMEOVER);
+		
 		Input input = gc.getInput();
 
 		ATH.getInstance().update(delta);
