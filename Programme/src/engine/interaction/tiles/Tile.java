@@ -25,12 +25,14 @@ import engine.interaction.GameObject;
 public abstract class Tile extends GameObject {
 	
 	private static int hitBoxSize = 64;
+	private int id;
 
 	/**
 	 * @param t
 	 */
-   public Tile(float x, float y) {
+   public Tile(int id, float x, float y) {
 	   super(x,y, hitBoxSize,hitBoxSize);
+	   this.id = id;
    }
    
 	/**
@@ -53,6 +55,10 @@ public abstract class Tile extends GameObject {
 	@Override
    public void harm(float amount) {
    }
+	
+	public int getId() {
+		return id;
+	}
 	
    public abstract boolean isObstacle();
 

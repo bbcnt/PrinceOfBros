@@ -41,16 +41,16 @@ public class Builder {
 	 * For now, our builder can create only Tile.
 	 * @return
 	 */
-	public GameObject createGameObject(float x, float y, TileType type) {
+	public GameObject createGameObject(int id, float x, float y, TileType type) {
 		switch (type) {
 		case Breakable:
-			return new BreakableTile(x,y);
+			return new BreakableTile(id, x,y);
 			
 		case Solid:
-			return new SolidTile(x,y);
+			return new SolidTile(id, x,y);
 			
 		case Spike:
-			return new SpikeTile(x, y);
+			return new SpikeTile(id, x, y);
 
 		default:
 			throw new RuntimeException("Something terrible happened!");

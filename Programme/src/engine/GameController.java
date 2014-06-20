@@ -98,10 +98,26 @@ public class GameController {
 	public void registerMovableObjects(Player p) {
 		movableGameObjects.add(p);
 		for(GameObject t : map) {
-			if(t != null && ((Tile)t).isMovable()) {			
-				movableGameObjects.add(t);
+			if(t != null && ((Tile)t).isMovable()) {	
+				addMovableObject(t);
 			}	
 		}
+	}
+	
+	/**
+	 * Removes a GameObject from the list.
+	 * @param o The GameObject to remove.
+	 */
+	public void removeMovableObject(GameObject o) {
+		movableGameObjects.remove(o);
+	}
+	
+	/**
+	 * Adds movable a GameObject to the list of movables.
+	 * @param o The GameObject to add.
+	 */
+	public void addMovableObject(GameObject o) {
+		movableGameObjects.add(o);
 	}
 	
 	/**

@@ -29,8 +29,8 @@ public class SpikeTile extends Tile {
 	 * @param x
 	 * @param y
 	 */
-   public SpikeTile(float x, float y) {
-	   super(x, y);
+   public SpikeTile(int id, float x, float y) {
+	   super(id, x, y);
    }
 	
 	@Override

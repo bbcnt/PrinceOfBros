@@ -28,8 +28,8 @@ public class SolidTile extends Tile {
 	 * @param x
 	 * @param y
 	 */
-   public SolidTile(float x, float y) {
-	   super(x, y);
+   public SolidTile(int id, float x, float y) {
+	   super(id, x, y);
    }
 
 	@Override

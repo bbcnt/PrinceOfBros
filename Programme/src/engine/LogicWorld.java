@@ -45,16 +45,16 @@ public class LogicWorld implements Iterable<GameObject>{
 		
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
-
+				int id = map.getTileId(j, i, idLayerContent);
 				// Create world tiles.
 				if(checkTileProperty(map, j, i, idLayerContent, "obstacle")) {
 					if(checkTileProperty(map, j, i, idLayerContent, "break")) {
-						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Breakable);
+						world[i][j] = Builder.getInstance().createGameObject(id,j+0.5f,height - i - 0.5f, Builder.TileType.Breakable);
 					} else {
-						world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Solid);
+						world[i][j] = Builder.getInstance().createGameObject(id, j+0.5f,height - i - 0.5f, Builder.TileType.Solid);
 					}
 				} else if(checkTileProperty(map, j, i, idLayerContent, "spike")) {
-					world[i][j] = Builder.getInstance().createGameObject(j+0.5f,height - i - 0.5f, Builder.TileType.Spike);
+					world[i][j] = Builder.getInstance().createGameObject(id, j+0.5f,height - i - 0.5f, Builder.TileType.Spike);
 				} else {
 					world[i][j] = null;
 				}
@@ -138,6 +138,17 @@ public class LogicWorld implements Iterable<GameObject>{
 	 */
    public void removeTile(float x, float y) {
    	removeTile((int)Math.floor(x), (int)Math.floor(y));
+   }
+   
+   public GameObject createTile(int id, float x, float y) {
+   	return createTile(id, (int)Math.floor(x), (int)Math.floor(y));
+   }
+   
+   public GameObject createTile(int id, int x, int y) {
+   	GameObject g = Builder.getInstance().createGameObject(id, x+0.5f,toTabHeight(y), Builder.TileType.Breakable);
+   	world[toTabHeight(y)][x] = g;
+   	map.setTileId(x, toTabHeight(y), idLayerContent, id);
+   	return g;
    }
 	
    /**

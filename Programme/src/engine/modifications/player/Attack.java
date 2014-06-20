@@ -12,9 +12,11 @@
 package engine.modifications.player;
 
 import engine.GameController;
+import engine.interaction.GameObject;
 import engine.interaction.tiles.Tile;
 import engine.models.player.Player;
 import game.controlls.PlayerControl.Facing;
+import game.states.Game;
 
 /**
  * TODO
@@ -25,40 +27,46 @@ import game.controlls.PlayerControl.Facing;
  *
  */
 public class Attack extends PlayerAction {
-	
-	private Facing facing;
+	private int tileId;
+	private float x;
+	private float y;
+	private int shift; // Horizontal shift.
 	
 	public Attack(int delta, int cooldown, Player player, Facing facing) {
 		super(delta, cooldown, player);
-		this.facing = facing;
+		
+	   switch(facing) {
+		case Left:
+			shift = -1;
+			break;
+		case Right:
+			shift = 1;
+			break;
+		default:
+			shift = 0;
+			break;
+	   }
 	}
 
 	@Override
    public void apply() {
-		int shift;
-		   switch(facing) {
-			case Left:
-				shift = -1;
-				break;
-			case Right:
-				shift = 1;
-				break;
-			default:
-				shift = 0;
-				break;
-		   } 
-		
 		   Tile t = (Tile) GameController.getInstance().getWorld().getTile(getPlayer().getX() + shift, getPlayer().getY());
+//		   System.out.println("Attacking tile: "+ getPlayer().getX() + shift + "," + getPlayer().getY());
+//		   System.out.println("Tile : " + (t==null?"false":"true"));
 		   if(t != null) {
+			   // Saves the location of the tile and his id.
+			   tileId = t.getId();
+			   x = t.getX();
+			   y = t.getY();
+			   
 		   	t.harm(50);
 		   }
-		
-   }
+	}
 
 	@Override
    public void cancel() {
-	   // TODO Auto-generated method stub
-	   
+//	   GameObject g = GameController.getInstance().getWorld().createTile(tileId, x , y);
+//	   GameController.getInstance().addMovableObject(g);
    }
 
 }

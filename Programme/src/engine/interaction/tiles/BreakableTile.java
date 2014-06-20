@@ -29,8 +29,8 @@ public class BreakableTile extends Tile {
 	 * @param x
 	 * @param y
 	 */
-   public BreakableTile(float x, float y) {
-	   super(x, y);
+   public BreakableTile(int id, float x, float y) {
+	   super(id, x, y);
    }
 
 	@Override
@@ -65,6 +65,7 @@ public class BreakableTile extends Tile {
 	
 	@Override
    public void harm(float amount) {	  
+		GameController.getInstance().removeMovableObject(this);
 		GameController.getInstance().getWorld().removeTile(getX(), getY());
    }
 }
