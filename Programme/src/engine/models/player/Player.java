@@ -28,6 +28,18 @@ public class Player extends GameObject implements IAnimatedObject {
 		return speed;
 	}
 	
+	public float getMaxLife() {
+	   return maxLife;
+   }
+
+	public float getCurrentLife() {
+	   return currentLife;
+   }
+
+	public float getMinLife() {
+	   return minLife;
+   }
+	
 	/*---Modifiers-------------------------------------------------------------*/
 	
 	public void moveLeft(float value) {
@@ -46,15 +58,14 @@ public class Player extends GameObject implements IAnimatedObject {
 		moveY(-value);
 	}
 	
-	/*---Inherit from interfaces-----------------------------------------------*/
+	public void setCurrentLife(float currentLife) {
+	   this.currentLife = currentLife;
+   }
 	
-	public void initIdleStates(IAnimatedState[] states) {
-		// TODO
-	}
+	/*---Inherit from interfaces-----------------------------------------------*/
 
 	@Override
    public boolean setAnimation(IAnimatedState state) {
-		
 		if (state == null) return false;
 		
 		this.state = state;
@@ -66,25 +77,10 @@ public class Player extends GameObject implements IAnimatedObject {
 	public IAnimatedState getState() {
 		return state;
 	}
-
-	public float getMaxLife() {
-	   return maxLife;
-   }
-
-	public float getCurrentLife() {
-	   return currentLife;
-   }
-
-	public void setCurrentLife(float currentLife) {
-	   this.currentLife = currentLife;
-   }
-
-	public float getMinLife() {
-	   return minLife;
-   }
-
+	
 	@Override
-   public void collision(GameObject o) {	   
+   public void collision(GameObject o) {
+		// Nothing for now
    }
 
 	@Override
