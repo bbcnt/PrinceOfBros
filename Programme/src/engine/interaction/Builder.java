@@ -25,17 +25,7 @@ import engine.interaction.tiles.SpikeTile;
  */
 public class Builder {
 	
-	private static Builder instance;
-	
 	public enum TileType {Breakable, Solid, Spike};
-	
-	private Builder(){}
-	
-	public static Builder getInstance() {
-		if(instance == null)
-			instance = new Builder();
-		return instance;
-	}
 	
 	/**
 	 * For now, our builder can create only Tile.
@@ -55,6 +45,18 @@ public class Builder {
 		default:
 			throw new RuntimeException("Something terrible happened!");
 		}
+	}
+	
+   /*---Singleton part--------------------------------------------------------*/
+	
+	public static Builder getInstance() {
+		return Instance.instance;
+	}
+	
+	private Builder() { }
+	
+	private static class Instance {
+		private static final Builder instance = new Builder();
 	}
 
 }

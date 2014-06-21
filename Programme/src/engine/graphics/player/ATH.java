@@ -24,7 +24,6 @@ import engine.GameController;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
 import game.settings.Config;
-import game.states.Game;
 
 /**
  * TODO
@@ -126,7 +125,7 @@ public class ATH implements IDrawable{
 		init();
 	}
 	
-/*---Singleton part--------------------------------------------------------*/
+   /*---Singleton part--------------------------------------------------------*/
 	
 	public static ATH getInstance() {
 		return Instance.instance;
