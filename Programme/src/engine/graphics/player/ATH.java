@@ -12,7 +12,6 @@
 package engine.graphics.player;
 
 import java.awt.Font;
-import java.io.InputStream;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -24,6 +23,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import engine.GameController;
 import engine.graphics.IDrawable;
 import engine.models.player.Player;
+import game.settings.Config;
 import game.states.Game;
 
 /**
@@ -42,20 +42,17 @@ public class ATH implements IDrawable{
 	private float width;
 	private Player player;
 	private TrueTypeFont font;
-	private static ATH instance = null;
 	
 	private Rectangle lifeBar;
 	private Rectangle mushroomBar;
-	private InputStream inputStream;
 	private GradientFill lifeFill;
 	private GradientFill mushroomFill;
 	
 	private void init() {
 		
 		try {
-			
-			inputStream = ResourceLoader.getResourceAsStream("./res/trajanproregular.ttf");
-			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			Font awtFont = Font.createFont(Font.TRUETYPE_FONT,
+			                               ResourceLoader.getResourceAsStream("./res/trajanproregular.ttf"));
 			awtFont = awtFont.deriveFont(20f);
 			font = new TrueTypeFont(awtFont, false);
 		}
@@ -71,40 +68,25 @@ public class ATH implements IDrawable{
             x + width, 20, new Color(0, 180, 255));
 	}
 	
-	private ATH() {
-		x 		 = 80;
-		y 		 = 20;
-		width  = Game.SCREEN_WIDTH  / 5;
-		height = Game.SCREEN_HEIGHT / 22;
-	}
-	private ATH(float x, float y, float height, float width) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
+	
 	
 	@Override
    public float getX() {
-	   // TODO Auto-generated method stub
 	   return x;
    }
 
 	@Override
    public float getY() {
-	   // TODO Auto-generated method stub
 	   return y;
    }
 
 	@Override
    public float getWidth() {
-	   // TODO Auto-generated method stub
 	   return width;
    }
 
 	@Override
    public float getHeight() {
-	   // TODO Auto-generated method stub
 	   return height;
    }
 
@@ -136,7 +118,7 @@ public class ATH implements IDrawable{
 
 	@Override
    public void update(int delta) {
-		
+		// Nothing to update
    }
 	
 	public void register(Player player) {
@@ -144,10 +126,21 @@ public class ATH implements IDrawable{
 		init();
 	}
 	
+/*---Singleton part--------------------------------------------------------*/
+	
 	public static ATH getInstance() {
-		if(instance == null)
-			instance = new ATH();
-		return instance;
+		return Instance.instance;
+	}
+	
+	private ATH() {
+		x 		 = 80;
+		y 		 = 20;
+		width  = Config.getInstance().getResolutionWidth()  / 5;
+		height = Config.getInstance().getResolutionHeight() / 22;
+	}
+	
+	private static class Instance {
+		private static final ATH instance = new ATH();
 	}
 
 }

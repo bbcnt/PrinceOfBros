@@ -1,5 +1,7 @@
 package game.states;
 
+import game.settings.Config;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -81,13 +83,17 @@ public class Menu extends BasicGameState {
 		int mouseY = Mouse.getY();
 		
 		// play button
-		if ((mouseX > 120 && mouseX < 220) && (mouseY > Game.SCREEN_HEIGHT - 135 && mouseY < Game.SCREEN_HEIGHT - 100)) {
+		if ((mouseX > 120 && mouseX < 220)
+			&& (mouseY > Config.getInstance().getResolutionHeight() - 135
+				 && mouseY < Config.getInstance().getResolutionHeight() - 100)) {
 			if (Mouse.isButtonDown(0)) {
 				sbg.enterState(Game.STAT_PLAY);
 			}
 		}
 		// exit game
-		if ((mouseX > 260 && mouseX < 380) && (mouseY > Game.SCREEN_HEIGHT - 135 && mouseY < Game.SCREEN_HEIGHT - 100)) {
+		if ((mouseX > 260 && mouseX < 380)
+			 && (mouseY > Config.getInstance().getResolutionHeight() - 135
+				  && mouseY < Config.getInstance().getResolutionHeight() - 100)) {
 			if (Mouse.isButtonDown(0)) {
 				System.exit(0);
 			}

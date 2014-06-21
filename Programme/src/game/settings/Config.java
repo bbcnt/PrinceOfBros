@@ -22,9 +22,21 @@ package game.settings;
 public class Config {
 	
 	/**
+	 * The 
+	 */
+	private String gameName;
+	
+	/**
 	 * The minimum delay between two consideration of key events.
 	 */
-	private int keyMinDelay;
+	private int keyMinDelay;   
+  
+	private int resolutionWidth;
+	private int resolutionHeight;
+	
+	public String getGameName() {
+		return gameName;
+	}
 	
 	/**
 	 * Return the minimum delay between two use of key events in milliseconds.
@@ -34,6 +46,14 @@ public class Config {
 		return keyMinDelay;
 	}
 	
+	public int getResolutionWidth() {
+		return resolutionWidth;
+	}
+	
+	public int getResolutionHeight() {
+		return resolutionHeight;
+	}
+	
 	/*---Singleton part--------------------------------------------------------*/
 	
 	private static class Instance {
@@ -41,7 +61,10 @@ public class Config {
 	}
 	
 	private Config() {
+		gameName = "Prince of Bros";
 		keyMinDelay = 250;
+		resolutionWidth = 800;
+		resolutionHeight = 500;
 	}
 	
 	public static Config getInstance() {

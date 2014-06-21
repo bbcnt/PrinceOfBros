@@ -10,6 +10,7 @@
  * ============================================================================
  */
 
+import game.settings.Config;
 import game.states.Game;
 
 import org.newdawn.slick.AppGameContainer;
@@ -31,10 +32,13 @@ public class Launcher {
       AppGameContainer container;
       
 		try {
-			DebugInformations.getInstance().setPosition(Game.SCREEN_WIDTH - 250, 0);
+			DebugInformations.getInstance().setPosition(
+					Config.getInstance().getResolutionWidth() - 250, 0);
 			
 			container = new AppGameContainer(new Game());
-			container.setDisplayMode(Game.SCREEN_WIDTH, Game.SCREEN_HEIGHT, false);
+			container.setDisplayMode(Config.getInstance().getResolutionWidth(),
+									       Config.getInstance().getResolutionHeight(),
+									       false);
 			container.setTargetFrameRate(60);
 			container.setShowFPS(true);
 			container.start();
