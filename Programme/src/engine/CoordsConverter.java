@@ -24,36 +24,35 @@ package engine;
  */
 public class CoordsConverter {
 	
-	private static CoordsConverter instance;
 	private Float tileSize;
 	
-	private CoordsConverter() {
-		
-	}
-	
 	public static void registerTileSize(float f) {
-		if(instance == null)
-			getInstance();
-		instance.tileSize = f;
-	}
-	
-	public static CoordsConverter getInstance() {
-		if(instance == null)
-			instance = new CoordsConverter();
-		return instance;
+		getInstance().tileSize = f;
 	}
 	
 	public float toLogic(float f) {
-		if(instance.tileSize == null) {
+		if(getInstance().tileSize == null) {
 			throw new RuntimeException("The tile's size is not registered yet");
 		}
 		return f / tileSize;
 	}
 	
 	public float toGraphic(float f) {
-		if(instance.tileSize == null) {
+		if(getInstance().tileSize == null) {
 			throw new RuntimeException("The tile's size is not registered yet");
 		}
 		return tileSize * f; 
+	}
+	
+	/*---Singleton part--------------------------------------------------------*/
+	
+	public static CoordsConverter getInstance() {
+		return Instance.instance;
+	}
+	
+	private CoordsConverter() { }
+	
+	private static class Instance {
+		private static final CoordsConverter instance = new CoordsConverter();
 	}
 }
