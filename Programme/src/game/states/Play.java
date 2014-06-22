@@ -22,6 +22,7 @@ import game.controlls.ActionExecutor;
 import game.controlls.Commands;
 import game.controlls.PlayerControl;
 import game.controlls.actions.Attack;
+import game.controlls.actions.Charge;
 import game.controlls.actions.Jump;
 import game.controlls.actions.MoveLeft;
 import game.controlls.actions.MoveRight;
@@ -171,8 +172,8 @@ public class Play extends BasicGameState {
 		}
 		
 		if (Commands.Macro.isTriggered(input, delta)) {
-			// TODO
-			playerActionExecutor.pushAction(new UserMacro(new Jump(playerControl, player)));
+			playerActionExecutor.pushAction(new UserMacro(
+					new Charge(playerControl, player), new Attack(playerControl)));
 		}
 		
 		playerActionExecutor.executeActions();

@@ -62,6 +62,12 @@ public class Player extends GameObject implements IAnimatedObject {
 	   this.currentLife = currentLife;
    }
 	
+	public void setSpeed(float speed) {
+		if (speed > 0) {
+			this.speed = speed;
+		}
+	}
+	
 	/*---Inherit from interfaces-----------------------------------------------*/
 
 	@Override

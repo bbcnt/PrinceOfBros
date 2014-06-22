@@ -20,6 +20,7 @@ import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.animations.AnimationChange;
 import engine.modifications.player.Attack;
+import engine.modifications.player.Charge;
 import engine.modifications.player.Jump;
 import engine.modifications.player.MoveLeft;
 import engine.modifications.player.MoveRight;
@@ -53,7 +54,7 @@ public class PlayerControl {
 	}
 	
 	private enum ActionTypes {
-		Idle, Attacking, Jumping;
+		Idle, Attacking, Jumping, Charging;
 	}
 	
 	private Facing facing = Facing.Unknown;
@@ -151,6 +152,10 @@ public class PlayerControl {
 	
 	public void beginUpdate(int delta) {
 		this.delta = delta;
+		
+		// Trick to manage charging speed.
+		// Due to the fact there is no timed modification.
+		player.setSpeed(0.007f);
 	}
 	
 	public void endUpdate() {
@@ -249,11 +254,15 @@ public class PlayerControl {
 	}
 	
 	public void actionJump() {
-		pushAction(new Jump(delta, 200, player), ActionTypes.Jumping, true);
+		pushAction(new Jump(delta, 300, player), ActionTypes.Jumping, true);
 	}
 	
 	public void actionAttack() {
 		pushAction(new Attack(delta, 1000, player, oldFacing), ActionTypes.Attacking, false);
+	}
+	
+	public void actionCharge() {
+		pushAction(new Charge(delta, 200, player), ActionTypes.Charging, true);
 	}
 	
 	
