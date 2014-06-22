@@ -12,7 +12,6 @@
 package game.states;
 
 import java.awt.Font;
-import java.io.InputStream;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -37,7 +36,6 @@ public class GameOver extends BasicGameState{
 
 	private Image gameOverImage;
 	private TrueTypeFont font;
-	private InputStream inputStream;
 	
 	@Override
    public void init(GameContainer arg0, StateBasedGame arg1)
@@ -46,9 +44,7 @@ public class GameOver extends BasicGameState{
 		gameOverImage = new Image("/res/game_over/Game_Over.png");
 	   
 		try {
-			
-			inputStream = ResourceLoader.getResourceAsStream("./res/trajanproregular.ttf");
-			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("./res/trajanproregular.ttf"));
 			awtFont = awtFont.deriveFont(20f);
 			font = new TrueTypeFont(awtFont, false);
 			
@@ -78,8 +74,7 @@ public class GameOver extends BasicGameState{
 
 	@Override
    public int getID() {
-	   // TODO Auto-generated method stub
-	   return 3;
+	   return Game.STATE_GAMEOVER;
    }
 
 }

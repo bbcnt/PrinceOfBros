@@ -12,7 +12,6 @@
 package game.states;
 
 import java.awt.Font;
-import java.io.InputStream;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -38,7 +37,6 @@ public class Intro extends BasicGameState{
 	private Image logo;
 	private Image background;
 	private TrueTypeFont font;
-	private InputStream inputStream;
 	private Color textColor;
 	private int timeCounter;
 	private String textToShow;
@@ -55,9 +53,7 @@ public class Intro extends BasicGameState{
 		textToShow = pressEnter;
 		
 		try {
-			
-			inputStream = ResourceLoader.getResourceAsStream("./res/trajanproregular.ttf");
-			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("./res/trajanproregular.ttf"));
 			awtFont = awtFont.deriveFont(20f);
 			font = new TrueTypeFont(awtFont, false);
 		}catch(Exception e){}
@@ -97,8 +93,7 @@ public class Intro extends BasicGameState{
 
 	@Override
    public int getID() {
-	   // TODO Auto-generated method stub
-	   return 2;
+	   return Game.STATE_INTRO;
    }
 
 }
