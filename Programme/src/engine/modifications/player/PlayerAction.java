@@ -13,7 +13,6 @@
 package engine.modifications.player;
 
 import engine.models.player.Player;
-import engine.modifications.IModification;
 import engine.modifications.SynchronizedModification;
 
 
@@ -26,7 +25,7 @@ import engine.modifications.SynchronizedModification;
  * @author Schweizer Thomas
  *
  */
-public abstract class PlayerAction extends SynchronizedModification implements IModification {
+public abstract class PlayerAction extends SynchronizedModification {
 	
 	private int cooldown;
 	private Player player;
