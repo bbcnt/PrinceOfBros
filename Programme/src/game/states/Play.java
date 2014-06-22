@@ -18,7 +18,6 @@ import engine.graphics.player.ATH;
 import engine.graphics.player.GPlayer;
 import engine.models.player.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
-import engine.modifications.player.MoveDown;
 import game.controlls.ActionExecutor;
 import game.controlls.Commands;
 import game.controlls.PlayerControl;
@@ -180,14 +179,6 @@ public class Play extends BasicGameState {
 		GameController.getInstance().gravityUpdate();
 		GameController.getInstance().intersectionCheck();
 		playerControl.endUpdate();
-
-		// DEBUG controls
-		if (input.isKeyDown(Input.KEY_UP)) {
-			GameController.getInstance().addModification(new MoveDown(-delta, player));
-		}
-		if (input.isKeyDown(Input.KEY_DOWN)) {
-			GameController.getInstance().addModification(new MoveDown(delta, player));
-		}
 
 		// FIXME remove when list of drawable object manage in engine
 		GameController.getInstance().addModification(
