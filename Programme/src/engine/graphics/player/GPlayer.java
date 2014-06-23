@@ -17,10 +17,10 @@ import engine.CoordsConverter;
 import engine.animations.IAnimatedState;
 import engine.animations.TimedAnimation;
 import engine.graphics.IDrawable;
-import engine.models.player.Player;
+import engine.interaction.Player;
 
 /**
- * TODO
+ * Represent the graphical player, with his sprite and animations.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -85,6 +85,10 @@ public class GPlayer implements IDrawable {
 	
 	private IAnimatedState current;
 	
+	/**
+	 * Initialize a GPlayer.
+	 * @param player The logical player.
+	 */
 	public GPlayer(Player player) {
 		this.player = player;
 		player.setAnimation(AnimationState.IdleRight);
@@ -124,5 +128,4 @@ public class GPlayer implements IDrawable {
 		if (current != null)
 			current.getAnimation().update(delta);
 	}
-
 }

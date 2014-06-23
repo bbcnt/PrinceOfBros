@@ -1,3 +1,15 @@
+/* ============================================================================
+ * Filename   : Menu.java
+ * ============================================================================
+ * Created on : 3 juin 2014
+ * ============================================================================
+ * Authors    : Brito Carvalho Bruno
+ *              Decorvet Grégoire
+ *              Ngo Quang Dung
+ *              Schweizer Thomas
+ * ============================================================================
+ */
+
 package game.states;
 
 import game.settings.Config;
@@ -12,6 +24,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * This is the game menu state of the game. It gives indications to the player 
+ * about the game and allow him to take a break.
+ * @author Brito Carvalho Bruno
+ * @author Decorvet Grégoire
+ * @author Ngo Quang Dung
+ * @author Schweizer Thomas
+ *
+ */
 public class Menu extends BasicGameState {
 
 	private Image keyA;
@@ -66,11 +87,6 @@ public class Menu extends BasicGameState {
 		g.drawImage(keyD, 640, 400);
 		
 		g.drawImage(keyArrows, 540, 240);
-		//g.drawString(", x, y)
-		
-		// DEBUG
-		//DebugInformations.getInstance().updateGameStateId(getID());
-		//DebugInformations.getInstance().draw(g);
 	}
 
 	@Override

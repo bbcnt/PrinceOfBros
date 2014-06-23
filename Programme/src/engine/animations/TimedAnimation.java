@@ -99,6 +99,14 @@ public class TimedAnimation {
 		 setupAnimation(frames, durations, loop, pingPong);
 	}
 	
+	/**
+	 * Setup method for the animation. See {@link #TimedAnimation(Image[] frames, int[] durations, boolean loop, boolean pingPong)}
+	 * @param frames The frames to use for the animation.
+	 * @param durations The durations in millis.
+	 * @param loop If the animation restart after ending.
+	 * @param pingPong If the animation is going backward after reaching the
+	 * last frame.
+	 */
 	private void setupAnimation(Image[] frames, int[] durations, boolean loop, boolean pingPong) {
 		
 		if (frames == null || durations == null || frames.length != durations.length)
@@ -129,7 +137,6 @@ public class TimedAnimation {
 		currentDirection = Direction.Forward;
 		
 		speed = 1.0f;
-		
 	}
 	
 	/*---Getters---------------------------------------------------------------*/

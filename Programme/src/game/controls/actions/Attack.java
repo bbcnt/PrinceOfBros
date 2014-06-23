@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : MoveLeft.java
+ * Filename   : Attack.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -9,40 +9,31 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls.actions;
+package game.controls.actions;
 
-import engine.models.player.Player;
-import game.controlls.PlayerControl;
+import game.controls.PlayerControl;
 
 /**
- * TODO
+ * Attack user action.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public class MoveLeft extends UserAction {
+public class Attack extends UserAction {
 
-	private Player player;
-	
-   public MoveLeft(PlayerControl controls, Player player) {
-	   super(controls);
-	   this.player = player;
-   }
-   
-   public Player getPlayer() {
-   	return player;
-   }
+	public Attack(PlayerControl control) {
+		super(control);
+	}
 
 	@Override
    public boolean isAllowed() {
-		return player.getX() > 3;
+	   return true;
    }
 
 	@Override
    public void execute() {
-	   getPlayerControl().moveLeft();
+	   getPlayerControl().actionAttack();
    }
-
 }

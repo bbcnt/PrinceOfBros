@@ -15,7 +15,7 @@ import engine.graphics.IDrawable;
 import engine.modifications.SynchronizedModification;
 
 /**
- * TODO
+ * Command of a graphical update for an object.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung

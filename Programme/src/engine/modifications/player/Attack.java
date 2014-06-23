@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : AttackRight.java
+ * Filename   : Attack.java
  * ============================================================================
  * Created on : 27 mai 2014
  * ============================================================================
@@ -12,14 +12,12 @@
 package engine.modifications.player;
 
 import engine.GameController;
-import engine.interaction.GameObject;
+import engine.interaction.Player;
 import engine.interaction.tiles.Tile;
-import engine.models.player.Player;
-import game.controlls.PlayerControl.Facing;
-import game.states.Game;
+import game.controls.PlayerControl.Facing;
 
 /**
- * TODO
+ * Command for a player's attack.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -27,9 +25,6 @@ import game.states.Game;
  *
  */
 public class Attack extends PlayerAction {
-	private int tileId;
-	private float x;
-	private float y;
 	private int shift; // Horizontal shift.
 	
 	public Attack(int delta, int cooldown, Player player, Facing facing) {
@@ -50,23 +45,14 @@ public class Attack extends PlayerAction {
 
 	@Override
    public void apply() {
-		   Tile t = (Tile) GameController.getInstance().getWorld().getTile(getPlayer().getX() + shift, getPlayer().getY());
-//		   System.out.println("Attacking tile: "+ getPlayer().getX() + shift + "," + getPlayer().getY());
-//		   System.out.println("Tile : " + (t==null?"false":"true"));
-		   if(t != null) {
-			   // Saves the location of the tile and his id.
-			   tileId = t.getId();
-			   x = t.getX();
-			   y = t.getY();
-			   
-		   	t.harm(50);
-		   }
+	   Tile t = (Tile) GameController.getInstance().getWorld().getTile(getPlayer().getX() + shift, getPlayer().getY());
+	   if(t != null) {			   
+	   	t.harm(50);
+	   }
 	}
 
 	@Override
    public void cancel() {
-//	   GameObject g = GameController.getInstance().getWorld().createTile(tileId, x , y);
-//	   GameController.getInstance().addMovableObject(g);
+		// The mushrooms can't bring a block back to life :(
    }
-
 }

@@ -11,9 +11,8 @@
  */
 package engine.interaction;
 
-
 /**
- * Defines the action todo when a game objet collision with a certain object.
+ * Defines the action to do when a game objet collides with another GameObject.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung

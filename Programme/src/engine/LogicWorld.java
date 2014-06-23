@@ -19,7 +19,7 @@ import engine.interaction.Builder;
 import engine.interaction.GameObject;
 
 /**
- * Represent the current world of the game.
+ * Represent the current world of the game from a loaded TiledMap.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -28,6 +28,8 @@ import engine.interaction.GameObject;
  */
 public class LogicWorld implements Iterable<GameObject>{
 	
+	private static String layerName = "Content";
+	
 	private GameObject[][] world;
 	private TiledMap map;
 	private int height;
@@ -35,18 +37,25 @@ public class LogicWorld implements Iterable<GameObject>{
 	
 	private int idLayerContent;
 	
+	/**
+	 * Initialize the logicworld by reading be tiledmap and creating associated Tiles.
+	 * @param map The TiledMap containing the description of the world.
+	 */
 	public LogicWorld(TiledMap map) {
 		this.map = map;
 		height = map.getHeight();
 		width = map.getWidth();
 		world = new GameObject[height][width];
 
-		idLayerContent = map.getLayerIndex("Content");
+		// We are looking for tiles in the 'Content' layer.
+		idLayerContent = map.getLayerIndex(layerName);
 		
+		// Analysing every case from the TiledMap and associating it to a logical Tile.
 		for(int i = 0; i < height; ++i) {
 			for(int j = 0; j < width; ++j) {
 				int id = map.getTileId(j, i, idLayerContent);
-				// Create world tiles.
+				
+				// Create logical tiles.
 				if(checkTileProperty(map, j, i, idLayerContent, "obstacle")) {
 					if(checkTileProperty(map, j, i, idLayerContent, "break")) {
 						world[i][j] = Builder.getInstance().createGameObject(id,j+0.5f,height - i - 0.5f, Builder.TileType.Breakable);
@@ -62,6 +71,11 @@ public class LogicWorld implements Iterable<GameObject>{
 		}
 	}
 	
+	/**
+	 * Converts the vertical logical position to internal vertical position.
+	 * @param i The vertical position
+	 * @return The converted vertical position
+	 */
 	private int toTabHeight(int i) {
 		return height - i - 1;
 	}
@@ -140,10 +154,24 @@ public class LogicWorld implements Iterable<GameObject>{
    	removeTile((int)Math.floor(x), (int)Math.floor(y));
    }
    
+   /**
+    * Creates a tile in the game.
+    * @param id The id of the tile (TiledMap id)
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+    * @return The new Tile
+    */
    public GameObject createTile(int id, float x, float y) {
    	return createTile(id, (int)Math.floor(x), (int)Math.floor(y));
    }
    
+   /**
+    * Creates a tile in the game.
+    * @param id The id of the tile (TiledMap id)
+	 * @param x The horizontal position of the tile.
+	 * @param y The vertical position of the tile.
+    * @return The new Tile
+    */
    public GameObject createTile(int id, int x, int y) {
    	GameObject g = Builder.getInstance().createGameObject(id, x+0.5f,toTabHeight(y), Builder.TileType.Breakable);
    	world[toTabHeight(y)][x] = g;

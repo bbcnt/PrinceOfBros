@@ -21,10 +21,10 @@ import org.newdawn.slick.Graphics;
 
 import engine.GameController;
 import engine.graphics.IDrawable;
-import engine.models.player.Player;
+import engine.interaction.Player;
 
 /**
- * Displayed values on the top of the game panel.
+ * Handler for debug informations on the screen.
  * 
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
@@ -34,7 +34,7 @@ import engine.models.player.Player;
  */
 public class DebugInformations {
 	
-	public final static boolean SHOW_DEBUG_INFORMATIONS = true;
+	public final static boolean SHOW_DEBUG_INFORMATIONS = false;
 	
 	public final static boolean SHOW_MOUSE_POS = true;
 	public final static boolean SHOW_UPDATE_DELTA = true;
@@ -53,6 +53,7 @@ public class DebugInformations {
 	      stateId = id;
       }
 	}
+	
 	private List<GameStateDrawables> drawableObjects = new LinkedList<>();
 	
 	private int displayPosX, displayPosY;
@@ -102,6 +103,10 @@ public class DebugInformations {
 	}
 	
 	
+   /**
+    * Draw the debug informations.
+    * @param g The graphic context where to draw.
+    */
 	public void draw(Graphics g) {
 		
 		if (!SHOW_DEBUG_INFORMATIONS) return;
@@ -154,23 +159,45 @@ public class DebugInformations {
 		drawDebugForDrawablesObjects(g);
 	}
 	
+	/**
+	 * Sets the position of a debug information element.
+	 * @param x
+	 * @param y
+	 */
 	public void setPosition(int x, int y) {
 		displayPosX = x;
 		displayPosY = y;
 	}
 	
+	/**
+	 * Update the delta variable of the game.
+	 * @param delta The delta between 2 frames.
+	 */
 	public void updateUpdateDelta(int delta) {
 		updateDelta = delta;
 	}
 	
+	/**
+	 * Update de gameStateId (Which state is currently played).
+	 * @param stateId The id of the state.
+	 */
 	public void updateGameStateId(int stateId) {
 		gameStateId = stateId;
 	}
 	
+	/**
+	 * Registers the player to add it debug informations (hitboxes, etc...)
+	 * @param player The player.
+	 */
 	public void registerPlayer(Player player) {
 		this.player = player;
 	}
 	
+	/**
+	 * Registers a drawable object to add it debug informations.
+	 * @param drawable The drawable.
+	 * @param gameStateId The gameState id which is used by the drawable.
+	 */
 	public void registerDrawableObject(IDrawable drawable, int gameStateId) {
 		List<IDrawable> li = getObjectForState(gameStateId);
 		
@@ -185,14 +212,25 @@ public class DebugInformations {
 	
 	/*---Singleton part--------------------------------------------------------*/
 	
+	/**
+	 * This private class allows the singleton to be thread safe.
+	 * @author Brito Carvalho Bruno
+	 * @author Decorvet Grégoire
+	 * @author Ngo Quang Dung
+	 * @author Schweizer Thomas
+	 *
+	 */
 	private static class Instance {
 		static final DebugInformations instance = new DebugInformations();
 	}
 	
 	private DebugInformations() {}
 	
+	/**
+	 * Returns the singleton.
+	 * @return The instance.
+	 */
 	public static DebugInformations getInstance() {
 		return Instance.instance;
 	}
-
 }

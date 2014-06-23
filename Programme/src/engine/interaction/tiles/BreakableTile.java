@@ -26,8 +26,10 @@ import engine.interaction.GameObject;
 public class BreakableTile extends Tile {
 
 	/**
-	 * @param x
-	 * @param y
+	 * Construct a breakable tile.
+	 * @param id The id of the tile in the TiledMap.
+	 * @param x The horizontal position.
+	 * @param y The vertical position
 	 */
    public BreakableTile(int id, float x, float y) {
 	   super(id, x, y);

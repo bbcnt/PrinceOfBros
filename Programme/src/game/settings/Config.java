@@ -12,7 +12,7 @@
 package game.settings;
 
 /**
- * TODO
+ * Configuration of the game.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -22,7 +22,7 @@ package game.settings;
 public class Config {
 	
 	/**
-	 * The 
+	 * The name of the game.
 	 */
 	private String gameName;
 	
@@ -46,16 +46,32 @@ public class Config {
 		return keyMinDelay;
 	}
 	
+	/**
+	 * Returns the resolution width.
+	 * @return the resolution width.
+	 */
 	public int getResolutionWidth() {
 		return resolutionWidth;
 	}
 	
+	/**
+	 * Returns the resolution height.
+	 * @return the resolution height.
+	 */
 	public int getResolutionHeight() {
 		return resolutionHeight;
 	}
 	
 	/*---Singleton part--------------------------------------------------------*/
 	
+	/**
+	 * This private class allows the singleton to be thread safe.
+	 * @author Brito Carvalho Bruno
+	 * @author Decorvet Grégoire
+	 * @author Ngo Quang Dung
+	 * @author Schweizer Thomas
+	 *
+	 */
 	private static class Instance {
 		static final Config instance = new Config();
 	}
@@ -67,6 +83,10 @@ public class Config {
 		resolutionHeight = 500;
 	}
 	
+	/**
+	 * Returns the singleton.
+	 * @return The instance.
+	 */
 	public static Config getInstance() {
 		return Instance.instance;
 	}

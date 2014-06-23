@@ -9,22 +9,21 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls;
+package game.controls;
 
 import game.settings.Config;
 
 import org.newdawn.slick.Input;
 
 /**
- * TODO
+ * Commands available.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public enum Commands {	
-	// Final Commands
+public enum Commands {
 	MoveRight(Input.KEY_RIGHT, true),
 	MoveLeft(Input.KEY_LEFT, true),
 	
@@ -34,7 +33,6 @@ public enum Commands {
 	Jump(Input.KEY_S),
 	BackInTime(Input.KEY_D, true);
 	
-	// Do not modify since here -------------------------------------------------
 	private int code;
 	private boolean lastKeyDown = false;
 	private boolean fastRepeat = true;
@@ -49,6 +47,7 @@ public enum Commands {
 	private Commands(int code, boolean fastRepeat) {
 		this(code, fastRepeat, false, false);
 	}
+	
 	private Commands(int code, boolean fastRepeat, boolean toggleModeActivated,
 			boolean forceRelease) {
 		this.code = code;
@@ -58,6 +57,13 @@ public enum Commands {
 		delay = 0;
 		lastKeyDown = false;
 	}
+	
+	/**
+	 * Check whether a given input is triggered.
+	 * @param input The input triggered
+	 * @param delta Time between 2 frames
+	 * @return True if the input is triggered
+	 */
 	public boolean isTriggered(Input input, int delta) {
 		boolean keyDown = input.isKeyDown(code);
 		boolean result = false;
@@ -101,38 +107,6 @@ public enum Commands {
 		return result;
 	}
 	
-//	OLD version
-//	public boolean isTriggered(Input input, int delta) {
-//		boolean keyDown = input.isKeyDown(code);
-//		boolean result = false;
-//		
-//		delay += delta;
-//		
-//		if (toggleModeActivated) {
-//			// Swap state
-//			if (!lastKeyDown && keyDown) {
-//				toggleOn = !toggleOn;
-//				result = toggleOn;
-//			}
-//			else {
-//				result = toggleOn;
-//			}
-//		}
-//		else {
-//			if (lastKeyDown) {
-//				result = fastRepeat;
-//			}
-//			else {
-//				result = keyDown;
-//			}
-//		}
-//		
-//		// Remember last state
-//		lastKeyDown = keyDown;
-//		
-//		return result;
-//	}
-	
 	/**
 	 * The key code used for this command.
 	 * @return The key code used for this command.
@@ -141,6 +115,10 @@ public enum Commands {
 		return code;
 	}
 	
+	/**
+	 * Sets the key code used for this command.
+	 * @param code The key code.
+	 */
 	public void setCode(int code) {
 		this.code = code;
 	}

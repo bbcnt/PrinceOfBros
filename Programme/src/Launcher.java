@@ -19,7 +19,7 @@ import org.newdawn.slick.SlickException;
 import debug.DebugInformations;
 
 /**
- * Launcher to use to start the game.
+ * Launcher of the game.
  * 
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire

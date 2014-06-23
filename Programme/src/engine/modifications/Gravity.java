@@ -14,7 +14,7 @@ package engine.modifications;
 import engine.interaction.GameObject;
 
 /**
- * Gravity action on objects
+ * Command for the gravity force.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -40,5 +40,4 @@ public class Gravity implements IModification {
 	public void cancel() {
 		g.moveY(-force);
 	}
-
 }

@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : Jump.java
+ * Filename   : DoubleSpeed.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -9,39 +9,33 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls.actions;
+package game.controls.actions;
 
-import engine.GameController;
-import engine.models.player.Player;
-import game.controlls.PlayerControl;
+import engine.interaction.Player;
+import game.controls.PlayerControl;
 
 /**
- * TODO
+ * Charge user action.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public class Jump extends UserAction {
+public class Charge extends UserAction {
 	
-	private Player player;
-	
-	public Jump(PlayerControl control, Player player) {
-		super(control);
-		this.player = player;
-	}
+   public Charge(PlayerControl controls, Player player) {
+	   super(controls);
+   }
 
 	@Override
    public boolean isAllowed() {
-		return GameController.getInstance().getWorld().getTile(
-				(int)Math.floor(player.getX()), (int)Math.floor(player.getY()- 1))
-				!= null;
+	   return true;
    }
 
 	@Override
    public void execute() {
-	   getPlayerControl().actionJump();
+		getPlayerControl().actionCharge();
    }
 
 }

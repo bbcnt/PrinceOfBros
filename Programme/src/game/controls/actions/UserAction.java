@@ -9,12 +9,12 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls.actions;
+package game.controls.actions;
 
-import game.controlls.PlayerControl;
+import game.controls.PlayerControl;
 
 /**
- * TODO
+ * Abstract class for a user action.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -29,6 +29,10 @@ public abstract class UserAction implements IUserAction {
 		this.controls = controls;
 	}
 	
+	/**
+	 * Gets the controls of the player.
+	 * @return The controls
+	 */
 	public PlayerControl getPlayerControl() {
 		return controls;
 	}

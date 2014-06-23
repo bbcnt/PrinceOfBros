@@ -13,7 +13,7 @@ package engine.interaction;
 
 
 /**
- * Represent an entity in the game. 
+ * Represent a logic entity in the game. 
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -22,7 +22,7 @@ package engine.interaction;
  */
 public abstract class GameObject implements ICollisionWith {
 
-	// Coordonnées logiques centrées.
+	// Centered logical coordinates.
 	private float x;
 	private float y;
 	
@@ -78,15 +78,6 @@ public abstract class GameObject implements ICollisionWith {
 	 */
 	public void moveY(float f) {
 		setY(getY() + f);
-	}
-	
-	/**
-	 * Checks the intersection with another game object.
-	 * @param o The other game object.
-	 * @return true if there is a collision.
-	 */
-	public boolean isIntersect(GameObject o) {
-		return hitbox.intersectsWith(o.hitbox);
 	}
 	
 	/**

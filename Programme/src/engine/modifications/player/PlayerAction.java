@@ -12,9 +12,8 @@
 
 package engine.modifications.player;
 
-import engine.models.player.Player;
+import engine.interaction.Player;
 import engine.modifications.SynchronizedModification;
-
 
 /**
  * Represent an action made by the player.
@@ -65,5 +64,4 @@ public abstract class PlayerAction extends SynchronizedModification {
 	public Player getPlayer() {
 		return player;
 	}
-
 }

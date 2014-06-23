@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : ActionExecutor.java
+ * Filename   : UserMacro.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -9,35 +9,34 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import game.controlls.actions.IUserAction;
+package game.controls.actions;
 
 /**
- * TODO
+ * Macro user action. It's encapsulating several actions.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public class ActionExecutor {
+public class UserMacro implements IUserAction {
 	
-	private List<IUserAction> actions = new LinkedList<>();
+	private IUserAction[] actions;
 	
-	public void pushAction(IUserAction a) {
-		if (a != null)
-			actions.add(a);
-	}
-	
-	public void executeActions() {
-		for (IUserAction a : actions) {
-			if (a.isAllowed()) a.execute();
-		}
-		actions.clear();
+	public UserMacro(IUserAction ... actions) {
+		this.actions = actions;
 	}
 
+	@Override
+   public boolean isAllowed() {
+		for (IUserAction a : actions) {
+			if (!a.isAllowed()) return false;
+		}
+	   return true;
+   }
+
+	@Override
+   public void execute() {
+		for (IUserAction a : actions) a.execute();
+   }
 }

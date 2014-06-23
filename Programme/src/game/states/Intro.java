@@ -24,8 +24,20 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
+/* ============================================================================
+ * Filename   : Intro.java
+ * ============================================================================
+ * Created on : 3 juin 2014
+ * ============================================================================
+ * Authors    : Brito Carvalho Bruno
+ *              Decorvet Grégoire
+ *              Ngo Quang Dung
+ *              Schweizer Thomas
+ * ============================================================================
+ */
+
 /**
- * TODO
+ * Intro game state. It shows the screen title.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung

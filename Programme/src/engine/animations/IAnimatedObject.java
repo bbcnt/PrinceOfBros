@@ -12,7 +12,7 @@
 package engine.animations;
 
 /**
- * TODO
+ * Represent an animated object.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -29,6 +29,10 @@ public interface IAnimatedObject {
 	 */
 	public boolean setAnimation(IAnimatedState state);
 	
+	/**
+	 * Get the state of the animation.
+	 * @return The state of the animation.
+	 */
 	public IAnimatedState getState();
 
 }

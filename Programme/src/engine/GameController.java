@@ -15,8 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import engine.interaction.GameObject;
+import engine.interaction.Player;
 import engine.interaction.tiles.Tile;
-import engine.models.player.Player;
 import engine.modifications.Gravity;
 import engine.modifications.IModification;
 import engine.modifications.IModificationTransaction;
@@ -44,49 +44,79 @@ public class GameController {
 	// List of intersectable gameobjects
 	private List<GameObject> intersectableGameObjects = new LinkedList<>();
 	
-	/*---Getters---------------------------------------------------------------*/
+	/**
+	 * Returns the logicWorld.
+	 * @return The logicWorld.
+	 */
 	public LogicWorld getWorld() {
 		return map;
 	}
 	
+	/**
+	 * Returns the modification stack logical capacity.
+	 * @return The logical capacity
+	 */
 	public int getStackCapacityLogical() {
 		return modStack.getCapacityLogical();
 	}
 	
+	/**
+	 * Returns the modification stack physical capacity.
+	 * @return The physical capacity
+	 */
 	public int getStackCapacityPhysical() {
 		return modStack.getCapacityPhysical();
 	}
 	
+	/**
+	 * Returns the stack size.
+	 * @return The size
+	 */
 	public int getStackSize() {
 		return modStack.getStackSize();
 	}
 	
-	/*---Modifiers-------------------------------------------------------------*/
-	
-	public void init() {
-		// Nothing for now
-	}
-	
+	/**
+	 * Begins a game update.
+	 */
 	public void beginUpdate() {
 		currentTransaction = modStack.begin();
 	}
 	
+	/**
+	 * Commits an update.
+	 */
 	public void commitUpdate() {
 		currentTransaction.commit();
 	}
 	
+	/**
+	 * Reverts the last update.
+	 */
 	public void revertLastUpdate() {
 		modStack.pop().revert();
 	}
 	
+	/**
+	 * Sets the logical stack capacity.
+	 * @param capacity The new capacity
+	 */
 	public void setStackCapacityLogical(int capacity) {
 		modStack.setCapacityLogical(capacity);
 	}
 	
+	/**
+	 * Sets the phsical stack capacity.
+	 * @param capacity The new capacity
+	 */
 	public void setStackCapacityPhysical(int capacity) {
 		modStack.setCapacityPhysical(capacity);
 	}
 	
+	/**
+	 * Registers the map of the game.
+	 * @param map The logicWorld map.
+	 */
 	public void registerMap(LogicWorld map) {
 		this.map = map;
 	}
@@ -188,7 +218,7 @@ public class GameController {
 	}
 	
 	/**
-	 * Move a tile of the world.
+	 * Move a tile in the world.
 	 * @param x The current x position
 	 * @param y The current y position
 	 * @param newX The new x position
@@ -199,7 +229,7 @@ public class GameController {
    }
 	
 	/**
-	 * Move a tile of the world.
+	 * Move a tile in the world.
 	 * @param x The current x position
 	 * @param y The current y position
 	 * @param newX The new x position
@@ -211,6 +241,10 @@ public class GameController {
 	
 	/*---Singleton part--------------------------------------------------------*/
 	
+	/**
+	 * Returns the singleton.
+	 * @return The instance.
+	 */
 	public static GameController getInstance() {
 		return Instance.instance;
 	}
@@ -220,6 +254,14 @@ public class GameController {
 		currentTransaction = ModificationManager.EMPTY_TRANSACTION;
 	}
 	
+	/**
+	 * This private class allows the singleton to be thread safe.
+	 * @author Brito Carvalho Bruno
+	 * @author Decorvet Grégoire
+	 * @author Ngo Quang Dung
+	 * @author Schweizer Thomas
+	 *
+	 */
 	private static class Instance {
 		private static final GameController instance = new GameController();
 	}

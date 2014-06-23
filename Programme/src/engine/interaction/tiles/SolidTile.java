@@ -15,7 +15,7 @@ import engine.interaction.GameObject;
 
 
 /**
- * Represents a solid block
+ * Represents a solid block.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -25,8 +25,10 @@ import engine.interaction.GameObject;
 public class SolidTile extends Tile {
 
 	/**
-	 * @param x
-	 * @param y
+	 * Construct a solid tile.
+	 * @param id The id of the tile in the TiledMap.
+	 * @param x The horizontal position.
+	 * @param y The vertical position
 	 */
    public SolidTile(int id, float x, float y) {
 	   super(id, x, y);

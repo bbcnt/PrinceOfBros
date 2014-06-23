@@ -15,7 +15,7 @@ import engine.GameController;
 import engine.interaction.GameObject;
 
 /**
- * Represent a tile.
+ * Represent a generic tile.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -28,7 +28,10 @@ public abstract class Tile extends GameObject {
 	private int id;
 
 	/**
-	 * @param t
+	 * Construct a generic tile.
+	 * @param id The id of the tile in the TiledMap.
+	 * @param x The horizontal position.
+	 * @param y The vertical position
 	 */
    public Tile(int id, float x, float y) {
 	   super(x,y, hitBoxSize,hitBoxSize);
@@ -56,15 +59,35 @@ public abstract class Tile extends GameObject {
    public void harm(float amount) {
    }
 	
+	/**
+	 * Returns the TiledMap's id equivalent of this tile.
+	 * @return The id
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * Return whether the tile should be considered like an obstacle.
+	 * @return True if the tile is an obstacle
+	 */
    public abstract boolean isObstacle();
 
+	/**
+	 * Return whether the tile should be breakable.
+	 * @return True if the tile is breakable
+	 */
    public abstract boolean isBreakable();
 
+	/**
+	 * Return whether the tile should be moving.
+	 * @return True if the tile can move
+	 */
    public abstract boolean isMovable();
    
+	/**
+	 * Return whether the tile should hurt when going trough.
+	 * @return True if the tile is hurts.
+	 */
    public abstract boolean isHurting();
 }

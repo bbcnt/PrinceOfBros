@@ -16,7 +16,7 @@ import engine.animations.IAnimatedState;
 import engine.modifications.IModification;
 
 /**
- * TODO
+ * Command of an animation change.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung

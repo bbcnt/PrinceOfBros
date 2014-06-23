@@ -1,7 +1,27 @@
+/* ============================================================================
+ * Filename   : MoveLeft.java
+ * ============================================================================
+ * Created on : 27 mai 2014
+ * ============================================================================
+ * Authors    : Brito Carvalho Bruno
+ *              Decorvet Grégoire
+ *              Ngo Quang Dung
+ *              Schweizer Thomas
+ * ============================================================================
+ */
+
 package engine.modifications.player;
 
-import engine.models.player.Player;
+import engine.interaction.Player;
 
+/**
+ * Command for a player's left move.
+ * @author Brito Carvalho Bruno
+ * @author Decorvet Grégoire
+ * @author Ngo Quang Dung
+ * @author Schweizer Thomas
+ *
+ */
 public class MoveLeft extends PlayerAction {
 	
 	public MoveLeft(int delta, Player player) {

@@ -72,8 +72,6 @@ public class ModificationManager implements IModificationManager {
 	private int cursorNext;
 	private int transactionCounter;
 
-	/*---Constructors and init-------------------------------------------------*/
-
 	/**
 	 * Create a manager
 	 * 
@@ -187,8 +185,6 @@ public class ModificationManager implements IModificationManager {
 		}
 	}
 
-	/*---Getters---------------------------------------------------------------*/
-
 	/**
 	 * Return the logical capacity, which is the maximum stored transaction
 	 * perceived by the user.
@@ -218,8 +214,6 @@ public class ModificationManager implements IModificationManager {
 	public int getStackSize() {
 		return transactionCounter;
 	}
-
-	/*---Modifiers-------------------------------------------------------------*/
 
 	/**
 	 * Set the logical capacity. If the value is greater than the physical

@@ -9,14 +9,14 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls.actions;
+package game.controls.actions;
 
 import engine.GameController;
-import engine.models.player.Player;
-import game.controlls.PlayerControl;
+import engine.interaction.Player;
+import game.controls.PlayerControl;
 
 /**
- * TODO
+ * Right move user action.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -32,6 +32,10 @@ public class MoveRight extends UserAction {
 	   this.player = player;
    }
    
+   /**
+    * Returns the player.
+    * @return The player
+    */
    public Player getPlayer() {
    	return player;
    }

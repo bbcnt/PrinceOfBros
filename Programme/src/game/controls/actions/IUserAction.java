@@ -1,5 +1,5 @@
 /* ============================================================================
- * Filename   : DoubleSpeed.java
+ * Filename   : IUserAction.java
  * ============================================================================
  * Created on : 17 juin 2014
  * ============================================================================
@@ -9,33 +9,27 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls.actions;
-
-import engine.models.player.Player;
-import game.controlls.PlayerControl;
+package game.controls.actions;
 
 /**
- * TODO
+ * Represent a user action.
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
  * @author Schweizer Thomas
  *
  */
-public class Charge extends UserAction {
+public interface IUserAction {
 	
-   public Charge(PlayerControl controls, Player player) {
-	   super(controls);
-   }
-
-	@Override
-   public boolean isAllowed() {
-	   return true;
-   }
-
-	@Override
-   public void execute() {
-		getPlayerControl().actionCharge();
-   }
+	/**
+	 * Whether the action is allowed.
+	 * @return True if the action is allowed.
+	 */
+	public boolean isAllowed();
+	
+	/**
+	 * Executes the action.
+	 */
+	public void execute();
 
 }

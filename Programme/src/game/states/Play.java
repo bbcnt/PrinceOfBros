@@ -1,3 +1,15 @@
+/* ============================================================================
+ * Filename   : Play.java
+ * ============================================================================
+ * Created on : 3 juin 2014
+ * ============================================================================
+ * Authors    : Brito Carvalho Bruno
+ *              Decorvet Grégoire
+ *              Ngo Quang Dung
+ *              Schweizer Thomas
+ * ============================================================================
+ */
+
 package game.states;
 
 import org.newdawn.slick.GameContainer;
@@ -14,20 +26,28 @@ import engine.CoordsConverter;
 import engine.GameController;
 import engine.LogicWorld;
 import engine.animations.TimedAnimation;
-import engine.graphics.player.ATH;
 import engine.graphics.player.GPlayer;
-import engine.models.player.Player;
+import engine.graphics.player.HUD;
+import engine.interaction.Player;
 import engine.modifications.graphics.UpdateDrawableObject;
-import game.controlls.ActionExecutor;
-import game.controlls.Commands;
-import game.controlls.PlayerControl;
-import game.controlls.actions.Attack;
-import game.controlls.actions.Charge;
-import game.controlls.actions.Jump;
-import game.controlls.actions.MoveLeft;
-import game.controlls.actions.MoveRight;
-import game.controlls.actions.UserMacro;
+import game.controls.ActionExecutor;
+import game.controls.Commands;
+import game.controls.PlayerControl;
+import game.controls.actions.Attack;
+import game.controls.actions.Charge;
+import game.controls.actions.Jump;
+import game.controls.actions.MoveLeft;
+import game.controls.actions.MoveRight;
+import game.controls.actions.UserMacro;
 
+/**
+ * This is the main game state where the player can play the game.
+ * @author Brito Carvalho Bruno
+ * @author Decorvet Grégoire
+ * @author Ngo Quang Dung
+ * @author Schweizer Thomas
+ *
+ */
 public class Play extends BasicGameState {
 
 	private TiledMap background;
@@ -42,7 +62,6 @@ public class Play extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		GameController.getInstance().init();
 
 		Image[] heroLeft = {
 		      new Image("res/player/move_00_left_0.png"),
@@ -100,10 +119,14 @@ public class Play extends BasicGameState {
 		player = new Player(3.5f, 12.5f);
 		gPlayer = new GPlayer(player);
 		playerControl = new PlayerControl(player);
-		ATH.getInstance().register(player);
+		HUD.getInstance().register(player);
 		
 		// Init map
-		background = new TiledMap("res/Final_Map.tmx");
+		try {
+			background = new TiledMap("res/Final_Map.tmx");
+		} catch (Exception e) {
+			// The loading cause an exception which has no impact on the game.
+		}
 		world = new LogicWorld(background);
 		
 		// Registering
@@ -129,7 +152,7 @@ public class Play extends BasicGameState {
 		      (int) CoordsConverter.getInstance().toGraphic(player.getY() - shifty));
 
 		gPlayer.draw(g);
-		ATH.getInstance().draw(g);
+		HUD.getInstance().draw(g);
 
 		// DEBUG
 		DebugInformations.getInstance().draw(g);
@@ -144,7 +167,7 @@ public class Play extends BasicGameState {
 		
 		Input input = gc.getInput();
 
-		ATH.getInstance().update(delta);
+		HUD.getInstance().update(delta);
 		GameController.getInstance().beginUpdate();
 
 		boolean goBackward = false;

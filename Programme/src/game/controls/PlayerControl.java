@@ -9,14 +9,14 @@
  *              Schweizer Thomas
  * ============================================================================
  */
-package game.controlls;
+package game.controls;
 
 import engine.GameController;
 import engine.LogicWorld;
 import engine.animations.IAnimatedState;
 import engine.graphics.player.GPlayer;
+import engine.interaction.Player;
 import engine.interaction.tiles.Tile;
-import engine.models.player.Player;
 import engine.modifications.IModification;
 import engine.modifications.animations.AnimationChange;
 import engine.modifications.player.Attack;
@@ -27,11 +27,9 @@ import engine.modifications.player.MoveRight;
 import engine.modifications.player.PlayerAction;
 
 /**
- * TODO
  * Class used to manage the control of the player object. Check if action in use, 
  * in cooldown, ...
  * Manage action buffer (only one)
- * 
  * 
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
@@ -60,7 +58,6 @@ public class PlayerControl {
 	private Facing facing = Facing.Unknown;
 	private Facing oldFacing = Facing.Unknown;
 	
-	// TODO
 	private int cooldownCounter;
 	private PlayerAction currentAction = null;
 	private ActionTypes currentActionType = ActionTypes.Idle;
@@ -71,6 +68,14 @@ public class PlayerControl {
 	private ActionTypes nextActionType = ActionTypes.Idle;
 	private boolean nextActionMultiExecute = false;
 	
+	/**
+	 * Transition state between 2 actions.
+	 * @author Brito Carvalho Bruno
+	 * @author Decorvet Grégoire
+	 * @author Ngo Quang Dung
+	 * @author Schweizer Thomas
+	 *
+	 */
 	private class ActionUpdate implements IModification {
 		private int delta;
 		
@@ -130,12 +135,13 @@ public class PlayerControl {
 		
 	}
 	
-	/*---Constructors----------------------------------------------------------*/
-	
 	public PlayerControl(Player player) {
 		this.player = player;
 	}
 	
+	/**
+	 * Update when a new control is given.
+	 */
 	private void update() {
 		movingLeft = false;
 		movingRight = false;
@@ -150,6 +156,10 @@ public class PlayerControl {
 			GameController.getInstance().addModification(new ActionUpdate(delta));
 	}
 	
+	/**
+	 * Begins the update.
+	 * @param delta Time between 2 frames.
+	 */
 	public void beginUpdate(int delta) {
 		this.delta = delta;
 		
@@ -158,13 +168,15 @@ public class PlayerControl {
 		player.setSpeed(0.007f);
 	}
 	
+	/**
+	 * Ends the update.
+	 */
 	public void endUpdate() {
 		
 		// Assure correct facing if not set
 		if (facing == Facing.Unknown)
 			facing = oldFacing;
 
-		// CHECK ICI POUR LES COLLISIONS.
 		LogicWorld world = GameController.getInstance().getWorld();
 		
 		// Add horizontal movement
@@ -233,12 +245,13 @@ public class PlayerControl {
 			// Then add the change if there is one.
 			if (newState != null)
 				GameController.getInstance().addModification(new AnimationChange(player, newState));
-			
 		}
-		
 		update();
 	}
 	
+	/**
+	 * Indicate the player is moving right for the animation.
+	 */
 	public void moveRight() {
 		movingRight = true;
 		
@@ -246,6 +259,9 @@ public class PlayerControl {
 			facing = Facing.Right;
 	}
 	
+	/**
+	 * Indicate the player is moving left for the animation.
+	 */
 	public void moveLeft() {
 		movingLeft = true;
 		
@@ -253,19 +269,33 @@ public class PlayerControl {
 			facing = Facing.Left;
 	}
 	
+	/**
+	 * Adds the jumping action to the stack.
+	 */
 	public void actionJump() {
 		pushAction(new Jump(delta, 300, player), ActionTypes.Jumping, true);
 	}
 	
+	/**
+	 * Adds the attack action to the stack.
+	 */
 	public void actionAttack() {
 		pushAction(new Attack(delta, 1000, player, oldFacing), ActionTypes.Attacking, false);
 	}
 	
+	/**
+	 * Adds the charge action to the stack.
+	 */
 	public void actionCharge() {
 		pushAction(new Charge(delta, 200, player), ActionTypes.Charging, true);
 	}
 	
-	
+	/**
+	 * Add the next action to the stack.
+	 * @param action The next action
+	 * @param type The type of the action
+	 * @param multiExecute Whether the action can be executed multiple times (no cooldown)
+	 */
 	private void pushAction(PlayerAction action, ActionTypes type, boolean multiExecute) {
 		
 		if (currentAction == null) {
@@ -279,5 +309,4 @@ public class PlayerControl {
 			nextActionMultiExecute = multiExecute;
 		}
 	}
-
 }

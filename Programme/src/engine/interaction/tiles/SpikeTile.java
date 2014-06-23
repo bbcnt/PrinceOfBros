@@ -26,8 +26,10 @@ public class SpikeTile extends Tile {
 	float lifePenality = 1.0f;
 
 	/**
-	 * @param x
-	 * @param y
+	 * Construct a spiked tile.
+	 * @param id The id of the tile in the TiledMap.
+	 * @param x The horizontal position.
+	 * @param y The vertical position
 	 */
    public SpikeTile(int id, float x, float y) {
 	   super(id, x, y);

@@ -14,7 +14,8 @@ package engine.interaction;
 import java.awt.geom.Rectangle2D;
 
 /**
- * TODO
+ * Represent the hitbox of a GameObject.
+ * (We couldn't use it because of the deadline of the project)
  * @author Brito Carvalho Bruno
  * @author Decorvet Grégoire
  * @author Ngo Quang Dung
@@ -36,16 +37,26 @@ public class HitBox {
 		
 	}
 	
-	/*----------------- SETTERS -----------------*/
-	
+	/**
+	 * Sets the horizontal position of the hitbox.
+	 * @param x The position
+	 */
 	public void setX(float x) {	
 		hitBox.x = x - shiftX;
 	}
 	
+	/**
+	 * Sets the vertical position of the hitbox.
+	 * @param y The position
+	 */
 	public void setY(float y) {	
 		hitBox.y = y - shiftY;
 	}
 	
+	/**
+	 * Sets the width of the hitbox.
+	 * @param w The width
+	 */
 	public void setWidth(float w) {
 		float newShiftX = w / 2.0f;
 		
@@ -53,6 +64,10 @@ public class HitBox {
 		shiftX = newShiftX;
 	}
 	
+	/**
+	 * Sets the height of the hitbox.
+	 * @param h The height
+	 */
 	public void setHeight(float h) {
 		float newShiftY = h / 2.0f;
 		
@@ -60,29 +75,35 @@ public class HitBox {
 		shiftY = newShiftY;
 	}
 	
-	/*--------------------------------------------*/
-	
-	/*----------------- GETTERS ------------------*/
-	
+	/**
+	 * Returns the horizontal position of the hitbox.
+	 * @return The position
+	 */
 	public float getX() {
 		return hitBox.x;
 	}
 	
+	/**
+	 * Returns the vertical position of the hitbox.
+	 * @return The position
+	 */
 	public float getY() {
 		return hitBox.y;
 	}
 	
+	/**
+	 * Return the width of the hitbox.
+	 * @return The width
+	 */
 	public float getWidth() {
 		return hitBox.width;
 	}
 	
+	/**
+	 * Return the height of the hitbox
+	 * @return The height
+	 */
 	public float getHeight() {
 		return hitBox.height;
-	}
-	
-	/*--------------------------------------------*/
-
-	public boolean intersectsWith(HitBox hitBox) {
-		return true;
 	}
 }
