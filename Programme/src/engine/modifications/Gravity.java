@@ -21,23 +21,24 @@ import engine.interaction.GameObject;
  * @author Schweizer Thomas
  *
  */
-public class Gravity implements IModification {
+public class Gravity extends SynchronizedModification {
 	
 	float force;
 	GameObject g;
 	
-	public Gravity(float force, GameObject g) {
+	public Gravity(int delta, float force, GameObject g) {
+		super(delta);
 		this.force = force;
 		this.g = g;
 	}
 
 	@Override
 	public void apply() {
-		g.moveY(force);
+		g.moveY(force * getDelta());
 	}
 
 	@Override
 	public void cancel() {
-		g.moveY(-force);
+		g.moveY(-force * getDelta());
 	}
 }

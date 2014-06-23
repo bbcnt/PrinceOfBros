@@ -195,8 +195,8 @@ public class GameController {
 	/**
 	 * Gravity check on movable objects.
 	 */
-	public void gravityUpdate() {
-		final float force = -0.1f;
+	public void gravityUpdate(int delta) {
+		final float force = -0.0075f;
 		int x,y;
 
 		for(final GameObject g : movableGameObjects) {
@@ -206,13 +206,13 @@ public class GameController {
 			if(x < map.getWidth() && y < map.getHeight() && x >= 0 && y >= 0) {
 				Tile tile = (Tile) map.getTile(g.getX(), g.getY() - 1);
 				if(!(tile != null && tile.isObstacle())){
-					addModification(new Gravity(force, g));
+					addModification(new Gravity(delta, force, g));
 				} 
 			}
 			
 			// Place mario in the center of the tile.
 			if(g.getY() % 1 > 0.5) {
-				addModification(new Gravity(force, g));
+				addModification(new Gravity(delta, force, g));
 			}
 		}
 	}

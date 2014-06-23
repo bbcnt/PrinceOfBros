@@ -200,11 +200,10 @@ public class Play extends BasicGameState {
 		}
 		
 		playerActionExecutor.executeActions();
-		GameController.getInstance().gravityUpdate();
+		GameController.getInstance().gravityUpdate(delta);
 		GameController.getInstance().intersectionCheck();
 		playerControl.endUpdate();
 
-		// FIXME remove when list of drawable object manage in engine
 		GameController.getInstance().addModification(
 		      new UpdateDrawableObject(delta, gPlayer));
 
