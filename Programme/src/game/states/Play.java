@@ -121,12 +121,10 @@ public class Play extends BasicGameState {
 		playerControl = new PlayerControl(player);
 		HUD.getInstance().register(player);
 		
-		// Init map
-		try {
-			background = new TiledMap("res/Final_Map.tmx");
-		} catch (Exception e) {
-			// The loading cause an exception which has no impact on the game.
-		}
+
+		// The loading cause an exception which has no impact on the game.
+		background = new TiledMap("res/Final_Map.tmx");
+		
 		world = new LogicWorld(background);
 		
 		// Registering
