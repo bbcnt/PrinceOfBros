@@ -40,7 +40,7 @@ public class Launcher {
 									       Config.getInstance().getResolutionHeight(),
 									       false);
 			container.setTargetFrameRate(60);
-			container.setShowFPS(true);
+			container.setShowFPS(false);
 			container.start();
 		}
 		catch (SlickException e) {
